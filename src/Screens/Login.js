@@ -1,27 +1,33 @@
 import React from "react";
-import {View, Text, SafeAreaView, TouchableOpacity} from "react-native";
+import {View, Text, SafeAreaView, TouchableOpacity, Image} from "react-native";
+import styles from "../Stylesheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-const Login = () => {
+import Color from "../utilis/Color";
+
+const Login = ({navigation}) => {
   return(
-     <SafeAreaView style={{flex:1,backgroundColor:"#39c239"}}>
+     <SafeAreaView style={{flex:1,backgroundColor:Color.primary}}>
          {/*<View style={{flex:1,justifyContent:"center"}}>*/}
          <View style={{flex:1,justifyContent:"center"}}>
-             <Text>bsdjbvsdjb</Text>
+             <Image source={require('../Assets/calendar.png')} style={styles.loginimage}/>
          </View>
-         <View style={{flex:1,marginHorizontal:10}}>
-             <Text style={{fontWeight:"bold",color:"white",fontSize:18}}>Welcome</Text>
-             <Text style={{color:"white",fontSize:16}}>Life is an Event</Text>
-             <Text style={{fontWeight:"bold",color:"white",fontSize:17}}>Make it Memorable</Text>
+         <View style={styles.loginhcontainer}>
+             <Text style={styles.welcome}>Welcome</Text>
+             <Text style={styles.loginh2}>Life is an Event</Text>
+             <Text style={styles.loginh3}>Make it Memorable</Text>
          </View>
-         <View style={{flex:1,marginHorizontal:10}}>
-             <TouchableOpacity style={{backgroundColor:"white",paddingHorizontal:10,paddingVertical:5,borderRadius:5,marginBottom:10}}>
-                 <Text style={{fontSize:18,fontWeight:"bold",color:"green"}}>Login as a User</Text>
+         <View style={styles.logincontainer3}>
+             <TouchableOpacity  onPress={()=>{navigation.navigate("Signin")}} style={styles.loginbtncontainer1}>
+                 <Text style={styles.loginbtntext}>Login as a User</Text>
              </TouchableOpacity>
-             <TouchableOpacity style={{borderWidth:1,borderColor:"white",paddingHorizontal:10,paddingVertical:5,borderRadius:5}}>
-                 <Text style={{fontSize:18,color:"white",fontWeight:'bold'}}>Login as a Admin</Text>
+             <TouchableOpacity style={styles.loginbtncontainer2}>
+                 <Text style={styles.loginbtntext2}>Login as a Admin</Text>
              </TouchableOpacity>
-             <Text style={{color:"white",textAlign:"center",marginVertical:10}}>Already have an account?Login</Text>
+             <View style={styles.loginqcontainer}>
+             <Text style={styles.loginq}>Already have an account?</Text>
+             <TouchableOpacity><Text style={styles.loginqbtn}> Login</Text></TouchableOpacity>
+             </View>
          </View>
          {/*<View style={{marginHorizontal:10}}>*/}
          {/* <Text style={{fontWeight:"bold",color:"white",fontSize:25}}>or Get started with</Text>*/}
