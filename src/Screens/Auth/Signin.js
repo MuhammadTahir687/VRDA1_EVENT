@@ -1,10 +1,10 @@
 import React from "react";
 import {View, Text, SafeAreaView, TouchableOpacity, TextInput, ScrollView} from "react-native";
-import styles from "../Stylesheet/Style";
+import styles from "../../Stylesheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Color from "../utilis/Color";
-import {Input} from "../utilis/Components/FormInput";
+import Color from "../../utilis/Color";
+import {Input} from "../../utilis/Components/FormInput";
 import {useTheme} from "@react-navigation/native";
 
 const Signin = ({navigation}) => {
@@ -42,15 +42,27 @@ const Signin = ({navigation}) => {
                    <TouchableOpacity>
                        <Text style={[styles.signinfp,{color:colors.errorcolor}]}>Forgot Password?</Text>
                    </TouchableOpacity>
-                   <TouchableOpacity style={[styles.signinbtn,{backgroundColor:colors.signinbtn}]}>
+                   <TouchableOpacity onPress={()=>{navigation.replace("App Tab")}} style={[styles.signinbtn,{backgroundColor:colors.signinbtn}]}>
                        <Text style={{textAlign:"center",color:"orange"}}>Sign In</Text>
                    </TouchableOpacity>
                </View>
 
+               <TouchableOpacity style={styles.sociallogincontainer}>
+                   <FontAwesome name="facebook" color="white" size={20} style={[styles.socialloginfbicon,{backgroundColor:"#204d8b"}]}/>
+                   <Text style={[styles.socialloginfbtext,{backgroundColor:'#fce3d6'}]}>Signin With Facebook</Text>
+               </TouchableOpacity>
+               <TouchableOpacity style={styles.sociallogincontainer}>
+                   <FontAwesome name="google" color="white" size={20} style={[styles.sociallogingicon,{backgroundColor:"#bd2323"}]}/>
+                   <Text style={[styles.socialloginfbtext,{backgroundColor:'#fce3d6'}]}>Signin With Google</Text>
+               </TouchableOpacity>
+
            </ScrollView>
-           <View style={[styles.signinqcontainer,{backgroundColor:colors.text}]}>
+
+           <View style={[styles.signinqcontainer,{backgroundColor:colors.signinfooter}]}>
                <Text style={styles.loginq1}>Don't have an account?</Text>
-               <TouchableOpacity><Text style={[styles.loginqbtn,{color:"orange"}]}> Register</Text></TouchableOpacity>
+               <TouchableOpacity onPress={()=>{navigation.navigate("Register")}}>
+                   <Text style={[styles.loginqbtn,{color:colors.signinfootertext}]}> Register</Text>
+               </TouchableOpacity>
            </View>
        </SafeAreaView>
     )

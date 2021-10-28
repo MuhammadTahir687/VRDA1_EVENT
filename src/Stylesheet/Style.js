@@ -1,6 +1,8 @@
 import React from "react";
-import {StyleSheet} from "react-native";
+import {StyleSheet,Dimensions} from "react-native";
 import Color from "./Color";
+const devicehieght=Dimensions.get("window").height;
+
 
 export default StyleSheet.create({
     loginhcontainer:{flex:1,marginHorizontal:10},
@@ -26,10 +28,41 @@ export default StyleSheet.create({
     signinmainh1:{fontWeight:"bold",fontSize:23,marginTop:20},
     signinmaincontainer:{marginHorizontal:10},
 
-    signininputcontainer:{marginTop:10},
+    signininputcontainer:{flex:1,marginTop:10},
     signininput:{borderRadius:10},
     signinfp:{marginVertical:10},
-    signinbtn:{paddingVertical:10,borderRadius:10}
+    signinbtn:{paddingVertical:10,borderRadius:10,marginTop:10},
+    rowinputcontainer:{flex:1,flexDirection:"row"},
+
+    sociallogincontainer:{flexDirection:"row",alignItems:'center',justifyContent:"space-between",marginHorizontal:10,marginTop:10,borderRadius:5},
+    socialloginfbicon:{alignSelf:"flex-start",paddingVertical:9.7,paddingHorizontal:12,borderTopLeftRadius:10,borderBottomLeftRadius:10},
+    sociallogingicon:{alignSelf:"flex-start",padding:9.7,borderTopLeftRadius:10,borderBottomLeftRadius:10},
+    socialloginfbtext:{flex:1,textAlign:'center',padding:10,color:"orange",borderTopRightRadius:10,borderBottomRightRadius:10},
+
+    homeheader:{height:devicehieght/4.5 ,borderBottomRightRadius:80,borderBottomLeftRadius:80},
+    homeheaderh1:{textAlign:"center",marginTop:10,fontSize:10},
+    homeheaderh:{textAlign:"center",fontSize:15},
+    homeiconcontianer:{flexDirection:"row",justifyContent:'space-between',marginHorizontal:20,alignItems:"center"},
+    homerighticoncontainer:{flexDirection:"row",alignItems:'center'},
+    righticon:{marginHorizontal:10,borderRadius:50,padding:5},
+    homesearchicon:{borderRadius:25,padding:10},
+    homesearchinput:{height:40,flex:1},
+    searchcontainer:{flex:1,flexDirection:"row",justifyContent:"center",marginHorizontal:30,alignItems:"center",},
+    filtercontainer:{flex:3,flexDirection:"row",borderBottomRightRadius:50,borderTopRightRadius:50,height:40,alignItems:"center",paddingLeft:10},
+    searchleftcontainer:{flex:8,flexDirection:"row",height:40},
+
+    homemainh1:{fontWeight:"bold",fontSize:18},
+    homemainh2:{marginHorizontal:10,fontWeight:"bold",fontSize:18},
+    seeallcontainer:{flexDirection:"row",alignItems:"center"},
+    homemain1:{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginHorizontal:10},
+
+    homecardcotainer:{ flexDirection:"row",borderTopLeftRadius:10,borderBottomLeftRadius:10,marginLeft:30,paddingVertical:10,},
+    cardtext:{textAlign:"justify",marginHorizontal:10,marginTop:10,fontSize:12},
+    cardbtn:{flexDirection:"row",marginTop:10,alignItems:"center",marginHorizontal:10,alignSelf:"flex-start",borderRadius:50,padding:10},
+    cardbtnicon:{marginLeft:10},
+    cardimg:{flex:0.7,height:180,alignSelf:"flex-end",top:10,}
+
+
 
 
 
