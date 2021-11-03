@@ -14,6 +14,8 @@ target 'VRDa1_Event' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'VRDa1_EventTests' do
     inherit! :complete
     # Pods for testing

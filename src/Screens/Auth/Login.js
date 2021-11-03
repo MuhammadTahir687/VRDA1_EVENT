@@ -34,7 +34,7 @@ const Login = ({navigation}) => {
              <Text style={[styles.loginq,{color:colors.text}]}>Already have an account?</Text>
              <TouchableOpacity><Text style={[styles.loginqbtn,{color:colors.loginsubbtn}]}> Login</Text></TouchableOpacity>
              </View>
-             <TouchableOpacity onPress={()=>{dispatch(setIsDarkTheme(!isDarkTheme))}} style={{backgroundColor:colors.background}}>
+             <TouchableOpacity onPress={()=>{dispatch(setIsDarkTheme(!isDarkTheme))}}>
                  <Text style={{color:colors.text}}>Change Theme</Text>
              </TouchableOpacity>
          </View>

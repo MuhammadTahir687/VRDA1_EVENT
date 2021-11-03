@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image, TouchableOpacity, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./Home";
+import Profile from "./Profile";
 
 const Tab = createBottomTabNavigator();
 export default function AppTab() {
@@ -12,17 +13,9 @@ export default function AppTab() {
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
-                    if (route.name === 'All') {
-                        iconName = focused
-                            ? 'ios-information-circle'
-                            : 'ios-information-circle-outline';
-                    } else if (route.name === 'Binary Commission') {
-                        iconName = focused ? 'cash' : 'cash-outline';
-                    } else if (route.name === 'Direct Commission') {
-                        iconName = focused ? 'cash' : 'cash-outline';
-                    }
-
-                    // You can return any component that you like here!
+                    if (route.name === 'Home') {iconName = focused ? 'home' : 'home-outline'}
+                    else if (route.name === 'Profile') {iconName = focused ? 'person' : 'person-outline'}
+                    else if (route.name === 'Direct Commission') {iconName = focused ? 'cash' : 'cash-outline'}
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
                 headerShown:false,
@@ -31,7 +24,7 @@ export default function AppTab() {
                 tabBarStyle:{paddingBottom:5}
             })}>
             <Tab.Screen name="Home"  component={Home}  />
-            {/*<Tab.Screen name="Binary Commission"  component={BinaryComission}  />*/}
+            <Tab.Screen name="Profile"  component={Profile}  />
             {/*<Tab.Screen name="Direct Commission"  component={DirectComission}  />*/}
 
         </Tab.Navigator>

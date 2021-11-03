@@ -1,14 +1,28 @@
-import React from "react";
+import React,{useState} from "react";
 import {View, Text, SafeAreaView, TouchableOpacity, TextInput, ScrollView} from "react-native";
 import styles from "../../Stylesheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Color from "../../utilis/Color";
-import {Input} from "../../utilis/Components/FormInput";
+import Input from "../../utilis/Components/FormInput";
 import {useTheme} from "@react-navigation/native";
+import {Login_api} from '../../utilis/Api/Api_controller';
+import {save_data,get_data} from '../../utilis/AsyncStorage/Controller';
+import Toast from "react-native-simple-toast";
 
 const Signin = ({navigation}) => {
     const {colors}=useTheme();
+    const [email,setEmail]=useState('talha.akbar366@gmail.com');
+    const [password,setPassword]=useState('123456');
+
+    const submit =async () => {
+        const response = await Login_api({email:email,password:password})
+        if(response.data.status===true){
+            await save_data("user",response.data)
+            navigation.navigate("App Tab")
+        }
+        else{Toast.show(response.data.message)}
+    }
     return(
        <SafeAreaView style={{flex:1,backgroundColor:colors.signinHeader}}>
            <View style={styles.signinheader}>
@@ -22,27 +36,36 @@ const Signin = ({navigation}) => {
                    <Text style={[styles.signinmainh1,{color:colors.signinh1}]}>Welcome Back</Text>
                    <Text>Hello there, Sign in to continue!</Text>
 
-                   <View style={styles.signininputcontainer}>
-                       <Text>Username or Email</Text>
-                       <TextInput
-                           style={[styles.signininput,{backgroundColor:colors.inputbg}]}
-                           placeholder="Enter Your Username or Email"
-                           autoCapitalize={"none"}
-                       />
-                   </View>
+                   <Input  text1={'Username or Email'} text2={"Enter Your Username or Email"} value1={email} onChangeText1={(text)=>{setEmail(text)}} />
+                   <Input  text1={'Password'} text2={"Enter Your Password"} value1={password} onChangeText1={(text)=>{setPassword(text)}} />
 
-                   <View style={styles.signininputcontainer}>
-                       <Text>Password</Text>
-                       <TextInput
-                           style={[styles.signininput,{backgroundColor:colors.inputbg}]}
-                           placeholder="Enter Your Password"
-                           secureTextEntry={true}
-                       />
-                   </View>
+
+                   {/*<View style={styles.signininputcontainer}>*/}
+                   {/*    <Text>Username or Email</Text>*/}
+                   {/*    <TextInput*/}
+                   {/*        style={[styles.signininput,{backgroundColor:colors.inputbg,color:colors.greencolor}]}*/}
+                   {/*        placeholder="Enter Your Username or Email"*/}
+                   {/*        autoCapitalize={"none"}*/}
+                   {/*        value={email}*/}
+                   {/*        onChangeText={(text)=>{setEmail(text)}}*/}
+                   {/*    />*/}
+                   {/*</View>*/}
+
+                   {/*<View style={styles.signininputcontainer}>*/}
+                   {/*    <Text>Password</Text>*/}
+                   {/*    <TextInput*/}
+                   {/*        style={[styles.signininput,{backgroundColor:colors.inputbg}]}*/}
+                   {/*        placeholder="Enter Your Password"*/}
+                   {/*        secureTextEntry={true}*/}
+                   {/*        value={password}*/}
+                   {/*        onChangeText={(text)=>{setPassword(text)}}*/}
+                   {/*    />*/}
+                   {/*</View>*/}
                    <TouchableOpacity>
                        <Text style={[styles.signinfp,{color:colors.errorcolor}]}>Forgot Password?</Text>
                    </TouchableOpacity>
-                   <TouchableOpacity onPress={()=>{navigation.replace("App Tab")}} style={[styles.signinbtn,{backgroundColor:colors.signinbtn}]}>
+
+                   <TouchableOpacity onPress={()=>{submit()}} style={[styles.signinbtn,{backgroundColor:colors.signinbtn}]}>
                        <Text style={{textAlign:"center",color:"orange"}}>Sign In</Text>
                    </TouchableOpacity>
                </View>

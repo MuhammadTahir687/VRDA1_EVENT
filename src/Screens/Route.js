@@ -10,6 +10,11 @@ import Login from './Auth/Login';
 import Signin from "./Auth/Signin";
 import Register from "./Auth/Register";
 import AppTab from "./TabView/TabNavigator";
+import EventDetails from "./TabView/EventDetails";
+import QRcode from "./TabView/QRcode";
+import Profile from "./TabView/Profile";
+import UpdateProfile from "./TabView/UpdateProfile";
+import AllEvent from "./TabView/AllEvents";
 
 
 const CustomDarkTheme = {
@@ -33,7 +38,9 @@ const CustomDarkTheme = {
         signinbtn:'#fce3d6',
         registerbtn:'#FAFAFA',
         registerbtntext:"orange",
-        text:"#FAFAFA"
+        text:"#FAFAFA",
+        greencolor: '#1CAE81',
+        skincolor:"#FFA26B"
     },
 };
 
@@ -59,6 +66,8 @@ const CustomDefaultTheme = {
         registerbtn:'#FFA26B',
         registerbtntext:"#FAFAFA",
         text:"#FAFAFA",
+        greencolor: '#1CAE81',
+        skincolor:"#FFA26B"
     },
 };
 
@@ -73,13 +82,15 @@ const Route = () => {
       <PaperProvider theme={theme}>
       <NavigationContainer theme={theme}>
           <Stack.Navigator initialRouteName="Splash" screenOptions={{headerShown:false,animation:"slide_from_right"}} >
-
               <Stack.Screen name="Splash" component={Splash} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Signin" component={Signin} />
               <Stack.Screen name="Register" component={Register}/>
               <Stack.Screen name="App Tab" component={AppTab}/>
-
+              <Stack.Screen name="Event Detail" component={EventDetails}/>
+              <Stack.Screen name="QR Code" component={QRcode}/>
+              <Stack.Screen name="Update Profile" component={UpdateProfile}/>
+              <Stack.Screen name="All Events" component={AllEvent}/>
           </Stack.Navigator>
       </NavigationContainer>
       </PaperProvider>
