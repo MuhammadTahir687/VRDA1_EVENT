@@ -22,7 +22,7 @@ export default StyleSheet.create({
     loginimage:{resizeMode:"contain",width:150,height:150,marginHorizontal:10},
     signinqcontainer:{flexDirection:"row",alignItems:"center",justifyContent:'center'},
 
-    signinheader:{flex:0.4,justifyContent:"center",marginLeft:10},
+    signinheader:{height:devicehieght/5,justifyContent:"center",marginLeft:10},
     signinmain:{flex:1,borderTopLeftRadius:20,borderTopRightRadius:20},
     signinheadertext:{fontWeight:"bold",fontSize:20},
     signinheadericon:{marginBottom:10},
@@ -64,7 +64,7 @@ export default StyleSheet.create({
     cardbtnicon:{marginLeft:10},
     cardimg:{flex:0.7,height:180,alignSelf:"flex-end",top:10,},
 
-    eventimage:{flex:1,width:200,height:140,borderTopRightRadius:20,borderTopLeftRadius:20,resizeMode:"stretch"},
+    eventimage:{width:190,height:140,borderTopRightRadius:20,borderTopLeftRadius:20,},
     eventcard:{flex:1,marginHorizontal:10,borderRadius:20,borderWidth:2,marginVertical:10},
     eventcard1:{flex:1,alignSelf:"center",borderRadius:20,borderWidth:2,marginVertical:10},
     eventtitle:{flex:1,fontWeight:"bold",paddingHorizontal:10,flexWrap:"wrap",fontSize:16},
@@ -73,7 +73,7 @@ export default StyleSheet.create({
     eventtime:{marginHorizontal:5},
 
     eventdate:{bottom:181,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
-    eventdetailheader:{height:devicehieght/4.5,width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20,resizeMode:"contain"},
+    eventdetailheader:{height:devicehieght/4.5,width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20},
     eventdetailtitile:{fontSize:20,fontWeight:"bold",marginHorizontal:10},
     dateicon:{padding:7,borderRadius:5,marginTop:10},
     eventdetilsh:{marginHorizontal:10,marginTop:10,fontWeight:"bold",fontSize:15},

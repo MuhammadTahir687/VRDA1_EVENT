@@ -9,10 +9,10 @@ import Moment from "moment";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import {get_request} from "../../utilis/Api/Requests";
 
+
 const AllEvent = () => {
     const {colors}=useTheme();
     const [btn,setBtn]=useState(0)
-
     const [eventdata,setEventdata]=useState([]);
     const [filterdata,setFilterdata]=useState([]);
     const [search,setSearch]=useState('');
@@ -24,20 +24,27 @@ const AllEvent = () => {
         setEventdata(response.data);
         setFilterdata(response.data);
     }
-    const searchdata = (text) => {
-      if(text){
-          const newdata=eventdata.filter((item)=>{
-              const itemdata=item.title?item.title.toUpperCase():"".toUpperCase();
-              const textdata=text.toUpperCase();
-              return itemdata.indexOf(textdata)>-1;
-          })
-          setEventdata(newdata)
-          setSearch(text)
-      }
-      else {
-          setEventdata(filterdata)
-          setSearch(text)
-      }
+
+    const renderitem = ({item,index}) => {
+      return(
+          <TouchableOpacity  style={[styles.eventcard1,{borderColor:colors.loginbackground}]}>
+              <Image source={{uri:item.image}} style={styles.eventimage}/>
+              {item.title.length>21?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,21)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
+              {item.short_description.length>20?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
+              <View style={styles.eventdate}>
+                  <Text style={{fontSize:16,color:colors.loginbackground}}>{Moment(item.start_time).format('d MMM')}</Text>
+              </View>
+              <View style={styles.eventlocation}>
+                  <Fontisto name="date" />
+                  <Text style={styles.eventtime}>{item.start_time}</Text>
+              </View>
+
+              <View style={styles.eventlocation}>
+                  <Ionicons name="location"/>
+                  {item.event_location.length>20? <Text style={styles.eventtime}>{item.event_location.slice(0,20)+"..."}</Text>:<Text style={styles.eventtime}>{item.event_location}</Text>}
+              </View>
+          </TouchableOpacity>
+      )
     }
 
     Moment.locale('en');
@@ -52,8 +59,9 @@ const AllEvent = () => {
                             <TextInput
                                 style={[styles.homesearchinput]}
                                 placeholder="Search"
+                                value={search}
                                 placeholderTextColor={colors.loginbackground}
-                                onChangeText={(text => searchdata(text))}
+                                onChangeText={(text) => {setSearch(text);}}
                             />
                         </LinearGradient>
 
@@ -64,6 +72,7 @@ const AllEvent = () => {
                     </TouchableOpacity>
                 </View>
             </ImageBackground>
+
             <View style={[styles.alleventbtncontainer,{borderRadius:50,backgroundColor:colors.skincolor}]}>
                 {Button.map((item,index)=>(
                         <TouchableOpacity key={index} onPress={()=>{setBtn(index)}} style={[styles.alleventbtn,{backgroundColor:(btn==index)?"white":colors.skincolor,elevation:(btn==index)?6:0,paddingHorizontal:(btn==index)?20:10}]}>
@@ -71,26 +80,9 @@ const AllEvent = () => {
                         </TouchableOpacity>
                 ))}
             </View>
-            <FlatList data={eventdata}
-                      renderItem={({ item, index }) => (
-                          <TouchableOpacity  style={[styles.eventcard1,{borderColor:colors.loginbackground}]}>
-                              <Image source={{uri:item.image}} style={styles.eventimage}/>
-                              {item.title.length>21?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,21)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
-                              {item.short_description.length>20?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
-                              <View style={styles.eventdate}>
-                                  <Text style={{fontSize:16,color:colors.loginbackground}}>{Moment(item.start_time).format('d MMM')}</Text>
-                              </View>
-                              <View style={styles.eventlocation}>
-                                  <Fontisto name="date" />
-                                  <Text style={styles.eventtime}>{item.start_time}</Text>
-                              </View>
-
-                              <View style={styles.eventlocation}>
-                                  <Ionicons name="location"/>
-                                  {item.event_location.length>20? <Text style={styles.eventtime}>{item.event_location.slice(0,20)+"..."}</Text>:<Text style={styles.eventtime}>{item.event_location}</Text>}
-                              </View>
-                          </TouchableOpacity>
-                      )}
+            <FlatList data={eventdata.filter(item => item.title.toUpperCase().includes(search.toUpperCase()))}
+                      keyExtractor={(item,index)=>index.toString()}
+                      renderItem={renderitem}
             />
         </SafeAreaView>
     )

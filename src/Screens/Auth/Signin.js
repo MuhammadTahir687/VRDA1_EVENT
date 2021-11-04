@@ -14,15 +14,45 @@ const Signin = ({navigation}) => {
     const {colors}=useTheme();
     const [email,setEmail]=useState('talha.akbar366@gmail.com');
     const [password,setPassword]=useState('123456');
+    const [emailvalidation,setEmailvalidation]=useState('');
+    const [passwordvalidation,setPasswordvalidation]=useState('');
+    const [showicon,setShowicon]=useState(false);
 
     const submit =async () => {
-        const response = await Login_api({email:email,password:password})
-        if(response.data.status===true){
-            await save_data("user",response.data)
-            navigation.navigate("App Tab")
+        let regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+        if(email==""){setEmailvalidation("Required*")}
+        else if(regex.test(email)==false){setEmailvalidation("Incorrect Email")}
+        else if(password==""){setPasswordvalidation("Required*")}
+        else if (password.length<6){setPasswordvalidation("Password must be atleast 6 alphabet")}
+        else {
+
+            const response = await Login_api({email: email, password: password})
+            console.log(JSON.stringify(response))
+            if (response != "Error"){
+                if (response.data.status === true) {
+                    setShowicon(true)
+                    await save_data("user", response.data)
+                    navigation.navigate("App Tab")
+                } else {
+                    Toast.show(response.data.message)
+                }
+        }else{Toast.show("Invalid Email or Password ")}
         }
-        else{Toast.show(response.data.message)}
+
     }
+
+    // const emailvalidator = () => {
+    //     let regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+    //   if(email==''){setEmailvalidation("Required")}
+    //   else if(regex.test(email)==false){setEmailvalidation("Incorrect Email")}
+    //   else {setEmailvalidation('')}
+    // }
+    // const passwordvalidator = () => {
+    //     if(password==""){setPasswordvalidation("Required*")}
+    //     else if (password.length<6){setPasswordvalidation("Password must be atleast 6 alphabet")}
+    //     else {setPasswordvalidation('')}
+    // }
+    //
     return(
        <SafeAreaView style={{flex:1,backgroundColor:colors.signinHeader}}>
            <View style={styles.signinheader}>
@@ -36,8 +66,10 @@ const Signin = ({navigation}) => {
                    <Text style={[styles.signinmainh1,{color:colors.signinh1}]}>Welcome Back</Text>
                    <Text>Hello there, Sign in to continue!</Text>
 
-                   <Input  text1={'Username or Email'} text2={"Enter Your Username or Email"} value1={email} onChangeText1={(text)=>{setEmail(text)}} />
-                   <Input  text1={'Password'} text2={"Enter Your Password"} value1={password} onChangeText1={(text)=>{setPassword(text)}} />
+                   <Input  text1={'Username or Email'} text2={"Enter Your Username or Email"} value1={email} iconname1={"checkmark-circle"} showicon={showicon} onChangeText1={(text)=>{setEmail(text),setEmailvalidation('')}} />
+                   {emailvalidation !='' && <Text style={{color:"red"}}>{emailvalidation}</Text>}
+                   <Input  text1={'Password'} text2={"Enter Your Password"} value1={password}  iconname1={"checkmark-circle"} showicon={showicon} onChangeText1={(text)=>{setPassword(text),setPasswordvalidation('')}} />
+                   {passwordvalidation !='' && <Text style={{color:"red"}}>{passwordvalidation}</Text>}
 
 
                    {/*<View style={styles.signininputcontainer}>*/}

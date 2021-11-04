@@ -15,6 +15,7 @@ import Moment from "moment";
 const Home=({navigation})=>{
     const {colors}=useTheme();
     const [eventdata,setEventdata]=useState([]);
+    const [search,setSearch]=useState('')
 
     useEffect(()=>{  response()},[])
 
@@ -49,6 +50,7 @@ const Home=({navigation})=>{
                             style={[styles.homesearchinput]}
                             placeholder="Search"
                             placeholderTextColor={colors.loginbackground}
+                            onChangeText={(text)=>{setSearch(text)}}
                         />
                         </LinearGradient>
 
@@ -68,13 +70,13 @@ const Home=({navigation})=>{
                 </TouchableOpacity>
             </View>
 
-            <FlatList data={eventdata}
+            <FlatList data={eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase()))}
                       horizontal={true}
                       renderItem={({ item, index }) => (
                           <TouchableOpacity onPress={()=>{navigation.navigate("Event Detail",{ data:item})}} style={[styles.eventcard,{borderColor:colors.loginbackground}]}>
                           <Image source={{uri:item.image}} style={styles.eventimage}/>
                               {item.title.length>21?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,21)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
-                              {item.short_description.length>20?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
+                              {item.short_description.length>21?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
                               <View style={styles.eventdate}>
                                   <Text style={{fontSize:16,color:colors.loginbackground}}>{Moment(item.start_time).format('d MMM')}</Text>
                               </View>
@@ -85,7 +87,7 @@ const Home=({navigation})=>{
 
                               <View style={styles.eventlocation}>
                                   <Ionicons name="location"/>
-                                  {item.event_location.length>20? <Text style={styles.eventtime}>{item.event_location.slice(0,20)+"..."}</Text>:<Text style={styles.eventtime}>{item.event_location}</Text>}
+                                  {item.event_location.length>21? <Text style={styles.eventtime}>{item.event_location.slice(0,21)+"..."}</Text>:<Text style={styles.eventtime}>{item.event_location}</Text>}
                               </View>
                           </TouchableOpacity>
                       )}
