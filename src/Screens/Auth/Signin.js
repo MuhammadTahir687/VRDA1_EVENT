@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, {useEffect, useState} from "react";
 import {View, Text, SafeAreaView, TouchableOpacity, TextInput, ScrollView} from "react-native";
 import styles from "../../Stylesheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -9,6 +9,13 @@ import {useTheme} from "@react-navigation/native";
 import {Login_api} from '../../utilis/Api/Api_controller';
 import {save_data,get_data} from '../../utilis/AsyncStorage/Controller';
 import Toast from "react-native-simple-toast";
+import onFacebookButtonPress from "../../SocialLogin/Facebook";
+import auth from '@react-native-firebase/auth';
+import Google from "../../SocialLogin/Google";
+import HB from "../../utilis/Components/HeaderButton";
+import FacebookBtn from "../../utilis/Components/Facebook Button";
+import GoogleBtn from '../../utilis/Components/GoogleButton'
+
 
 const Signin = ({navigation}) => {
     const {colors}=useTheme();
@@ -16,7 +23,18 @@ const Signin = ({navigation}) => {
     const [password,setPassword]=useState('123456');
     const [emailvalidation,setEmailvalidation]=useState('');
     const [passwordvalidation,setPasswordvalidation]=useState('');
-    const [showicon,setShowicon]=useState(false);
+    const [show, setShow] = useState(false);
+    const [visible, setVisible] = useState(true);
+
+    useEffect(()=>{getuserinfo()},[])
+
+    const getuserinfo = ()=>{
+      auth()
+      .onAuthStateChanged(async(user)=>{
+       if(user){console.log("User===========",user)}
+       else{console.log("No User")}
+      })
+    }
 
     const submit =async () => {
         let regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
@@ -25,7 +43,6 @@ const Signin = ({navigation}) => {
         else if(password==""){setPasswordvalidation("Required*")}
         else if (password.length<6){setPasswordvalidation("Password must be atleast 6 alphabet")}
         else {
-
             const response = await Login_api({email: email, password: password})
             console.log(JSON.stringify(response))
             if (response != "Error"){
@@ -33,66 +50,42 @@ const Signin = ({navigation}) => {
                     setShowicon(true)
                     await save_data("user", response.data)
                     navigation.navigate("App Tab")
-                } else {
-                    Toast.show(response.data.message)
                 }
-        }else{Toast.show("Invalid Email or Password ")}
-        }
-
+                else {Toast.show(response.data.message)}
+        }else{Toast.show("Invalid Email or Password ")}}
     }
 
-    // const emailvalidator = () => {
-    //     let regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
-    //   if(email==''){setEmailvalidation("Required")}
-    //   else if(regex.test(email)==false){setEmailvalidation("Incorrect Email")}
-    //   else {setEmailvalidation('')}
-    // }
-    // const passwordvalidator = () => {
-    //     if(password==""){setPasswordvalidation("Required*")}
-    //     else if (password.length<6){setPasswordvalidation("Password must be atleast 6 alphabet")}
-    //     else {setPasswordvalidation('')}
-    // }
-    //
     return(
        <SafeAreaView style={{flex:1,backgroundColor:colors.signinHeader}}>
-           <View style={styles.signinheader}>
-               <TouchableOpacity onPress={()=>{navigation.goBack()}} style={styles.signinheadericon}>
-                   <Ionicons name="arrow-back" color={Color.white} size={30}/>
-               </TouchableOpacity>
-               <Text style={[styles.signinheadertext,{color:colors.text}]}>Login</Text>
-           </View>
+           <HB onPress={()=>{navigation.goBack()}} text1={"Login"} />
            <ScrollView style={[styles.signinmain,{backgroundColor:colors.signinmain}]}>
+
                <View style={styles.signinmaincontainer}>
                    <Text style={[styles.signinmainh1,{color:colors.signinh1}]}>Welcome Back</Text>
                    <Text>Hello there, Sign in to continue!</Text>
 
-                   <Input  text1={'Username or Email'} text2={"Enter Your Username or Email"} value1={email} iconname1={"checkmark-circle"} showicon={showicon} onChangeText1={(text)=>{setEmail(text),setEmailvalidation('')}} />
+                   <Input  text1={'Username or Email'} text2={"Enter Your Username or Email"} value1={email} iconname1={"mail"}  onChangeText1={(text)=>{setEmail(text),setEmailvalidation('')}} />
                    {emailvalidation !='' && <Text style={{color:"red"}}>{emailvalidation}</Text>}
-                   <Input  text1={'Password'} text2={"Enter Your Password"} value1={password}  iconname1={"checkmark-circle"} showicon={showicon} onChangeText1={(text)=>{setPassword(text),setPasswordvalidation('')}} />
+
+                   <View style={styles.signininputcontainer}>
+                       <Text>Password</Text>
+                       <View style={{flex:1,flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:"#efe8e8",paddingHorizontal:10,borderRadius:10}} >
+                       <Ionicons name="lock-closed" color={colors.greencolor} size={20}/>
+                           <TextInput
+                               style={{flex:1,color:colors.greencolor}}
+                               placeholder="Enter Your Password"
+                               secureTextEntry={true}
+                               value={password}
+                               onChangeText={(text)=>{setPassword(text)}}
+                               secureTextEntry={visible}
+                           />
+                           <TouchableOpacity onPress={() => {setVisible(!visible),setShow(!show)}}>
+                               <Ionicons name={show === false ? "eye-outline" : "eye-off-outline"} color={colors.greencolor} size={20}/>
+                           </TouchableOpacity>
+                       </View>
+                   </View>
                    {passwordvalidation !='' && <Text style={{color:"red"}}>{passwordvalidation}</Text>}
 
-
-                   {/*<View style={styles.signininputcontainer}>*/}
-                   {/*    <Text>Username or Email</Text>*/}
-                   {/*    <TextInput*/}
-                   {/*        style={[styles.signininput,{backgroundColor:colors.inputbg,color:colors.greencolor}]}*/}
-                   {/*        placeholder="Enter Your Username or Email"*/}
-                   {/*        autoCapitalize={"none"}*/}
-                   {/*        value={email}*/}
-                   {/*        onChangeText={(text)=>{setEmail(text)}}*/}
-                   {/*    />*/}
-                   {/*</View>*/}
-
-                   {/*<View style={styles.signininputcontainer}>*/}
-                   {/*    <Text>Password</Text>*/}
-                   {/*    <TextInput*/}
-                   {/*        style={[styles.signininput,{backgroundColor:colors.inputbg}]}*/}
-                   {/*        placeholder="Enter Your Password"*/}
-                   {/*        secureTextEntry={true}*/}
-                   {/*        value={password}*/}
-                   {/*        onChangeText={(text)=>{setPassword(text)}}*/}
-                   {/*    />*/}
-                   {/*</View>*/}
                    <TouchableOpacity>
                        <Text style={[styles.signinfp,{color:colors.errorcolor}]}>Forgot Password?</Text>
                    </TouchableOpacity>
@@ -102,14 +95,8 @@ const Signin = ({navigation}) => {
                    </TouchableOpacity>
                </View>
 
-               <TouchableOpacity style={styles.sociallogincontainer}>
-                   <FontAwesome name="facebook" color="white" size={20} style={[styles.socialloginfbicon,{backgroundColor:"#204d8b"}]}/>
-                   <Text style={[styles.socialloginfbtext,{backgroundColor:'#fce3d6'}]}>Signin With Facebook</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.sociallogincontainer}>
-                   <FontAwesome name="google" color="white" size={20} style={[styles.sociallogingicon,{backgroundColor:"#bd2323"}]}/>
-                   <Text style={[styles.socialloginfbtext,{backgroundColor:'#fce3d6'}]}>Signin With Google</Text>
-               </TouchableOpacity>
+               <FacebookBtn onPress={()=>{onFacebookButtonPress()}} text1={"Signin With Facebook"}/>
+               <GoogleBtn onPress={()=>{Google()}} text1={"Signin With Google"}/>
 
            </ScrollView>
 

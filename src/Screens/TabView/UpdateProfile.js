@@ -52,12 +52,8 @@ const UpdateProfile = ({navigation}) => {
         try{
             const body={id:userid,name:name,phone:phone,cnic:cnic,dob:date,country:country,nationality:nationality}
             const res=await Update_profile_api(body)
-            if(res.data[0].status===true){
-                Toast.show("Profile Updated Successfully !!!")
-            }
-            else{
-                Toast.show("Something Went Wrong !!!")
-            }
+            if(res.data[0].status===true){Toast.show("Profile Updated Successfully !!!")}
+            else{Toast.show("Something Went Wrong !!!")}
         }
         catch (e) {Toast.show(e)}
     }

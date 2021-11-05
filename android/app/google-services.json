@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "984454279540",
+    "project_id": "vrda1-event",
+    "storage_bucket": "vrda1-event.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984454279540:android:0f28eba2362c1c10df3c21",
+        "android_client_info": {
+          "package_name": "com.vrda1_event"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984454279540-jv89beubq05591j0fh48a9e6mg8j07ge.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vrda1_event",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "984454279540-oh58il91glqj66jbb5hscsiu9ibfbs3i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABdC5VpDf0qcw5tc0mV6fEKf33bd7_PTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984454279540-oh58il91glqj66jbb5hscsiu9ibfbs3i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

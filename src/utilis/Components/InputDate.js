@@ -12,6 +12,7 @@ const ID = ({ text1, text2,validation1,validation2,placeholder1,placeholder2,onC
             <View style={styles.signininputcontainer}>
                 <Text>{text1}</Text>
                 <View style={{flex:1,flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:"#efe8e8",paddingHorizontal:5,borderRadius:10,marginRight:2}} >
+                    <Ionicons name={iconname1} size={20} color={colors.greencolor} />
                     <TextInput
                         style={[styles.signininput,{flex:1,color:colors.greencolor}]}
                         placeholder={placeholder1}
@@ -20,13 +21,13 @@ const ID = ({ text1, text2,validation1,validation2,placeholder1,placeholder2,onC
                         keyboardType={keyboardtype1}
                         onBlur={onBlur1}
                     />
-                    { showicon1 ==true && <Ionicons name={iconname1} size={15} color="white" style={{backgroundColor:colors.skincolor,borderRadius:100,padding:3}}/>}
                 </View>
                 {validation1 !='' && <Text style={{color:"red"}}>{validation1}</Text> }
             </View>
             <View style={styles.signininputcontainer}>
                 <Text style={{marginLeft:5}}>{text2}</Text>
                 <View style={{flex:1,flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:"#efe8e8",paddingHorizontal:5,borderRadius:10,marginLeft:2.5}} >
+                    <Ionicons name={iconname2} size={20} color={colors.greencolor} style={{paddingLeft:10,paddingRight:5}}/>
                     <DatePicker
                         // style={{width:"100%"}}
                         date={date}
@@ -37,11 +38,11 @@ const ID = ({ text1, text2,validation1,validation2,placeholder1,placeholder2,onC
                         cancelBtnText="Cancel"
                         customStyles={{
                             dateText:{color:colors.greencolor},
-                            dateInput: { alignItems: "flex-start",borderColor:"#000",borderWidth:0 }
+                            dateInput: { alignItems: "flex-start",borderColor:"#000",borderWidth:0 },
+                            placeholderText: {color: "rgba(113,110,110,0.74)"},
                         }}
                         onDateChange={datechange}
                     />
-                    { showicon2 ==true && <Ionicons name={iconname1} size={15} color="white" style={{backgroundColor:colors.skincolor,borderRadius:100,padding:3}}/>}
                 </View>
                 {validation2 !='' && <Text style={{color:"red"}}>{validation2}</Text> }
             </View>
