@@ -17,7 +17,7 @@ import FacebookBtn from "../../utilis/Components/Facebook Button";
 import GoogleBtn from '../../utilis/Components/GoogleButton'
 
 
-const Signin = ({navigation}) => {
+const Signin = ({navigation,route}) => {
     const {colors}=useTheme();
     const [email,setEmail]=useState('talha.akbar366@gmail.com');
     const [password,setPassword]=useState('123456');
@@ -25,6 +25,7 @@ const Signin = ({navigation}) => {
     const [passwordvalidation,setPasswordvalidation]=useState('');
     const [show, setShow] = useState(false);
     const [visible, setVisible] = useState(true);
+    const {data}=route.params;
 
     useEffect(()=>{getuserinfo()},[])
 
@@ -47,7 +48,6 @@ const Signin = ({navigation}) => {
             console.log(JSON.stringify(response))
             if (response != "Error"){
                 if (response.data.status === true) {
-                    setShowicon(true)
                     await save_data("user", response.data)
                     navigation.navigate("App Tab")
                 }
@@ -74,7 +74,6 @@ const Signin = ({navigation}) => {
                            <TextInput
                                style={{flex:1,color:colors.greencolor}}
                                placeholder="Enter Your Password"
-                               secureTextEntry={true}
                                value={password}
                                onChangeText={(text)=>{setPassword(text)}}
                                secureTextEntry={visible}
@@ -95,17 +94,17 @@ const Signin = ({navigation}) => {
                    </TouchableOpacity>
                </View>
 
-               <FacebookBtn onPress={()=>{onFacebookButtonPress()}} text1={"Signin With Facebook"}/>
-               <GoogleBtn onPress={()=>{Google()}} text1={"Signin With Google"}/>
+               {data!="admin" && <FacebookBtn onPress={()=>{onFacebookButtonPress()}} text1={"Signin With Facebook"}/>}
+               {data!="admin" && <GoogleBtn onPress={()=>{Google()}} text1={"Signin With Google"}/>}
 
            </ScrollView>
 
-           <View style={[styles.signinqcontainer,{backgroundColor:colors.signinfooter}]}>
+           {data!= 'admin'&& <View style={[styles.signinqcontainer,{backgroundColor:colors.signinfooter}]}>
                <Text style={styles.loginq1}>Don't have an account?</Text>
                <TouchableOpacity onPress={()=>{navigation.navigate("Register")}}>
                    <Text style={[styles.loginqbtn,{color:colors.signinfootertext}]}> Register</Text>
                </TouchableOpacity>
-           </View>
+           </View>}
        </SafeAreaView>
     )
 }

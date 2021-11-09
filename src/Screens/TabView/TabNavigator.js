@@ -5,6 +5,7 @@ import { Image, TouchableOpacity, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./Home";
 import Profile from "./Profile";
+import EventCalendar from "./EventCalendar";
 
 const Tab = createBottomTabNavigator();
 export default function AppTab() {
@@ -14,8 +15,8 @@ export default function AppTab() {
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
                     if (route.name === 'Home') {iconName = focused ? 'home' : 'home-outline'}
-                    else if (route.name === 'Profile') {iconName = focused ? 'person' : 'person-outline'}
-                    else if (route.name === 'Direct Commission') {iconName = focused ? 'cash' : 'cash-outline'}
+                    else if (route.name === 'Profile') {iconName = focused ? 'person-circle' : 'person-circle-outline'}
+                    else if (route.name === 'Calendar') {iconName = focused ? 'calendar' : 'calendar-outline'}
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
                 headerShown:false,
@@ -25,7 +26,7 @@ export default function AppTab() {
             })}>
             <Tab.Screen name="Home"  component={Home}  />
             <Tab.Screen name="Profile"  component={Profile}  />
-            {/*<Tab.Screen name="Direct Commission"  component={DirectComission}  />*/}
+            <Tab.Screen name="Calendar"  component={EventCalendar}  />
 
         </Tab.Navigator>
 

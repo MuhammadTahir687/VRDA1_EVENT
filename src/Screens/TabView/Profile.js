@@ -69,9 +69,9 @@ const Profile = ({navigation}) => {
                     <PD icon1={"location"}  icon2={"user"} text1={'Address'} text2={address?address:""} text3={"CNIC"} text4={cnic}/>
                     <PD icon1={"business"}   text1={'Nationality'} text2={nationality?nationality:""} text4={""} />
 
-                    <TouchableOpacity onPress={()=>{navigation.navigate("Update Profile")}} style={[styles.updateprofilebtn,{backgroundColor:colors.skincolor}]}>
+                    {role!=''&& role=="user" ? <TouchableOpacity onPress={()=>{navigation.navigate("Update Profile")}} style={[styles.updateprofilebtn,{backgroundColor:colors.skincolor}]}>
                          <Text style={{textAlign:"center",color:colors.text}}>Update Detail</Text>
-                     </TouchableOpacity>
+                    </TouchableOpacity>:<View></View>}
                 </View>
 
             </ScrollView>

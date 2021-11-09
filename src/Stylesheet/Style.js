@@ -43,12 +43,12 @@ export default StyleSheet.create({
     homeheader:{height:devicehieght/4.5 ,borderBottomRightRadius:80,borderBottomLeftRadius:80},
     homeheaderh1:{textAlign:"center",marginTop:10,fontSize:10},
     homeheaderh:{textAlign:"center",fontSize:15},
-    homeiconcontianer:{flexDirection:"row",justifyContent:'space-between',marginHorizontal:20,alignItems:"center"},
+    homeiconcontianer:{flexDirection:"row",justifyContent:'space-between',marginHorizontal:20,alignItems:"center",marginBottom:10},
     homerighticoncontainer:{flexDirection:"row",alignItems:'center'},
     righticon:{marginHorizontal:10,borderRadius:50,padding:5},
     homesearchicon:{borderRadius:25,padding:10},
     homesearchinput:{height:40,flex:1,color:"white"},
-    searchcontainer:{flex:1,flexDirection:"row",justifyContent:"center",marginHorizontal:30,alignItems:"center",},
+    searchcontainer:{flex:1,flexDirection:"row",justifyContent:"center",marginHorizontal:40,alignItems:"center",bottom:5},
     filtercontainer:{flex:3,flexDirection:"row",borderBottomRightRadius:50,borderTopRightRadius:50,height:40,alignItems:"center",paddingLeft:10},
     searchleftcontainer:{flex:8,flexDirection:"row",height:40},
 
@@ -107,8 +107,10 @@ export default StyleSheet.create({
     alleventheader:{height:devicehieght/4.5,width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20,},
     alleventbtncontainer:{flexDirection:"row",alignSelf:"center",marginTop:10,bottom:30},
     alleventbtn:{alignSelf:"center",paddingHorizontal:15,paddingVertical:10,borderRadius:50},
-    alleventbtntext:{fontWeight:"bold"}
+    alleventbtntext:{fontWeight:"bold"},
 
+    calendarcontainer:{marginHorizontal:10},
+    calendarh:{fontWeight:"bold",fontSize:20,marginTop:10}
 
 
 

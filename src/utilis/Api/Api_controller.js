@@ -40,5 +40,10 @@ const Events_details = async (target) => {
     return Test
 }
 
+const Coming_Events = async (target) => {
+    const Test = await get_request("/api/coming-events/" + target);
+    return Test
+}
 
-export { Login_api, Signup_api, Event_visitor_api, Event_visitor_response_api, Update_profile_api, OTP_api, Attendance_api, Events_details }
+
+export { Login_api, Signup_api, Event_visitor_api, Event_visitor_response_api, Update_profile_api, OTP_api, Attendance_api, Events_details,Coming_Events }

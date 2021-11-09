@@ -12,9 +12,20 @@ target 'VRDa1_Event' do
     :hermes_enabled => false
   )
 
+permissions_path = '../node_modules/react-native-permissions/ios'
+pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
+  pod 'ReactNativeCameraKit', :path => '../node_modules/react-native-camera-kit'
+
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
   target 'VRDa1_EventTests' do
     inherit! :complete

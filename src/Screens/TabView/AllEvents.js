@@ -8,6 +8,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Moment from "moment";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import {get_request} from "../../utilis/Api/Requests";
+import {Coming_Events} from "../../utilis/Api/Api_controller";
 
 
 const AllEvent = () => {
@@ -17,13 +18,29 @@ const AllEvent = () => {
     const [filterdata,setFilterdata]=useState([]);
     const [search,setSearch]=useState('');
 
+    Moment.locale('en');
+    const Button=[{id:1,title:"UPCOMING"}, {id:2,title:"PAST EVENT"}]
+
     useEffect(()=>{  response()},[])
 
-    const response =async() => {
-        const response= await get_request('/api/get-all-events');
-        setEventdata(response.data);
-        setFilterdata(response.data);
+    const response =async(index) => {
+        if (index==0){
+            await  alert(index+" Upcoming")
+            const res= await get_request('/api/coming-events');
+            setEventdata(res.event_start);
+        }
+        else if (index==1){
+            await alert(index+" Past")
+            const res= await get_request('/api/past-events');
+            setEventdata(res.past_events);
+        }
+        else{
+            const res= await get_request('/api/coming-events');
+            setEventdata(res.event_start);
+        }
     }
+
+
 
     const renderitem = ({item,index}) => {
       return(
@@ -38,7 +55,6 @@ const AllEvent = () => {
                   <Fontisto name="date" />
                   <Text style={styles.eventtime}>{item.start_time}</Text>
               </View>
-
               <View style={styles.eventlocation}>
                   <Ionicons name="location"/>
                   {item.event_location.length>20? <Text style={styles.eventtime}>{item.event_location.slice(0,20)+"..."}</Text>:<Text style={styles.eventtime}>{item.event_location}</Text>}
@@ -47,8 +63,7 @@ const AllEvent = () => {
       )
     }
 
-    Moment.locale('en');
-    const Button=[{id:1,title:"UPCOMING"}, {id:2,title:"PAST EVENT"}]
+
     return(
         <SafeAreaView style={{flex:1}}>
             <ImageBackground source={require('../../Assets/background.png')} style={[styles.alleventheader,]}>
@@ -64,7 +79,6 @@ const AllEvent = () => {
                                 onChangeText={(text) => {setSearch(text);}}
                             />
                         </LinearGradient>
-
                     </View>
                     <TouchableOpacity style={[styles.filtercontainer,{backgroundColor:"rgba(12,12,12,0.58)"}]}>
                         <Ionicons name="filter" color="white" size={20}/>
@@ -74,8 +88,8 @@ const AllEvent = () => {
             </ImageBackground>
 
             <View style={[styles.alleventbtncontainer,{borderRadius:50,backgroundColor:colors.skincolor}]}>
-                {Button.map((item,index)=>(
-                        <TouchableOpacity key={index} onPress={()=>{setBtn(index)}} style={[styles.alleventbtn,{backgroundColor:(btn==index)?"white":colors.skincolor,elevation:(btn==index)?6:0,paddingHorizontal:(btn==index)?20:10}]}>
+                {Button.map( (item,index)=>(
+                        <TouchableOpacity key={index} onPress={()=>{setBtn(index); response(index)}} style={[styles.alleventbtn,{backgroundColor:(btn==index)?"white":colors.skincolor,elevation:(btn==index)?6:0,paddingHorizontal:(btn==index)?20:10}]}>
                             <Text style={[styles.alleventbtntext,{color:(btn==index)?colors.skincolor:colors.text}]}>{item.title}</Text>
                         </TouchableOpacity>
                 ))}

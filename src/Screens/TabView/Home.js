@@ -11,17 +11,22 @@ import {Events_details} from '../../utilis/Api/Api_controller'
 import {get_request} from "../../utilis/Api/Requests";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import Moment from "moment";
+import Btn from "../../utilis/Components/Button";
 
 const Home=({navigation})=>{
     const {colors}=useTheme();
     const [eventdata,setEventdata]=useState([]);
-    const [search,setSearch]=useState('')
+    const [search,setSearch]=useState('');
+    const [show,setShow]=useState(false)
+    const [icon,setIcon]=useState(false)
+
 
     useEffect(()=>{  response()},[])
 
      const response =async() => {
       const response= await get_request('/api/get-all-events');
       setEventdata(response.data)
+         setShow(true)
     }
     Moment.locale('en');
     return(
@@ -32,12 +37,16 @@ const Home=({navigation})=>{
                 <Text style={[styles.homeheaderh1,{color:colors.text}]}>Current Location</Text>
                 <Text style={[styles.homeheaderh,{color:colors.text}]}>New York, USA</Text>
                 <View style={styles.homeiconcontianer}>
-                    <View>
+                    <TouchableOpacity>
                         <Ionicons name="menu" color="white" size={30}/>
-                    </View>
+                    </TouchableOpacity>
                     <View style={styles.homerighticoncontainer}>
-                        <FontAwesome name="bell" color="white" size={18} style={[styles.righticon,{backgroundColor:colors.signinHeader}]} />
-                        <MaterialCommunityIcons name="qrcode-scan" color="white" size={20}/>
+                        <TouchableOpacity>
+                            <FontAwesome name="bell" color="white" size={18} style={[styles.righticon,{backgroundColor:colors.signinHeader}]} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{navigation.navigate('QR Code',{data:eventdata})}}>
+                            <MaterialCommunityIcons name="qrcode-scan" color="white" size={20}/>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 </View>
@@ -55,13 +64,26 @@ const Home=({navigation})=>{
                         </LinearGradient>
 
                     </View>
-                    <TouchableOpacity style={[styles.filtercontainer,{backgroundColor:"rgba(12,12,12,0.58)"}]}>
+                    <TouchableOpacity onPress={()=>{setIcon(!icon)}} style={[styles.filtercontainer,{backgroundColor:"rgba(12,12,12,0.58)"}]}>
                         <Ionicons name="filter" color="white" size={20}/>
                         <Text style={{color:"white",marginHorizontal:5}}>Filter</Text>
                     </TouchableOpacity>
                 </View>
             </View>
 
+                {icon==true? <View style={{flex:1,flexDirection:"row",justifyContent:"center",bottom:13,alignItems:"center"}}>
+                   <TouchableOpacity onPress={()=>{setIcon(false)}} style={{alignItems:"flex-end",justifyContent:"flex-end"}}>
+                       <Ionicons name="close" size={20} color="white" style={{borderRadius:50,backgroundColor:colors.skincolor}}/>
+                   </TouchableOpacity>
+                   <View style={{flexDirection:"row"}} >
+                    <Btn text1={'Conference'} iconname={"chatbubble-ellipses-outline"} size={12} backgroundColor={"#12682a"}/>
+                    <Btn text1={'Speaker'} iconname={"person-circle-outline"} size={15} backgroundColor={colors.skincolor}/>
+                    <Btn text1={'Ted Talk'} iconname={"chatbubbles-outline"} size={12} backgroundColor={"#1aa6bd"}/>
+                </View>
+               </View>:<View></View>}
+
+
+                {show==true?<View>
             <View style={styles.homemain1}>
                 <Text style={[styles.homemainh1,{color:colors.loginbackground}]}>Upcomming Event</Text>
                 <TouchableOpacity onPress={()=>{navigation.navigate("All Events")}} style={styles.seeallcontainer}>
@@ -105,6 +127,9 @@ const Home=({navigation})=>{
                 </View>
                     <Image source={require('../../Assets/Avator.png')} style={styles.cardimg}/>
             </View>
+
+                </View>
+                    : <View></View>}
             </ScrollView>
         </SafeAreaView>
 

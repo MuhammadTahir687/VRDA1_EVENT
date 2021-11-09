@@ -24,10 +24,10 @@ const Login = ({navigation}) => {
              <Text style={[styles.loginh3,{color:colors.text}]}>Make it Memorable</Text>
          </View>
          <View style={styles.logincontainer3}>
-             <TouchableOpacity  onPress={()=>{navigation.navigate("Signin")}} style={[styles.loginbtncontainer1,{backgroundColor:colors.loginbuttonsbg}]}>
+             <TouchableOpacity  onPress={()=>{navigation.navigate("Signin",{data:"text"})}} style={[styles.loginbtncontainer1,{backgroundColor:colors.loginbuttonsbg}]}>
                  <Text style={styles.loginbtntext}>Login as a User</Text>
              </TouchableOpacity>
-             <TouchableOpacity style={[styles.loginbtncontainer2,{borderColor:colors.loginborder}]}>
+             <TouchableOpacity onPress={()=>{navigation.navigate("Signin",{data:"admin"})}} style={[styles.loginbtncontainer2,{borderColor:colors.loginborder}]}>
                  <Text style={[styles.loginbtntext2,{color:colors.text}]}>Login as a Admin</Text>
              </TouchableOpacity>
              <View style={styles.loginqcontainer}>
