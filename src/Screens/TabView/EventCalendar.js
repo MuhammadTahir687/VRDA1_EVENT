@@ -45,8 +45,6 @@ const EventCalendar = () => {
                       events={EVENTS.filter(event => moment(event.start).isSame(Date.now(), 'day'))}
                   />
               </View>
-
-
           </View>
               </ScrollView>
           </ImageBackground>
