@@ -49,6 +49,8 @@ const Signin = ({navigation,route}) => {
             if (response != "Error"){
                 if (response.data.status === true) {
                     await save_data("user", response.data)
+                    await save_data("token",response.data.access_token)
+                    console.log("=============",response.data.access_token)
                     navigation.navigate("App Tab")
                 }
                 else {Toast.show(response.data.message)}

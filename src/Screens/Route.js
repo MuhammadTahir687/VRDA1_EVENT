@@ -15,6 +15,7 @@ import QRcode from "./TabView/QRcode";
 import Profile from "./TabView/Profile";
 import UpdateProfile from "./TabView/UpdateProfile";
 import AllEvent from "./TabView/AllEvents";
+// import linking from "../Linking";
 
 
 const CustomDarkTheme = {
@@ -70,7 +71,16 @@ const CustomDefaultTheme = {
         skincolor:"#FFA26B"
     },
 };
-
+const config={
+    screens: {
+        Register: 'user',
+        Signin:"sign"
+    },
+}
+    const linking={
+        prefixes:['event://'],
+        config,
+    }
 const Route = () => {
 
     const scheme = useColorScheme();
@@ -80,7 +90,7 @@ const Route = () => {
 
   return(
       <PaperProvider theme={theme}>
-      <NavigationContainer theme={theme}>
+      <NavigationContainer theme={theme} linking={linking}>
           <Stack.Navigator initialRouteName="Splash" screenOptions={{headerShown:false,animation:"slide_from_right"}} >
               <Stack.Screen name="Splash" component={Splash} />
               <Stack.Screen name="Login" component={Login} />

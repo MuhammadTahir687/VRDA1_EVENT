@@ -6151,6 +6151,11 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
+"react-native-branch@^5.0.0":
+  "integrity" "sha512-6VInx3bvWOfEJ916zdA1yzJhcjB26N0oMUJInW3reFIijsk6KOjyM46UH3/MixdNUOV/nZn1JoRZM+wpLffDWQ=="
+  "resolved" "https://registry.npmjs.org/react-native-branch/-/react-native-branch-5.0.0.tgz"
+  "version" "5.0.0"
+
 "react-native-calendars@^1.1268.0":
   "integrity" "sha512-aot8/D4zvLUcqOvfo4kZk5IS6gkpT+Ew37Ez035OI8EDx1GDJxkqfO44Nhai1yLnIuvuOfbSIuOD4lJNn8A7hw=="
   "resolved" "https://registry.npmjs.org/react-native-calendars/-/react-native-calendars-1.1268.0.tgz"
@@ -6347,7 +6352,7 @@
     "escape-string-regexp" "2.0.0"
     "invariant" "2.2.4"
 
-"react-native@*", "react-native@^0.0.0-0 || ^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || ^0.65.0 || ^0.66.0 || 1000.0.0", "react-native@>=0.42.0", "react-native@>=0.50.0", "react-native@>=0.55", "react-native@>=0.60.0", "react-native@>=0.63.3", "react-native@>=0.63.4", "react-native@0.66.1":
+"react-native@*", "react-native@^0.0.0-0 || ^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || ^0.65.0 || ^0.66.0 || 1000.0.0", "react-native@>= 0.60", "react-native@>=0.42.0", "react-native@>=0.50.0", "react-native@>=0.55", "react-native@>=0.60.0", "react-native@>=0.63.3", "react-native@>=0.63.4", "react-native@0.66.1":
   "integrity" "sha512-BBvytmqlOLL+bRcO0jBiYfg16lYRsYDOC8/5E+bpnhb3EGtU+YCQAYfszw6JL7Hfy0ftnQNP5yj8pt+vqMHXIA=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.66.1.tgz"
   "version" "0.66.1"

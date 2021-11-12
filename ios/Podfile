@@ -27,6 +27,8 @@ pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
+  pod 'react-native-branch', :path => '../node_modules/react-native-branch'
+
   target 'VRDa1_EventTests' do
     inherit! :complete
     # Pods for testing
