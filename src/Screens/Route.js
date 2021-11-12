@@ -16,6 +16,7 @@ import Profile from "./TabView/Profile";
 import UpdateProfile from "./TabView/UpdateProfile";
 import AllEvent from "./TabView/AllEvents";
 // import linking from "../Linking";
+import {Linking} from 'react-native';
 
 
 const CustomDarkTheme = {
@@ -79,6 +80,7 @@ const config={
 }
     const linking={
         prefixes:['event://'],
+
         config,
     }
 const Route = () => {

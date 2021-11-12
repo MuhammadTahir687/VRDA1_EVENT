@@ -64,7 +64,7 @@ const Register = ({navigation}) => {
                         <Text style={{textAlign:"center",color:colors.registerbtntext}}>Register</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={()=>{navigation.navigate("Signin")}} style={[styles.signinbtn,{backgroundColor:colors.signinbtn,marginBottom:10}]}>
+                    <TouchableOpacity onPress={()=>{navigation.navigate("Signin",{data:"text"})}} style={[styles.signinbtn,{backgroundColor:colors.signinbtn,marginBottom:10}]}>
                         <Text style={{textAlign:"center",color:"orange"}}>Sign In</Text>
                     </TouchableOpacity>
                 </View>

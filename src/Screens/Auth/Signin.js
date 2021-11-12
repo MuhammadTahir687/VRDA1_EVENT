@@ -81,7 +81,7 @@ const Signin = ({navigation,route}) => {
                                secureTextEntry={visible}
                            />
                            <TouchableOpacity onPress={() => {setVisible(!visible),setShow(!show)}}>
-                               <Ionicons name={show === false ? "eye-outline" : "eye-off-outline"} color={colors.greencolor} size={20}/>
+                               <Ionicons name={show === false ? "eye-off-outline" : "eye-outline"} color={colors.greencolor} size={20}/>
                            </TouchableOpacity>
                        </View>
                    </View>

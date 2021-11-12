@@ -10,7 +10,7 @@ const config ={
   }
 }
 const linking ={
-  prefixes:["event://app"],
+  prefixes:["event://"],
     config,
 };
 export default linking
