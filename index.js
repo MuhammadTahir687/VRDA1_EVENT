@@ -15,8 +15,8 @@ PushNotification.configure({
 })
 PushNotification.createChannel(
     {
-        channelId: "reminder", // (required)
-        channelName: "My channel", // (required)
+        channelId: "reminder",
+        channelName: "My channel",
     },
 )
 
