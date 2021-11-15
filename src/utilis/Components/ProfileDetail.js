@@ -15,7 +15,7 @@ const PD = ({icon1,icon2,text1,text2,text3,text4,iconcategory,icon3}) => {
             <View style={styles.pi1container}>
                 {icon1 &&<Ionicons name={icon1} size={21} color="white" style={[styles.pi1icon,{backgroundColor:colors.greencolor}]}/>}
                 <View style={styles.pdview}>
-                    <Text style={styles.pdtext}>{text1}</Text>
+                    <Text style={[styles.pdtext,{color:colors.profilrtext}]}>{text1}</Text>
                     {text2.length>14?
                         <Tooltip
                             backgroundColor="grey"
@@ -26,10 +26,10 @@ const PD = ({icon1,icon2,text1,text2,text3,text4,iconcategory,icon3}) => {
                             withPointer={true}
                             popover={<Text style={{color:"white",textAlign:'center'}}>{text2}</Text>}
                         >
-                            <Text>{text2.slice(0, 14)+"..."}</Text>
+                            <Text style={{color:colors.profilrtext}}>{text2.slice(0, 14)+"..."}</Text>
                         </Tooltip>
                         :
-                        <Text style={styles.pdvalue}>{text2}</Text>
+                        <Text style={[styles.pdvalue,{color:colors.profilrtext}]}>{text2}</Text>
                     }
 
                 </View>
@@ -40,7 +40,7 @@ const PD = ({icon1,icon2,text1,text2,text3,text4,iconcategory,icon3}) => {
                 {icon3 &&<Ionicons name={icon3} size={21} color="white" style={[styles.pi1icon,{backgroundColor:colors.greencolor}]}/>}
 
                 <View style={styles.pdview}>
-                    <Text style={styles.pdtext}>{text3}</Text>
+                    <Text style={[styles.pdtext,{color:colors.profilrtext}]}>{text3}</Text>
                     {text4.length>14?
                         <Tooltip
                             backgroundColor="grey"
@@ -51,10 +51,10 @@ const PD = ({icon1,icon2,text1,text2,text3,text4,iconcategory,icon3}) => {
                             withPointer={true}
                             popover={<Text style={{color:"white",textAlign:'center'}}>{text4}</Text>}
                         >
-                            <Text>{text4.slice(0, 14)+"..."}</Text>
+                            <Text style={{color:colors.profilrtext}}>{text4.slice(0, 14)+"..."}</Text>
                         </Tooltip>
                         :
-                        <Text style={styles.pdvalue}>{text4}</Text>
+                        <Text style={[styles.pdvalue,{color:colors.profilrtext}]}>{text4}</Text>
                     }
                 </View>
             </View>

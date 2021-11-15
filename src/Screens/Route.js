@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer,DarkTheme as NavigationDarkTheme,DefaultTheme as NavigationDefaultTheme} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import { useColorScheme } from 'react-native';
@@ -15,6 +15,8 @@ import QRcode from "./TabView/QRcode";
 import Profile from "./TabView/Profile";
 import UpdateProfile from "./TabView/UpdateProfile";
 import AllEvent from "./TabView/AllEvents";
+import ForgotPassword from "./Auth/ForgotPassword";
+import UpdatePassword from "./Auth/UpdatePassword";
 // import linking from "../Linking";
 import {Linking} from 'react-native';
 
@@ -26,23 +28,37 @@ const CustomDarkTheme = {
     colors: {
         ...NavigationDarkTheme.colors,
         ...PaperDarkTheme.colors,
-        loginbackground: '#070707',
+        loginbackground: '#1CAE81',
         loginbuttonsbg:"#FAFAFA",
         loginborder:"#FAFAFA",
         loginsubbtn:"orange",
-        signinHeader:"#000",
-        signinmain:"#FFA26B",
-        signinfooter:"#FFA26B",
-        signinfootertext:"#FAFAFA",
+        signinHeader:"#FFA26B",
+        signinmain:"#030D0D",
+        signinfooter:"#030D0D",
+        signinfootertext:"#FFA26B",
         signinh1:"#1CAE81",
-        inputbg:"#FAFAFA",
+        inputbg:"#2C2E2D",
         errorcolor:"red",
-        signinbtn:'#fce3d6',
-        registerbtn:'#FAFAFA',
+        signinbtn:'#082D25',
+        registerbtn:'#082D25',
         registerbtntext:"orange",
         text:"#FAFAFA",
         greencolor: '#1CAE81',
-        skincolor:"#FFA26B"
+        skincolor:"#FFA26B",
+
+        inputtext:"#979494",
+        inputinnertext:'#FAFAFA',
+        btninnertext:"#fafafa",
+        fbcolor:"#FAFAFA",
+        fbicon:"#FFA26B",
+        fbborder:"#FAFAFA",
+        gcolor:"#fafafa",
+        fgp:"#FFA26B",
+        tabicon:"#FAFAFA",
+        loginbackground1:"#000",
+        profilebg:"#030D0D",
+        profilrtext:"#fafafa"
+
     },
 };
 
@@ -69,18 +85,42 @@ const CustomDefaultTheme = {
         registerbtntext:"#FAFAFA",
         text:"#FAFAFA",
         greencolor: '#1CAE81',
-        skincolor:"#FFA26B"
+        skincolor:"#FFA26B",
+
+        // inputtext:"#1CAE81",
+        inputinnertext:'#1CAE81',
+        btninnertext:"#FFA26B",
+        fbcolor:"#204d8b",
+        fbbgcolor:"#fce3d6",
+        fbicon:"#fafafa",
+        fbborder:"#fce3d6",
+        gcolor:"#b31717",
+        fgp:"#ea0e0e",
+        tabicon:"#000",
+        loginbackground1:"#1CAE81",
+        profilebg:"#FAFAFA"
+
     },
 };
+
+
+
 const config={
     screens: {
+        UpdatePassword:{
+            path:"upps/:id",
+            parse:{
+                id:(id)=>`${id}`,
+            }
+        },
         Register: 'user',
-        Signin:"sign"
+        Signin:"sign",
+
+
     },
 }
     const linking={
-        prefixes:['event://'],
-
+        prefixes:['https://www.eventapp.com'],
         config,
     }
 const Route = () => {
@@ -89,6 +129,8 @@ const Route = () => {
     const darkTheme=useSelector((state:RootState)=>state.themeReducer.isDarkTheme)
     const theme= darkTheme?CustomDarkTheme:CustomDefaultTheme;
     const Stack = createNativeStackNavigator();
+
+
 
   return(
       <PaperProvider theme={theme}>
@@ -102,6 +144,8 @@ const Route = () => {
               <Stack.Screen name="Event Detail" component={EventDetails}/>
               <Stack.Screen name="QR Code" component={QRcode}/>
               <Stack.Screen name="Update Profile" component={UpdateProfile}/>
+              <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
+              <Stack.Screen name="UpdatePassword" component={UpdatePassword}/>
               <Stack.Screen name="All Events" component={AllEvent}/>
           </Stack.Navigator>
       </NavigationContainer>

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import io.branch.rnbranch.RNBranchPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.zoontek.rnpermissions.RNPermissionsPackage;
@@ -37,6 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           return packages;
         }
+
 
         @Override
         protected String getJSMainModuleName() {

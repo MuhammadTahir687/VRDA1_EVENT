@@ -1,11 +1,56 @@
-import React from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import React, {useState} from "react";
+import {View, Text, SafeAreaView, TouchableOpacity, TextInput, ScrollView} from "react-native";
+import styles from "../../Stylesheet/Style";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Color from "../../utilis/Color";
+import Input from "../../utilis/Components/FormInput";
+import {useTheme} from "@react-navigation/native";
+import RI from "../../utilis/Components/RowInput";
+import ID from "../../utilis/Components/InputDate";
+import {Login_api} from "../../utilis/Api/Api_controller";
+import {save_data} from "../../utilis/AsyncStorage/Controller";
+import Toast from "react-native-simple-toast";
+import HB from "../../utilis/Components/HeaderButton";
 
 
-const ForgotPassword = () => {
+const ForgotPassword = ({navigation}) => {
+    const {colors}=useTheme()
+    const [email,setEmail]=useState('')
+    const [emailvalidation,setEmailvalidation]=useState('')
+
+    const submit=()=>{
+        let regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+        if(email==""){setEmailvalidation("Required*")}
+        else if(regex.test(email)==false){setEmailvalidation("Incorrect Email")}
+        else{
+            navigation.replace("UpdatePassword")
+            alert("Link snd to the Email !!!")
+        }
+    }
   return(
-      <SafeAreaView style={{flex:1}}>
-
+      <SafeAreaView style={{flex:1,backgroundColor:colors.skincolor}}>
+          <HB onPress={()=>{navigation.goBack()}} text1={"Forgot Password"} />
+          <View style={[styles.signinmain1,{backgroundColor:colors.signinmain}]}>
+              <View style={[styles.fpcontainer,{justifyContent:"space-between",flex:1}]}>
+                  <View>
+                      <Text style={{marginVertical:10}}>Email</Text>
+                      <View style={{flexDirection:"row",alignItems:"center",backgroundColor:"#efe8e8",borderRadius:10,paddingHorizontal:10}}>
+                          <Ionicons name="mail" size={20} color={colors.greencolor}/>
+                          <TextInput
+                              style={{flex:1,color:colors.greencolor}}
+                              placeholder="Enter Your Email"
+                              value={email}
+                              onChangeText={(text)=>{setEmail(text)}}
+                          />
+                      </View>
+                      {emailvalidation !='' && <Text style={{color:"red"}}>{emailvalidation}</Text>}
+                  </View>
+                  <TouchableOpacity onPress={()=>{submit()}}  style={[styles.signinbtn,{backgroundColor:colors.registerbtn}]}>
+                      <Text style={{textAlign:"center",color:colors.registerbtntext}}>Send Email</Text>
+                  </TouchableOpacity>
+              </View>
+          </View>
       </SafeAreaView>
   )
 }

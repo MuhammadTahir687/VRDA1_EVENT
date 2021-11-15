@@ -8,12 +8,10 @@ const Cal = () => {
       <Calendar
           // Specify style for calendar container element. Default = {}
           style={{
-              borderWidth: 1,
-              borderColor: 'gray',
-              height: 350,
+              height: 320,
               borderRadius:10,
               marginTop:10,
-              backgroundColor:colors.skincolor
+              // backgroundColor:colors.skincolor
           }}
           // Specify theme properties to override specific styles for calendar parts. Default = {}
           theme={{

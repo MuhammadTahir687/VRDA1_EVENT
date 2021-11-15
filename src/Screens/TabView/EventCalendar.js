@@ -20,7 +20,6 @@ const EventCalendar = () => {
     const response =async() => {
         const response= await get_request('/api/get-all-events');
         setEvent(response.data)
-        console.log("===========",event)
     }
     const date = () => {
         var a = new Date().getDate();
@@ -39,9 +38,11 @@ const EventCalendar = () => {
 
               <Text style={[styles.calendarh,{color:"orange"}]}>Calendar</Text>
               <Cal/>
-              <View style={{borderWidth:5,borderColor:colors.skincolor,borderRadius:10,marginVertical:10}}>
+              <View style={{borderWidth:0,borderColor:colors.skincolor,borderRadius:10,marginVertical:10,}}>
                  <Timeline
-                      format24h={true}
+
+                     style={{borderWidth:5,borderRadius:10}}
+                     format24h={true}
                       events={EVENTS.filter(event => moment(event.start).isSame(Date.now(), 'day'))}
                   />
               </View>

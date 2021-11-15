@@ -9,13 +9,15 @@ const ID = ({ text1, text2,validation1,validation2,placeholder1,placeholder2,onC
     const {colors}=useTheme();
     return (
         <View style={styles.rowinputcontainer}>
+
             <View style={styles.signininputcontainer}>
-                <Text>{text1}</Text>
-                <View style={{flex:1,flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:"#efe8e8",paddingHorizontal:5,borderRadius:10,marginRight:2}} >
-                    <Ionicons name={iconname1} size={20} color={colors.greencolor} />
+                <Text style={{color:colors.inputtext}}>{text1}</Text>
+                <View style={{flex:1,flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:colors.inputbg,paddingHorizontal:5,borderRadius:10,marginRight:2}} >
+                    <Ionicons name={iconname1} size={20} color={colors.inputinnertext} />
                     <TextInput
-                        style={[styles.signininput,{flex:1,color:colors.greencolor}]}
+                        style={[styles.signininput,{flex:1,color:colors.inputinnertext}]}
                         placeholder={placeholder1}
+                        placeholderTextColor={colors.inputtext}
                         secureTextEntry={securetextentry1}
                         onChangeText={onChangeText1}
                         keyboardType={keyboardtype1}
@@ -25,9 +27,9 @@ const ID = ({ text1, text2,validation1,validation2,placeholder1,placeholder2,onC
                 {validation1 !='' && <Text style={{color:"red"}}>{validation1}</Text> }
             </View>
             <View style={styles.signininputcontainer}>
-                <Text style={{marginLeft:5}}>{text2}</Text>
-                <View style={{flex:1,flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:"#efe8e8",paddingHorizontal:5,borderRadius:10,marginLeft:2.5}} >
-                    <Ionicons name={iconname2} size={20} color={colors.greencolor} style={{paddingLeft:10,paddingRight:5}}/>
+                <Text style={{marginLeft:5,color:colors.inputtext}}>{text2}</Text>
+                <View style={{flex:1,flexDirection:"row",alignItems:"center",justifyContent:"flex-start",backgroundColor:colors.inputbg,borderRadius:10,marginLeft:2.5,}} >
+                    <Ionicons name={iconname2} size={20} color={colors.inputinnertext} style={{paddingLeft:6,paddingRight:5}}/>
                     <DatePicker
                         // style={{width:"100%"}}
                         date={date}
@@ -37,9 +39,9 @@ const ID = ({ text1, text2,validation1,validation2,placeholder1,placeholder2,onC
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         customStyles={{
-                            dateText:{color:colors.greencolor},
+                            dateText:{color:colors.inputinnertext},
                             dateInput: { alignItems: "flex-start",borderColor:"#000",borderWidth:0 },
-                            placeholderText: {color: "rgba(113,110,110,0.74)"},
+                            placeholderText: {color:colors.inputtext},
                         }}
                         onDateChange={datechange}
                     />

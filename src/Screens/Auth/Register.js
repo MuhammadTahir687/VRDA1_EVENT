@@ -29,11 +29,17 @@ const Register = ({navigation}) => {
     const [countryvalidation,setCountryvalidation]=useState('');
     const [date,setDate]=useState('');
     const [datevalidation,setDatevalidation]=useState('');
+    const [name,setName]=useState('');
+    const [namevalidation,setNamevalidation]=useState('');
+    const [nationality,setNationality]=useState('');
+    const [nationalityvalidation,setNationalityvalidation]=useState('');
 
     const submit =async () => {
         let regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
         if(email==""){setEmailvalidation("Required*")}
         else if(regex.test(email)==false){setEmailvalidation("Incorrect Email")}
+        else if(name==''){setNamevalidation('Required*')}
+        else if(cnic==''){setCnicvalidation("Required*")}
         else if(password==""){setPasswordvalidation("Required*")}
         else if (password.length<6){setPasswordvalidation("Password must be atleast 6 alphabet")}
         else if (confirmpassword==''){setConfirmpasswordvalidation("Required*")}
@@ -41,8 +47,8 @@ const Register = ({navigation}) => {
         else if (phone==''){setPhonevalidation("Required*")}
         else if (phone.length<7){setPhonevalidation("Phone must be atleast 7 digit")}
         else if(date==''){setDatevalidation("Required*")}
-        else if(cnic==''){setCnicvalidation("Required*")}
         else if(country==''){setCountryvalidation("Required*")}
+        else if(nationality==''){setNationalityvalidation("Required*")}
         else{alert("Hello")}
         }
 
@@ -56,9 +62,10 @@ const Register = ({navigation}) => {
 
                     <Input  text1={'Username or Email'} text2={"Enter Your Username or Email"} value1={email} iconname1={"mail"}  onChangeText1={(text)=>{setEmail(text),setEmailvalidation('')}} />
                     {emailvalidation !='' && <Text style={{color:"red"}}>{emailvalidation}</Text>}
+                    <RI text1={"Name"} text2={"CNIC"} validation1={namevalidation} validation2={cnicvalidation} value1={name} value2={cnic} placeholder1={"Enter Your Name"} placeholder2={"Enter Your CNIC"} iconname1={"person"} iconname2={"card"}  securetextentry1={false} securetextentry2={false} keyboardtype2={"numeric"} onChangeText1={(text)=>{setName(text),setNamevalidation('')}} onChangeText2={(text)=>{setCnic(text),setCnicvalidation('')}} />
                     <RI text1={"Password"} text2={"Confirm Password"} validation1={passwordvalidation} validation2={confirmpasswordvalidation} value1={password} value2={confirmpassword} placeholder1={"Enter Your Password"} placeholder2={"Enter Your Password"} iconname1={"lock-closed"} iconname2={"lock-closed"}  securetextentry1={true} securetextentry2={true} onChangeText1={(text)=>{setPassword(text),setPasswordvalidation('')}} onChangeText2={(text)=>{setConfirmpassword(text),setConfirmpasswordvalidation('')}} />
                     <ID text1={"Phone"} text2={"D.O.B"} validation1={phonevalidation} validation2={datevalidation} value1={phone} keyboardtype1={"numeric"}  placeholder1={"Enter Your Phone"} date={date} datechange={(date)=>{setDate(date),setDatevalidation('')}} iconname1={"call"} iconname2={"calendar"}  onChangeText1={(text)=>{setPhone(text),setPhonevalidation('')}}/>
-                    <RI text1={"CNIC"} text2={"Country"} validation1={cnicvalidation} validation2={countryvalidation} value1={cnic} value2={country}  placeholder1={"Enter Your CNIC"} placeholder2={"Enter Your Country"} iconname1={"card"} iconname2={"earth"} keyboardtype1={"numeric"} onChangeText1={(text)=>{setCnic(text),setCnicvalidation('')}} onChangeText2={(text)=>{setCountry(text),setCountryvalidation('')}}/>
+                    <RI text1={"Country"} text2={"Nationality"} validation1={countryvalidation} validation2={nationalityvalidation} value1={country} value2={nationality}  placeholder1={"Enter Your Country"} placeholder2={"Enter Your Nationality"} iconname1={"earth"} iconname2={"earth"}  onChangeText1={(text)=>{setCountry(text),setCountryvalidation('')}} onChangeText2={(text)=>{setNationality(text),setNationalityvalidation('')}}/>
 
                     <TouchableOpacity onPress={()=>{submit()}} style={[styles.signinbtn,{backgroundColor:colors.registerbtn}]}>
                         <Text style={{textAlign:"center",color:colors.registerbtntext}}>Register</Text>

@@ -11,8 +11,8 @@ const GoogleBtn = ({ text1,onPress }) => {
     const {colors}=useTheme();
     return (
         <TouchableOpacity onPress={onPress} style={styles.sociallogincontainer}>
-            <FontAwesome name="google" color="white" size={20} style={[styles.sociallogingicon,{backgroundColor:"#bd2323"}]}/>
-            <Text style={[styles.socialloginfbtext,{backgroundColor:'#fce3d6'}]}>{text1}</Text>
+            <FontAwesome name="google" color={colors.fbicon}  size={20} style={[styles.sociallogingicon,{backgroundColor:colors.gcolor}]}/>
+            <Text style={[styles.socialloginfbtext,{backgroundColor:colors.fbbgcolor,color:colors.btninnertext,borderWidth:1,borderColor:colors.fbborder}]}>{text1}</Text>
         </TouchableOpacity>
     )
 }

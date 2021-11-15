@@ -12,6 +12,7 @@ import {get_request} from "../../utilis/Api/Requests";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import Moment from "moment";
 import Btn from "../../utilis/Components/Button";
+import PushNotification from "react-native-push-notification";
 
 const Home=({navigation})=>{
     const {colors}=useTheme();
@@ -29,6 +30,14 @@ const Home=({navigation})=>{
          setShow(true)
     }
     Moment.locale('en');
+
+    const handlenotification = () => {
+      PushNotification.localNotification({
+          channelId: "reminder",
+          title:"Notifications",
+          message:"jhkdfhgkdfjgkdfjiljvifdiznbn"
+      })
+    }
     return(
         <SafeAreaView style={{flex:1}}>
             <ScrollView>
@@ -41,7 +50,7 @@ const Home=({navigation})=>{
                         <Ionicons name="menu" color="white" size={30}/>
                     </TouchableOpacity>
                     <View style={styles.homerighticoncontainer}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{handlenotification()}}>
                             <FontAwesome name="bell" color="white" size={18} style={[styles.righticon,{backgroundColor:colors.signinHeader}]} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={()=>{navigation.navigate('QR Code',{data:eventdata})}}>
@@ -87,7 +96,7 @@ const Home=({navigation})=>{
             <View style={styles.homemain1}>
                 <Text style={[styles.homemainh1,{color:colors.loginbackground}]}>Upcomming Event</Text>
                 <TouchableOpacity onPress={()=>{navigation.navigate("All Events")}} style={styles.seeallcontainer}>
-                    <Text>See All</Text>
+                    <Text style={{color:"#938d8d"}}>See All</Text>
                     <AntDesign name="right"/>
                 </TouchableOpacity>
             </View>
@@ -95,7 +104,9 @@ const Home=({navigation})=>{
             <FlatList data={eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase()))}
                       horizontal={true}
                       renderItem={({ item, index }) => (
-                          <TouchableOpacity onPress={()=>{navigation.navigate("Event Detail",{ data:item})}} style={[styles.eventcard,{borderColor:colors.loginbackground}]}>
+                          <TouchableOpacity
+                              onPress={()=>{navigation.navigate("Event Detail",{ data:item})}}
+                              style={[styles.eventcard,{borderColor:colors.loginbackground,backgroundColor:"white"}]}>
                           <Image source={{uri:item.image}} style={styles.eventimage}/>
                               {item.title.length>21?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,21)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
                               {item.short_description.length>21?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}

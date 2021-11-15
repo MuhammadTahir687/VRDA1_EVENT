@@ -24,21 +24,22 @@ export default StyleSheet.create({
 
     signinheader:{height:devicehieght/5,justifyContent:"center",marginLeft:10},
     signinmain:{flex:1,borderTopLeftRadius:20,borderTopRightRadius:20},
+    signinmain1:{flex:1,borderTopLeftRadius:20,borderTopRightRadius:20},
     signinheadertext:{fontWeight:"bold",fontSize:20},
     signinheadericon:{marginBottom:10},
     signinmainh1:{fontWeight:"bold",fontSize:23,marginTop:20},
     signinmaincontainer:{marginHorizontal:10},
 
     signininputcontainer:{flex:1,marginTop:10},
-    signininput:{borderRadius:10},
+    signininput:{borderRadius:10,fontSize:13},
     signinfp:{marginVertical:10},
     signinbtn:{paddingVertical:10,borderRadius:10,marginTop:10},
     rowinputcontainer:{flex:1,flexDirection:"row"},
 
-    sociallogincontainer:{flexDirection:"row",alignItems:'center',justifyContent:"space-between",marginHorizontal:10,marginTop:10,borderRadius:5},
+    sociallogincontainer:{flexDirection:"row",alignItems:'center',justifyContent:"space-between",marginHorizontal:10,marginTop:10,borderRadius:5,},
     socialloginfbicon:{alignSelf:"flex-start",paddingVertical:9.7,paddingHorizontal:12,borderTopLeftRadius:10,borderBottomLeftRadius:10},
     sociallogingicon:{alignSelf:"flex-start",padding:9.7,borderTopLeftRadius:10,borderBottomLeftRadius:10},
-    socialloginfbtext:{flex:1,textAlign:'center',padding:10,color:"orange",borderTopRightRadius:10,borderBottomRightRadius:10},
+    socialloginfbtext:{flex:1,textAlign:'center',padding:9.5,borderTopRightRadius:10,borderBottomRightRadius:10},
 
     homeheader:{height:devicehieght/4.5 ,borderBottomRightRadius:80,borderBottomLeftRadius:80},
     homeheaderh1:{textAlign:"center",marginTop:10,fontSize:10},
@@ -110,7 +111,8 @@ export default StyleSheet.create({
     alleventbtntext:{fontWeight:"bold"},
 
     calendarcontainer:{marginHorizontal:10},
-    calendarh:{fontWeight:"bold",fontSize:20,marginTop:10}
+    calendarh:{fontWeight:"bold",fontSize:20,marginTop:10},
+    fpcontainer:{marginHorizontal:10,marginVertical:10}
 
 
 

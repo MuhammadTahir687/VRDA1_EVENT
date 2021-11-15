@@ -1,20 +1,35 @@
-import React from "react";
-import {View, Text, SafeAreaView, TouchableOpacity, Image} from "react-native";
+import React, {useEffect} from "react";
+import {View, Text, SafeAreaView, TouchableOpacity, Image, Linking} from "react-native";
 import styles from "../../Stylesheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Color from "../../utilis/Color";
 import {useTheme} from "@react-navigation/native";
 import {useDispatch,useSelector} from 'react-redux';
-import {setIsDarkTheme,} from "../../Store/MainSlice";
+import {setIsDarkTheme} from "../../Store/MainSlice";
 
 
 const Login = ({navigation}) => {
+
     const dispatch=useDispatch();
     const isDarkTheme=useSelector((state:RootState)=>state.themeReducer.isDarkTheme);
     const {colors}=useTheme();
+
+    useEffect(()=>{getInitialURL()},[])
+
+    const getInitialURL=async()=> {
+        const url = await Linking.getInitialURL();
+        if (url != null) {
+            // console.log("==========================",url)
+            navigation.navigate("UpdatePassword")
+            return url;
+        }
+        else{
+
+        }
+    }
   return(
-     <SafeAreaView style={{flex:1,backgroundColor:colors.loginbackground}}>
+     <SafeAreaView style={{flex:1,backgroundColor:colors.loginbackground1}}>
          <View style={{flex:1,justifyContent:"center"}}>
              <Image source={require('../../Assets/calendar.png')} style={styles.loginimage}/>
          </View>

@@ -53,24 +53,24 @@ const Profile = ({navigation}) => {
                     <FontAwesome name="edit" color="white" size={20}/>
                 </View>
 
-                    <View style={[styles.profileavatar,{backgroundColor:"white"}]}>
+                    <View style={[styles.profileavatar,{backgroundColor:colors.profilebg}]}>
                         <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} containerStyle={{backgroundColor:colors.skincolor}}/>
                         <View style={styles.avatartext}>
                             <Text style={[styles.avatarname,{color:colors.skincolor}]}>{email}</Text>
                             <Text style={[styles.avatarname,{color:colors.skincolor}]}>{name}</Text>
-                            <Text>{role}</Text>
+                            <Text style={{color:colors.profilrtext}}>{role}</Text>
                         </View>
                     </View>
 
-                <View style={[styles.profiledetailsection,{backgroundColor:"white"}]}>
+                <View style={[styles.profiledetailsection,{backgroundColor:colors.profilebg}]}>
                     <Text style={[{fontSize:18,fontWeight:"bold" ,color:colors.skincolor}]}>Detail</Text>
                     <PD icon1={"call"} icon2={"calendar"} text1={'Phone'} text2={phone?phone:""} text3={"D.O.B"} text4={dob}/>
                     <PD icon1={"earth"} icon2={"location"} text1={'Country'} text2={country?country:""} text3={"City"} text4={city}/>
                     <PD icon1={"location"}  icon2={"user"} text1={'Address'} text2={address?address:""} text3={"CNIC"} text4={cnic}/>
                     <PD icon1={"business"}   text1={'Nationality'} text2={nationality?nationality:""} text4={""} />
 
-                    {role!=''&& role=="user" ? <TouchableOpacity onPress={()=>{navigation.navigate("Update Profile")}} style={[styles.updateprofilebtn,{backgroundColor:colors.skincolor}]}>
-                         <Text style={{textAlign:"center",color:colors.text}}>Update Detail</Text>
+                    {role!=''&& role=="user" ? <TouchableOpacity onPress={()=>{navigation.navigate("Update Profile")}} style={[styles.updateprofilebtn,{backgroundColor:colors.registerbtn}]}>
+                         <Text style={{textAlign:"center",color:colors.registerbtntext}}>Update Detail</Text>
                     </TouchableOpacity>:<View></View>}
                 </View>
 

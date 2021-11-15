@@ -6,9 +6,11 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./Home";
 import Profile from "./Profile";
 import EventCalendar from "./EventCalendar";
+import {useTheme} from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 export default function AppTab() {
+    const {colors}=useTheme()
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -20,7 +22,7 @@ export default function AppTab() {
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
                 headerShown:false,
-                tabBarActiveTintColor: 'black',
+                tabBarActiveTintColor: colors.tabicon,
                 tabBarInactiveTintColor: '#797777',
                 tabBarStyle:{paddingBottom:5}
             })}>

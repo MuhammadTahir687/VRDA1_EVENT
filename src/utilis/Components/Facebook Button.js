@@ -10,9 +10,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 const FacebookBtn = ({ text1,onPress }) => {
     const {colors}=useTheme();
     return (
-        <TouchableOpacity onPress={onPress} style={styles.sociallogincontainer}>
-            <FontAwesome name="facebook" color="white" size={20} style={[styles.socialloginfbicon,{backgroundColor:"#204d8b"}]}/>
-            <Text style={[styles.socialloginfbtext,{backgroundColor:'#fce3d6'}]}>{text1}</Text>
+        <TouchableOpacity onPress={onPress} style={[styles.sociallogincontainer,]}>
+            <FontAwesome name="facebook" color={colors.fbicon} size={20} style={[styles.socialloginfbicon,{backgroundColor:colors.fbcolor}]}/>
+            <Text style={[styles.socialloginfbtext,{backgroundColor:colors.fbbgcolor,color:colors.btninnertext,borderWidth:1,borderColor:colors.fbborder}]}>{text1}</Text>
         </TouchableOpacity>
     )
 }

@@ -97,7 +97,7 @@ const AllEvent = () => {
             {eventdata!=null && <FlatList data={eventdata.filter(item => item.title.toUpperCase().includes(search.toUpperCase()))}
                       keyExtractor={(item,index)=>index.toString()}
                       renderItem={({ item, index }) => (
-                          <TouchableOpacity  style={[styles.eventcard1,{borderColor:colors.loginbackground}]}>
+                          <TouchableOpacity  style={[styles.eventcard1,{borderColor:colors.loginbackground,backgroundColor:"white"}]}>
                               <Image source={{uri:item.image}} style={styles.eventimage}/>
                               {item.title.length>21?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,21)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
                               {item.short_description.length>20?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
