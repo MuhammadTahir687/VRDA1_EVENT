@@ -4,6 +4,7 @@ import Route from './src/Screens/Route'
 import {Provider} from "react-redux";
 import {store} from "./src/Store/Store";
 import linking from "./src/Linking";
+import {ToastProvider} from "react-native-styled-toast";
 
 
 const App=()=>{
@@ -18,7 +19,9 @@ const App=()=>{
     // }
     return(
         <Provider store={store}>
+            <ToastProvider  maxToasts={1} offset={16} position="BOTTOM">
         <Route/>
+            </ToastProvider>
         </Provider>
     )
 }

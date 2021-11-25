@@ -12,9 +12,9 @@ const DI = ({icon1,icon2,text1,text2,value1,value2,keyboardtype1,editable1,onCha
           <View style={{flex:1,flexDirection:"row",alignItems:"center"}}>
               <Ionicons name={icon1} size={21} color="white" style={{paddingVertical:6,paddingHorizontal:7,borderRadius:10,backgroundColor:colors.greencolor}}/>
               <View style={{flex:1,marginLeft:10}}>
-                  <Text style={{flex:1,fontSize:15,fontWeight:"bold"}}>{text1}</Text>
+                  <Text style={{flex:1,fontSize:15,fontWeight:"bold",color:colors.profilrtext}}>{text1}</Text>
                   <TextInput
-                      style={styles.avatarinput}
+                      style={[styles.avatarinput,{color:colors.profilrtext,borderColor:colors.profilrtext}]}
                       placeholder={placeholder1}
                       onChangeText={onChangeText1}
                       onBlur={onBlur1}
@@ -27,7 +27,7 @@ const DI = ({icon1,icon2,text1,text2,value1,value2,keyboardtype1,editable1,onCha
           <View style={{flex:1,flexDirection:"row",alignItems:"center"}}>
               <Ionicons name={icon2} size={21} color="white" style={{paddingVertical:6,paddingHorizontal:7,borderRadius:10,backgroundColor:colors.greencolor}}/>
               <View style={{flex:1,marginLeft:10}}>
-                  <Text style={{flex:1,fontSize:15,fontWeight:"bold"}}>Date</Text>
+                  <Text style={{flex:1,fontSize:15,fontWeight:"bold",color:colors.profilrtext}}>Date</Text>
                   {/*<View style={{flex:1,borderBottomWidth:1}}>*/}
                       <DatePicker
                           style={{width:"100%"}}
@@ -38,8 +38,8 @@ const DI = ({icon1,icon2,text1,text2,value1,value2,keyboardtype1,editable1,onCha
                           confirmBtnText="Confirm"
                           cancelBtnText="Cancel"
                           customStyles={{
-                          //     dateText: {  textAlign: "left", },
-                              dateInput: {  alignItems: "flex-start",borderBottomWidth:1,borderColor:"#000",borderWidth:0 }
+                              dateText: {  textAlign: "left", color:colors.profildatetext},
+                              dateInput: {  alignItems: "flex-start",borderBottomWidth:1,borderColor:colors.profildatetext,borderWidth:0 }
                           }}
                           onDateChange={datechange}
                       />

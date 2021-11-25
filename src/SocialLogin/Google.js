@@ -6,9 +6,12 @@ GoogleSignin.configure({
     webClientId: "984454279540-oh58il91glqj66jbb5hscsiu9ibfbs3i.apps.googleusercontent.com",
 });
 export default async function Google(){
+
     // GoogleSignin.signOut();
     // auth().signOut();
+    // GoogleSignin.revokeAccess();
+    // console.log("========================log out")
     const { idToken } = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    return auth().signInWithCredential(googleCredential);
+    return auth().signInWithCredential(googleCredential,type="gmail");
 }

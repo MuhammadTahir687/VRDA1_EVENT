@@ -6,20 +6,20 @@ const devicewidth=Dimensions.get("window").width;
 
 
 export default StyleSheet.create({
-    loginhcontainer:{flex:1,marginHorizontal:10},
-    welcome:{fontWeight:"bold",fontSize:23},
-    loginh2:{fontSize:16,marginTop:20},
-    loginh3:{fontWeight:"bold",fontSize:20},
-    logincontainer3:{flex:1,marginHorizontal:10},
-    loginbtncontainer1:{paddingHorizontal:10,paddingVertical:5,borderRadius:5,marginBottom:10},
-    loginbtntext:{fontSize:18},
-    loginbtncontainer2:{borderWidth:1,paddingHorizontal:10,paddingVertical:5,borderRadius:5},
-    loginbtntext2:{fontSize:18},
+    loginhcontainer:{flex:1,marginHorizontal:20,marginTop:20},
+    welcome:{fontWeight:"bold",fontSize:35},
+    loginh2:{fontSize:20,marginTop:20},
+    loginh3:{fontWeight:"bold",fontSize:25},
+    logincontainer3:{flex:1,marginHorizontal:10,marginBottom:5},
+    loginbtncontainer1:{paddingHorizontal:10,paddingVertical:10,borderRadius:15,marginBottom:20},
+    loginbtntext:{fontSize:15,textAlign:"center"},
+    loginbtncontainer2:{borderWidth:1,paddingHorizontal:10,paddingVertical:10,borderRadius:15},
+    loginbtntext2:{fontSize:15,textAlign:"center"},
     loginq:{textAlign:"center",marginVertical:10},
     loginq1:{textAlign:"center",marginVertical:10},
     loginqbtn:{fontWeight:"bold"},
     loginqcontainer:{flexDirection:"row",alignItems:"center",justifyContent:'center'},
-    loginimage:{resizeMode:"contain",width:150,height:150,marginHorizontal:10},
+    loginimage:{width:153,height:120,marginHorizontal:20},
     signinqcontainer:{flexDirection:"row",alignItems:"center",justifyContent:'center'},
 
     signinheader:{height:devicehieght/5,justifyContent:"center",marginLeft:10},
@@ -32,7 +32,7 @@ export default StyleSheet.create({
 
     signininputcontainer:{flex:1,marginTop:10},
     signininput:{borderRadius:10,fontSize:13},
-    signinfp:{marginVertical:10},
+    signinfp:{marginVertical:10,textAlign:"right"},
     signinbtn:{paddingVertical:10,borderRadius:10,marginTop:10},
     rowinputcontainer:{flex:1,flexDirection:"row"},
 
@@ -65,15 +65,17 @@ export default StyleSheet.create({
     cardbtnicon:{marginLeft:10},
     cardimg:{flex:0.7,height:180,alignSelf:"flex-end",top:10,},
 
-    eventimage:{width:190,height:140,borderTopRightRadius:20,borderTopLeftRadius:20,},
-    eventcard:{flex:1,marginHorizontal:10,borderRadius:20,borderWidth:2,marginVertical:10},
-    eventcard1:{flex:1,alignSelf:"center",borderRadius:20,borderWidth:2,marginVertical:10},
+    eventimage:{width:devicewidth/2.36,height:140,borderTopRightRadius:20,borderTopLeftRadius:20,},
+    eventimage1:{height:140,borderTopRightRadius:20,borderTopLeftRadius:20,},
+    eventcard:{flex:1,marginHorizontal:10,borderRadius:20,borderWidth:2,marginVertical:10,width:devicewidth/2.3},
+    eventcard1:{flex:1,marginHorizontal:40,borderRadius:20,borderWidth:1,marginVertical:10},
     eventtitle:{flex:1,fontWeight:"bold",paddingHorizontal:10,flexWrap:"wrap",fontSize:16},
     eventshortdescription:{flex:1,marginHorizontal:10,textAlign:"justify"},
     eventlocation:{flex:1,flexDirection:"row",alignItems:"center",marginHorizontal:10},
     eventtime:{marginHorizontal:5},
 
-    eventdate:{bottom:181,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
+    eventdate:{bottom:219,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
+    eventdate1:{bottom:219,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
     eventdetailheader:{height:devicehieght/4.5,width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20},
     eventdetailtitile:{fontSize:20,fontWeight:"bold",marginHorizontal:10},
     dateicon:{padding:7,borderRadius:5,marginTop:10},
@@ -84,15 +86,15 @@ export default StyleSheet.create({
     eventavatar:{flexDirection:"row",marginHorizontal:10,marginTop:30,alignItems:"center"},
     profileavatar:{flexDirection:"row",marginTop:10,alignItems:"center",padding:10,borderRadius:10},
     avatartext:{flex:1,marginHorizontal:10},
-    qrcontainer:{flex:1,justifyContent:"center",alignItems:"center"},
+    qrcontainer:{},
     qravatar:{alignItems:"center",justifyContent:"center",marginTop:20},
-    qrusername:{borderRadius:50,fontWeight:"bold",fontSize:15,paddingHorizontal:10,paddingVertical:5,borderWidth:1,top:10,zIndex:1},
+    qrusername:{borderRadius:10,fontWeight:"bold",fontSize:15},
     profilebg:{flex:1},
     profileheader:{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginHorizontal:20},
     profilecontainer:{margin:10,flex:1},
     profileheadertext:{fontSize:18},
     profiledetailsection:{borderRadius:10,marginTop:10,paddingHorizontal:10,flex:6,justifyContent:"space-between",paddingVertical:15},
-    updateprofilebtn:{marginTop:10,padding:10,borderRadius:10},
+    updateprofilebtn:{padding:10,borderRadius:10},
     avatarname:{fontSize:18,fontWeight:"bold" },
 
     avatarinput:{flex:1,borderBottomWidth:1,height:35},
@@ -106,13 +108,31 @@ export default StyleSheet.create({
     pdvalue:{fontSize:12},
 
     alleventheader:{height:devicehieght/4.5,width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20,},
+    alleventheader1:{height:devicehieght/6,width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20,},
     alleventbtncontainer:{flexDirection:"row",alignSelf:"center",marginTop:10,bottom:30},
     alleventbtn:{alignSelf:"center",paddingHorizontal:15,paddingVertical:10,borderRadius:50},
     alleventbtntext:{fontWeight:"bold"},
 
     calendarcontainer:{marginHorizontal:10},
     calendarh:{fontWeight:"bold",fontSize:20,marginTop:10},
-    fpcontainer:{marginHorizontal:10,marginVertical:10}
+    fpcontainer:{marginHorizontal:10,marginVertical:10},
+
+    registerimagecontainer:{flexDirection:"row",alignItems:"center",marginTop:10},
+    registerimagename:{flex:1,borderBottomWidth:1,flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginRight:10,paddingVertical:5},
+
+
+    shopmodal:{flex:1,backgroundColor: "white", alignSelf: "center", width: 300, borderRadius: 10},
+    modalcrossicon:{ justifyContent: "flex-end", flexDirection: "row", marginVertical: 10, marginRight: 20},
+    crossicon:{backgroundColor: "gray", borderRadius: 50},
+    modalcontentcontainer:{flex: 1,marginHorizontal:10},
+    modaltexth:{fontWeight: "normal"},
+
+    vrda1loginimage:{width:100,height:100,resizeMode:"contain",alignSelf:"center",marginTop:10},
+    loginbtntext1:{textAlign:"center"},
+    loginbtn:{padding:15,marginTop:10,borderRadius:50,elevation:5},
+    loginor:{textAlign:"center",marginTop:10},
+    loginicon:{borderRadius:50,marginHorizontal:10,paddingHorizontal:10,paddingVertical:10}
+
 
 
 

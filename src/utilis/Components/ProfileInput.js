@@ -14,9 +14,9 @@ const PI = ({icon1,icon2,value1,value2,editable1,editable2,keyboardtype1,keyboar
             <View style={styles.pi1container}>
                 <Ionicons name={icon1} size={21} color="white" style={[styles.pi1icon,{backgroundColor:colors.greencolor}]}/>
                 <View style={styles.p1textview}>
-                    <Text style={styles.pi1text}>{text1}</Text>
+                    <Text style={[styles.pi1text,{color:colors.profilrtext}]}>{text1}</Text>
                      <TextInput
-                        style={styles.avatarinput}
+                        style={[styles.avatarinput,{color:colors.profilrtext,borderColor:colors.profilrtext}]}
                         placeholder={placeholder1}
                         onChangeText={onChangeText1}
                         onBlur={onBlur1}
@@ -30,9 +30,9 @@ const PI = ({icon1,icon2,value1,value2,editable1,editable2,keyboardtype1,keyboar
                 {icon2 && <Entypo name={icon2} size={21} color="white" style={[styles.pi1icon,{backgroundColor:colors.greencolor}]}/>}
                 {icon3 && <Ionicons name={icon3} size={21} color="white"style={[styles.pi1icon,{backgroundColor:colors.greencolor}]}/>}
                 <View style={styles.p1textview}>
-                    <Text style={styles.pi1text}>{text2}</Text>
+                    <Text style={[styles.pi1text,{color:colors.profilrtext}]}>{text2}</Text>
                     <TextInput
-                        style={styles.avatarinput}
+                        style={[styles.avatarinput,{color:colors.profilrtext,borderColor:colors.profilrtext}]}
                         placeholder={placeholder2}
                         onChangeText={onChangeText2}
                         onBlur={onBlur2}

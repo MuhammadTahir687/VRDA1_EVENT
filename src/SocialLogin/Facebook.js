@@ -20,7 +20,7 @@ export default async function onFacebookButtonPress() {
     const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
 
     // Sign-in the user with the credential
-    return auth().signInWithCredential(facebookCredential);
+    return auth().signInWithCredential(facebookCredential,type="facebook");
 
 
 }

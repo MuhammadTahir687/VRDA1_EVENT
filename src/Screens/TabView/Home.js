@@ -13,6 +13,7 @@ import Fontisto from "react-native-vector-icons/Fontisto";
 import Moment from "moment";
 import Btn from "../../utilis/Components/Button";
 import PushNotification from "react-native-push-notification";
+import ModalView from '../../utilis/Components/Modal'
 
 const Home=({navigation})=>{
     const {colors}=useTheme();
@@ -20,6 +21,7 @@ const Home=({navigation})=>{
     const [search,setSearch]=useState('');
     const [show,setShow]=useState(false)
     const [icon,setIcon]=useState(false)
+    const [isModalVisible, setModalVisible] = useState(false);
 
 
     useEffect(()=>{  response()},[])
@@ -29,7 +31,7 @@ const Home=({navigation})=>{
       setEventdata(response.data)
          setShow(true)
     }
-    Moment.locale('en');
+    // Moment.locale('en');
 
     const handlenotification = () => {
       PushNotification.localNotification({
@@ -50,19 +52,19 @@ const Home=({navigation})=>{
                         <Ionicons name="menu" color="white" size={30}/>
                     </TouchableOpacity>
                     <View style={styles.homerighticoncontainer}>
-                        <TouchableOpacity onPress={()=>{handlenotification()}}>
+                        <TouchableOpacity onPress={()=>{handlenotification(),setModalVisible(true)}}>
                             <FontAwesome name="bell" color="white" size={18} style={[styles.righticon,{backgroundColor:colors.signinHeader}]} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>{navigation.navigate('QR Code',{data:eventdata})}}>
-                            <MaterialCommunityIcons name="qrcode-scan" color="white" size={20}/>
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity onPress={()=>{navigation.navigate('QR Code',{data:eventdata})}}>*/}
+                        {/*    <MaterialCommunityIcons name="qrcode-scan" color="white" size={20}/>*/}
+                        {/*</TouchableOpacity>*/}
                     </View>
                 </View>
                 </View>
 
                 <View style={styles.searchcontainer}>
                     <View style={styles.searchleftcontainer}>
-                        <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={["rgba(12,12,12,0.4)", "#1CAE81"]} style={{backgroundColor:"rgba(12,12,12,0.4)",flexDirection:"row",borderBottomLeftRadius:50,borderTopLeftRadius:50,flex:1}}>
+                        <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={["rgba(12,12,12,0.4)", "#1CAE81"]} style={{backgroundColor:"rgba(12,12,12,0.91)",flexDirection:"row",borderRadius:50,flex:1}}>
                         <FontAwesome name="search" color={colors.loginbackground} size={18} style={[styles.homesearchicon,{backgroundColor:'rgba(12,12,12,0.4)',borderWidth:2,borderColor:colors.loginbackground}]}/>
                           <TextInput
                             style={[styles.homesearchinput]}
@@ -73,23 +75,23 @@ const Home=({navigation})=>{
                         </LinearGradient>
 
                     </View>
-                    <TouchableOpacity onPress={()=>{setIcon(!icon)}} style={[styles.filtercontainer,{backgroundColor:"rgba(12,12,12,0.58)"}]}>
-                        <Ionicons name="filter" color="white" size={20}/>
-                        <Text style={{color:"white",marginHorizontal:5}}>Filter</Text>
-                    </TouchableOpacity>
+            {/*        <TouchableOpacity onPress={()=>{setIcon(!icon)}} style={[styles.filtercontainer,{backgroundColor:"rgba(12,12,12,0.58)"}]}>*/}
+            {/*            <Ionicons name="filter" color="white" size={20}/>*/}
+            {/*            <Text style={{color:"white",marginHorizontal:5}}>Filter</Text>*/}
+            {/*        </TouchableOpacity>*/}
                 </View>
             </View>
 
-                {icon==true? <View style={{flex:1,flexDirection:"row",justifyContent:"center",bottom:13,alignItems:"center"}}>
-                   <TouchableOpacity onPress={()=>{setIcon(false)}} style={{alignItems:"flex-end",justifyContent:"flex-end"}}>
-                       <Ionicons name="close" size={20} color="white" style={{borderRadius:50,backgroundColor:colors.skincolor}}/>
-                   </TouchableOpacity>
-                   <View style={{flexDirection:"row"}} >
-                    <Btn text1={'Conference'} iconname={"chatbubble-ellipses-outline"} size={12} backgroundColor={"#12682a"}/>
-                    <Btn text1={'Speaker'} iconname={"person-circle-outline"} size={15} backgroundColor={colors.skincolor}/>
-                    <Btn text1={'Ted Talk'} iconname={"chatbubbles-outline"} size={12} backgroundColor={"#1aa6bd"}/>
-                </View>
-               </View>:<View></View>}
+            {/*    {icon==true? <View style={{flex:1,flexDirection:"row",justifyContent:"center",bottom:13,alignItems:"center"}}>*/}
+            {/*       <TouchableOpacity onPress={()=>{setIcon(false)}} style={{alignItems:"flex-end",justifyContent:"flex-end"}}>*/}
+            {/*           <Ionicons name="close" size={20} color="white" style={{borderRadius:50,backgroundColor:colors.skincolor}}/>*/}
+            {/*       </TouchableOpacity>*/}
+            {/*       <View style={{flexDirection:"row"}} >*/}
+            {/*        <Btn text1={'Conference'} iconname={"chatbubble-ellipses-outline"} size={12} backgroundColor={"#12682a"}/>*/}
+            {/*        <Btn text1={'Speaker'} iconname={"person-circle-outline"} size={15} backgroundColor={colors.skincolor}/>*/}
+            {/*        <Btn text1={'Ted Talk'} iconname={"chatbubbles-outline"} size={12} backgroundColor={"#1aa6bd"}/>*/}
+            {/*    </View>*/}
+            {/*   </View>:<View></View>}*/}
 
 
                 {show==true?<View>
@@ -101,18 +103,16 @@ const Home=({navigation})=>{
                 </TouchableOpacity>
             </View>
 
-            <FlatList data={eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase()))}
+                    {eventdata!=null && <FlatList data={eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase()))}
                       horizontal={true}
                       renderItem={({ item, index }) => (
                           <TouchableOpacity
-                              onPress={()=>{navigation.navigate("Event Detail",{ data:item})}}
+                              onPress={()=>{navigation.navigate("Event Detail",{ data:item,root:"Events"})}}
                               style={[styles.eventcard,{borderColor:colors.loginbackground,backgroundColor:"white"}]}>
                           <Image source={{uri:item.image}} style={styles.eventimage}/>
-                              {item.title.length>21?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,21)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
+                              {item.title.length>20?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,18)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
                               {item.short_description.length>21?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
-                              <View style={styles.eventdate}>
-                                  <Text style={{fontSize:16,color:colors.loginbackground}}>{Moment(item.start_time).format('d MMM')}</Text>
-                              </View>
+
                               <View style={styles.eventlocation}>
                                   <Fontisto name="date" />
                                   <Text style={styles.eventtime}>{item.start_time}</Text>
@@ -122,9 +122,12 @@ const Home=({navigation})=>{
                                   <Ionicons name="location"/>
                                   {item.event_location.length>21? <Text style={styles.eventtime}>{item.event_location.slice(0,21)+"..."}</Text>:<Text style={styles.eventtime}>{item.event_location}</Text>}
                               </View>
+                              <View style={styles.eventdate}>
+                                  <Text style={{fontSize:16,color:colors.loginbackground}}>{Moment(item.start_time).format('D MMM')}</Text>
+                              </View>
                           </TouchableOpacity>
                       )}
-            />
+            />}
 
             <Text style={[styles.homemainh2,{color:colors.loginbackground}]}>Special Event</Text>
             <View style={[styles.homecardcotainer,{backgroundColor:colors.loginbackground}]}>
@@ -141,6 +144,7 @@ const Home=({navigation})=>{
 
                 </View>
                     : <View></View>}
+                <ModalView text1={"Hello"} iconname={"close"} text2={isModalVisible} onPress={()=>{setModalVisible(false)}}/>
             </ScrollView>
         </SafeAreaView>
 

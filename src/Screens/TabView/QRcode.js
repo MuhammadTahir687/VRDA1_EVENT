@@ -8,6 +8,7 @@ import {Avatar} from "react-native-elements";
 import {get_data} from "../../utilis/AsyncStorage/Controller";
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 
 const QRcode =({route,navigation}) => {
@@ -15,7 +16,10 @@ const QRcode =({route,navigation}) => {
     const {colors}=useTheme();
     const eventdata=route.params.data;
     const [qrvalue,setQrvalue]= useState('')
-    const [role,setRole]= useState('')
+    const [email,setEmail]=useState('');
+    const [name,setName]=useState('');
+    const [role,setRole]=useState('');
+    const [image,setImage]=useState(null);
     const width=Dimensions.get('screen').width;
     const height=Dimensions.get('screen').height;
 
@@ -24,6 +28,9 @@ const QRcode =({route,navigation}) => {
     const userdata =async () => {
         var qrdata=await get_data('user');
         setRole(qrdata.user.role)
+        setEmail(qrdata.user.email)
+        setName(qrdata.user.name)
+        setImage(qrdata.user.picture)
         setQrvalue(JSON.stringify(
             {
                 user_id: qrdata.user.id,
@@ -41,9 +48,13 @@ const QRcode =({route,navigation}) => {
     }
 
   return(
-      <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{flex:1,backgroundColor:colors.screenbg}}>
           <View>
-          <Image source={{uri:eventdata.image}} style={styles.eventdetailheader} />
+          <Image source={{uri:eventdata.image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]} />
+              <TouchableOpacity onPress={()=>{navigation.goBack()}} style={[styles.eventdetailbackbtn,{backgroundColor:colors.greencolor,}]}>
+                  <Ionicons name="arrow-back" size={20} color="white"/>
+                  <Text style={{color:"white",fontSize:15}}>Event Detail</Text>
+              </TouchableOpacity>
           </View>
           {/*<View style={styles.qravatar}>*/}
           {/*    <Avatar*/}
@@ -51,15 +62,45 @@ const QRcode =({route,navigation}) => {
           {/*        rounded*/}
           {/*        icon={{name: 'user', type: 'font-awesome',}}*/}
           {/*        source={{uri:eventdata.image}}*/}
-          {/*        containerStyle={{backgroundColor:colors.skincolor,borderWidth:2,borderColor:colors.skincolor,top:20,zIndex:2}}*/}
+          {/*        containerStyle={{backgroundColor:colors.skincolor,borderWidth:0,borderColor:colors.skincolor}}*/}
           {/*    />*/}
-          {/*    <Text style={[styles.qrusername,{color:colors.text,backgroundColor:colors.skincolor,borderColor:colors.greencolor}]}>NICOLAS</Text>*/}
+
+          {/*    <Text style={[styles.qrusername,]}>{name}</Text>*/}
+          {/*    <Text style={[styles.qrusername,]}>{role}</Text>*/}
+          {/*    <Text style={[styles.qrusername,]}>{email}</Text>*/}
           {/*</View>*/}
 
           {role!='' && role=="user" ?
-              <View style={[styles.qrcontainer,{alignSelf:"center"}]}>
-              {qrvalue != '' && <QRCode  value={qrvalue} size={150}/>}
-           </View>:
+              <View style={{flex:1,alignItems:"center",justifyContent:"center",}}>
+                  <View style={{elevation:10,alignItems:"center",backgroundColor:colors.headercolor,paddingHorizontal:50,paddingBottom:50,borderRadius:10}}>
+                      <View style={{alignItems:"center",bottom:30}}>
+                          {image!=null?
+                              <Avatar
+                              size="large"
+                              rounded
+                              icon={{name: 'user', type: 'font-awesome',}}
+                              source={{uri:image}}
+                              containerStyle={{backgroundColor:colors.headercolor,borderColor:colors.avatarcolor,borderWidth:2,elevation:10}}
+                          />:
+                              <Avatar
+                                  size="large"
+                                  rounded
+                                  icon={{name: 'user', type: 'font-awesome',}}
+                                  containerStyle={{backgroundColor:colors.headercolor,borderColor:colors.avatarcolor,borderWidth:2,elevation:10}}
+                              />}
+                          <Text style={[styles.qrusername,{color:colors.qrtext,marginTop:5}]}>{name}</Text>
+                          <Text style={[styles.qrusername,{color:colors.qrtext}]}>{role}</Text>
+                      </View>
+
+                      <View style={[styles.qrcontainer,{alignSelf:"center",borderWidth:5,borderColor:"white"}]}>
+                          {qrvalue != '' && <QRCode  value={qrvalue}  size={150}/>}
+                      </View>
+                  </View>
+              </View>
+
+
+
+              :
               <View style={{flex:1}}>
                   <QRCodeScanner
                       // ref={scanner}

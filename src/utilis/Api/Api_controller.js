@@ -44,6 +44,21 @@ const Coming_Events = async (target) => {
     const Test = await get_request("/api/coming-events/" + target);
     return Test
 }
+const register_api = async (body) => {
+    const Test = await post_request({ target: "/api/register", body: body });
+    return Test
+}
+const changepassword_api = async (body) => {
+    const Test = await post_request({ target: "/api/change-password", body: body });
+    return Test
+}
+const resetpassword_api = async (body) => {
+    const Test = await post_request({ target: "/api/reset-password", body: body });
+    return Test
+}
+const forgotpassword_api = async (body) => {
+    const Test = await post_request({ target: "/api/send-email", body: body });
+    return Test
+}
 
-
-export { Login_api, Signup_api, Event_visitor_api, Event_visitor_response_api, Update_profile_api, OTP_api, Attendance_api, Events_details,Coming_Events }
+export {forgotpassword_api,resetpassword_api, changepassword_api,Login_api, Signup_api, Event_visitor_api, Event_visitor_response_api, Update_profile_api, OTP_api, Attendance_api, Events_details,Coming_Events,register_api   }

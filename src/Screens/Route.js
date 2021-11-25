@@ -17,8 +17,13 @@ import UpdateProfile from "./TabView/UpdateProfile";
 import AllEvent from "./TabView/AllEvents";
 import ForgotPassword from "./Auth/ForgotPassword";
 import UpdatePassword from "./Auth/UpdatePassword";
+import ResetPassword from "./TabView/ResetPassword";
 // import linking from "../Linking";
 import {Linking} from 'react-native';
+import Vrda1Login from '../Screens/Auth/Vrda1Login'
+import {get_data} from "../utilis/AsyncStorage/Controller";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {setIsDarkTheme} from "../Store/MainSlice";
 
 
 const CustomDarkTheme = {
@@ -41,7 +46,7 @@ const CustomDarkTheme = {
         errorcolor:"red",
         signinbtn:'#082D25',
         registerbtn:'#082D25',
-        registerbtntext:"orange",
+        registerbtntext:"#fafafa",
         text:"#FAFAFA",
         greencolor: '#1CAE81',
         skincolor:"#FFA26B",
@@ -57,7 +62,19 @@ const CustomDarkTheme = {
         tabicon:"#FAFAFA",
         loginbackground1:"#000",
         profilebg:"#030D0D",
-        profilrtext:"#fafafa"
+        profilrtext:"#fafafa",
+        profildatetext:"#fafafa",
+        modaltext:"#fafafa",
+        modalbg:"#031a03",
+        screenbg:"#030D0D",
+        screentext:"#fafafa",
+        vcolor:"#fafafa",
+        loadercolor:"#FAFAFA",
+        headercolor:"#082D25",
+        qrtext:"#FAFAFA",
+        avatarcolor:"#000",
+
+
 
     },
 };
@@ -78,10 +95,10 @@ const CustomDefaultTheme = {
         signinh1:"#1CAE81",
         inputbg:"#e2dcdc",
         errorcolor:"red",
-        signinbtn:'#fce3d6',
+        signinbtn:'#1CAE81',
         signinfooter:"#FAFAFA",
         signinfootertext:"orange",
-        registerbtn:'#FFA26B',
+        registerbtn:'#1CAE81',
         registerbtntext:"#FAFAFA",
         text:"#FAFAFA",
         greencolor: '#1CAE81',
@@ -98,7 +115,18 @@ const CustomDefaultTheme = {
         fgp:"#ea0e0e",
         tabicon:"#000",
         loginbackground1:"#1CAE81",
-        profilebg:"#FAFAFA"
+        profilebg:"#FAFAFA",
+        profildatetext:"#000",
+        modaltext:"#000",
+        modalbg:"#fafafa",
+        screenbg:"#fafafa",
+        screentext:"#000",
+        vcolor:"#4c4a4a",
+        loadercolor:"#FFA26B",
+        headercolor:"#1CAE81",
+        qrtext:"#FAFAFA",
+        avatarcolor:"#fafafa",
+
 
     },
 };
@@ -123,11 +151,21 @@ const config={
         prefixes:['https://www.eventapp.com'],
         config,
     }
-const Route = () => {
 
-    const scheme = useColorScheme();
+
+const Route = () => {
+    const dispatch=useDispatch();
+    const [value,setValue]=useState(false)
+            AsyncStorage.getItem("savetheme").then(savetheme=>{
+                console.log("&&&&&&&&&&&", JSON.parse(savetheme))
+                setValue(JSON.parse(savetheme))
+            })
+
+
+
     const darkTheme=useSelector((state:RootState)=>state.themeReducer.isDarkTheme)
-    const theme= darkTheme?CustomDarkTheme:CustomDefaultTheme;
+    const scheme = useColorScheme();
+    const theme= value===true?CustomDarkTheme:CustomDefaultTheme;
     const Stack = createNativeStackNavigator();
 
 
@@ -144,9 +182,11 @@ const Route = () => {
               <Stack.Screen name="Event Detail" component={EventDetails}/>
               <Stack.Screen name="QR Code" component={QRcode}/>
               <Stack.Screen name="Update Profile" component={UpdateProfile}/>
+              <Stack.Screen name="ResetPassword" component={ResetPassword}/>
               <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
               <Stack.Screen name="UpdatePassword" component={UpdatePassword}/>
               <Stack.Screen name="All Events" component={AllEvent}/>
+              <Stack.Screen name="vrda1login" component={Vrda1Login}/>
           </Stack.Navigator>
       </NavigationContainer>
       </PaperProvider>
