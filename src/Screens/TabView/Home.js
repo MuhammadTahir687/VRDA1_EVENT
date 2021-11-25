@@ -14,10 +14,17 @@ import Moment from "moment";
 import Btn from "../../utilis/Components/Button";
 import PushNotification from "react-native-push-notification";
 import ModalView from '../../utilis/Components/Modal'
+import {setIsDarkTheme} from "../../Store/MainSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useDispatch, useSelector} from "react-redux";
+import Loader from "../../utilis/Loader";
 
 const Home=({navigation})=>{
     const {colors}=useTheme();
+    const dispatch=useDispatch();
+    const isDarkTheme=useSelector((state:RootState)=>state.themeReducer.isDarkTheme);
     const [eventdata,setEventdata]=useState([]);
+    const [loading,setLoading]= useState(false)
     const [search,setSearch]=useState('');
     const [show,setShow]=useState(false)
     const [icon,setIcon]=useState(false)
@@ -40,16 +47,28 @@ const Home=({navigation})=>{
           message:"jhkdfhgkdfjgkdfjiljvifdiznbn"
       })
     }
+
+    async  function setTheme(){
+        setLoading(true)
+        dispatch(setIsDarkTheme(!isDarkTheme))
+        // await save_data('savetheme',isDarkTheme)
+        await AsyncStorage.setItem("savetheme", JSON.stringify(isDarkTheme));
+        setLoading(false)
+    }
+
     return(
         <SafeAreaView style={{flex:1}}>
+            <Loader animating={loading}/>
             <ScrollView>
             <View style={[styles.homeheader,{backgroundColor:colors.loginbackground}]}>
                 <View style={{flex:1}}>
-                <Text style={[styles.homeheaderh1,{color:colors.text}]}>Current Location</Text>
-                <Text style={[styles.homeheaderh,{color:colors.text}]}>New York, USA</Text>
-                <View style={styles.homeiconcontianer}>
-                    <TouchableOpacity>
-                        <Ionicons name="menu" color="white" size={30}/>
+                {/*<Text style={[styles.homeheaderh1,{color:colors.text}]}>Current Location</Text>*/}
+                {/*<Text style={[styles.homeheaderh,{color:colors.text}]}>New York, USA</Text>*/}
+                    <Image source={require('../../Assets/White_New_Login.png')} style={{alignSelf:"center",width:100,height:50,marginVertical:5,resizeMode:"contain"}}/>
+
+                    <View style={styles.homeiconcontianer}>
+                    <TouchableOpacity onPress={()=>{setTheme()}}>
+                        <MaterialCommunityIcons name="theme-light-dark" color={colors.loginbackground2} size={30}/>
                     </TouchableOpacity>
                     <View style={styles.homerighticoncontainer}>
                         <TouchableOpacity onPress={()=>{handlenotification(),setModalVisible(true)}}>
@@ -103,7 +122,7 @@ const Home=({navigation})=>{
                 </TouchableOpacity>
             </View>
 
-                    {eventdata!=null && <FlatList data={eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase()))}
+                    {eventdata!=null && <FlatList data={ eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase())) || eventdata.filter((item)=>item.event_location.toUpperCase().includes(search.toUpperCase()))}
                       horizontal={true}
                       renderItem={({ item, index }) => (
                           <TouchableOpacity

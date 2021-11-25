@@ -110,14 +110,14 @@ const Profile = ({navigation}) => {
                     <PD icon1={"location"}  icon2={"user"} text1={'Address'} text2={address?address:""} text3={"CNIC"} text4={cnic?cnic:""}/>
                     <PD icon1={"business"}   text1={'Nationality'} text2={nationality?nationality:""} text4={""} />
 
-                    {role!=''&& role=="user" && logincheck==false ?
+                    {role!=''&& role=="user"?
                         <View>
                         <TouchableOpacity onPress={()=>{navigation.navigate("Update Profile")}} style={[styles.updateprofilebtn,{backgroundColor:colors.registerbtn}]}>
                          <Text style={{textAlign:"center",color:colors.registerbtntext}}>Update Detail</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>{navigation.navigate("ResetPassword")}} style={[styles.updateprofilebtn,{backgroundColor:colors.registerbtn,marginTop:10}]}>
+                            {logincheck !=true? <TouchableOpacity onPress={()=>{navigation.navigate("ResetPassword")}} style={[styles.updateprofilebtn,{backgroundColor:colors.registerbtn,marginTop:10}]}>
                             <Text style={{textAlign:"center",color:colors.registerbtntext}}>Update Password</Text>
-                        </TouchableOpacity>
+                            </TouchableOpacity>:<View></View>}
                         </View>
 
                         :<View></View>}

@@ -55,7 +55,7 @@ const UpdatePassword = ({navigation}) => {
     }
     return(
         <SafeAreaView style={{flex:1,backgroundColor:colors.headercolor}}>
-            <HB onPress={()=>{ navigation.replace("Signin",{data:"text"})}} iconname={"arrow-back"} text1={"Update Password"} />
+            <HB onPress={()=>{ navigation.replace("Login",{data:"text"})}} iconname={"arrow-back"} text1={"Update Password"} />
             <View style={[styles.signinmain1,{backgroundColor:colors.signinmain}]}>
                 <ScrollView contentContainerStyle={[styles.fpcontainer,{justifyContent:"space-between"}]}>
                     <View style={{flex:1}}>

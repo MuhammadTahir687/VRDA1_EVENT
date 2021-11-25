@@ -17,6 +17,7 @@ const DI = ({icon1,icon2,text1,text2,value1,value2,keyboardtype1,editable1,onCha
                       style={[styles.avatarinput,{color:colors.profilrtext,borderColor:colors.profilrtext}]}
                       placeholder={placeholder1}
                       onChangeText={onChangeText1}
+                      placeholderTextColor={colors.inputtext}
                       onBlur={onBlur1}
                       value={value1}
                       editable={editable1}

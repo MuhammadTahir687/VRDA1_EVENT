@@ -18,6 +18,7 @@ import auth, {firebase} from '@react-native-firebase/auth';
 import Google from "../../SocialLogin/Google";
 import onFacebookButtonPress from "../../SocialLogin/Facebook";
 import Toast from "react-native-simple-toast";
+import Loader from "../../utilis/Loader";
 
 
 
@@ -29,12 +30,15 @@ const Login = ({navigation}) => {
     const { toast } = useToast()
     const [show, setShow] = useState(false);
     const [visible, setVisible] = useState(true);
-    const [email,setEmail]=useState('talha.akbar366@gmail.com');
-    const [password,setPassword]=useState('123456');
+    const [email,setEmail]=useState('');
+    const [password,setPassword]=useState('');
     const [emailvalidation,setEmailvalidation]=useState('');
     const [passwordvalidation,setPasswordvalidation]=useState('');
     const [token,settoken]=useState(false)
     const [loading,setLoading]=useState(false)
+    const [value,setValue]=useState(false);
+
+    AsyncStorage.getItem("savetheme").then(savetheme=>{setValue(JSON.parse(savetheme))})
 
     async  function setTheam(){
         dispatch(setIsDarkTheme(!isDarkTheme))
@@ -61,7 +65,7 @@ const Login = ({navigation}) => {
     auth()
         .onAuthStateChanged(async(user)=>{
             if(user){
-                setLoading(false)
+                setLoading(true)
                 console.log("User===**********=",user.providerData[0].email)
                 console.log("======66666666666666666==========",type)
                 const response = await Login_api({email: user.providerData[0].email, password: user.uid,type:type,name:user.displayName,user_id:"",first_name:"",last_name:"",phone:user.phoneNumber,picture:user.photoURL})
@@ -71,7 +75,7 @@ const Login = ({navigation}) => {
                         await save_data("user", response.data)
                         await save_data("profile", response.data.profile)
                         await save_data("token",response.data.access_token)
-                        console.log("=============",response.data.profile.adress)
+                        console.log("=============",response.data)
                         setLoading(false)
                         settoken(true)
                         // navigation.replace("App Tab")
@@ -88,10 +92,11 @@ const Login = ({navigation}) => {
         if(email==""){setEmailvalidation("Required*")}
         else if(regex.test(email)==false){setEmailvalidation("Incorrect Email")}
         else if(password==""){setPasswordvalidation("Required*")}
-        else if (password.length<6){setPasswordvalidation("Password must be atleast 6 alphabet")}
+        else if (password.length<6){setPasswordvalidation("Password must be atleast 6 character")}
         else {
             const body={email: email, password: password,type:"normal"}
             const response = await Login_api(body)
+            setLoading(true)
             console.log(response)
             if (response != "Error"){
                 if (response.data.status === true) {
@@ -99,6 +104,7 @@ const Login = ({navigation}) => {
                     await save_data("profile", response.data.profile)
                     await save_data("token",response.data.access_token)
                     console.log("=============",response.data)
+                    setLoading(false)
                     navigation.reset({ index: 0, routes: [{ name: "App Tab" }], })
                     // navigation.replace("App Tab")
                 }
@@ -125,6 +131,7 @@ const Login = ({navigation}) => {
                         closeIconColor: 'white',
                         hideAccent: false
                     })
+                    setLoading(false)
 
 
                 }
@@ -150,6 +157,7 @@ const Login = ({navigation}) => {
                     closeIconColor: 'white',
                     hideAccent: false
                 })
+                setLoading(false)
 
             }
         }
@@ -157,22 +165,26 @@ const Login = ({navigation}) => {
 
 
     return(
-     <SafeAreaView style={{flex:1,backgroundColor:"white"}}>
+     <SafeAreaView style={{flex:1,backgroundColor:colors.loginbackground2}}>
+         <Loader animating={loading}/>
          <View style={{flex:1,justifyContent:"center"}}>
-             <Image source={require('../../Assets/New_Logo.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>
+             { value ==false? <Image source={require('../../Assets/New_Logo.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>:
+                 <Image source={require('../../Assets/White_New_Login.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>
+
+             }
             <View style={{marginHorizontal:20}}>
                 <TextInput
                     label="Email"
                     placeholder={"Enter Email"}
-                    selectionColor={"#1CAE81"}
-                    outlineColor={"#1CAE81"}
+                    selectionColor={colors.inputinnertext}
+                    outlineColor={colors.inputinnertext}
                     dense={false}
-                    style={{backgroundColor:"white",borderRadius:50,marginTop:20}}
-                    theme={{roundness:10,colors:{placeholder:"#1CAE81",text:"#1CAE81",primary:"#1CAE81",secandory:"black",underlineColor:"green"}}}
+                    style={{backgroundColor:colors.logininputbg,borderRadius:50,marginTop:20}}
+                    theme={{roundness:10,colors:{placeholder:colors.inputinnertext,text:colors.inputinnertext,primary:colors.inputinnertext,secandory:"black",underlineColor:"green"}}}
                     mode={"outlined"}
                     value={email}
                     onChangeText={(text)=>{setEmail(text),setEmailvalidation('')}}
-                    left={<TextInput.Icon name="email" color={"#1CAE81"}  />}
+                    left={<TextInput.Icon name="email" color={colors.inputinnertext}  />}
 
                 />
                 {emailvalidation !='' && <Text style={{color:"red"}}>{emailvalidation}</Text>}
@@ -181,13 +193,13 @@ const Login = ({navigation}) => {
                     placeholder={"Enter Password"}
                     mode={"outlined"}
                     secureTextEntry={visible}
-                    selectionColor={"#1CAE81"}
-                    outlineColor={"#1CAE81"}
+                    selectionColor={colors.inputinnertext}
+                    outlineColor={colors.inputinnertext}
                     dense={false}
-                    style={{backgroundColor:"white",borderRadius:50,marginTop:20}}
-                    theme={{roundness:10,colors:{placeholder:"#1CAE81",text:"#1CAE81",primary:"#1CAE81",secandory:"black",underlineColor:"green"}}}
-                    left={<TextInput.Icon name="lock" color={"#1CAE81"}   />}
-                    right={<TextInput.Icon name={show === false ? "eye-off-outline" : "eye-outline"} color={"#1CAE81"} onPress={() => {setVisible(!visible),setShow(!show)}} />}
+                    style={{backgroundColor:colors.logininputbg,borderRadius:50,marginTop:20}}
+                    theme={{roundness:10,colors:{placeholder:colors.inputinnertext,text:colors.inputinnertext,primary:colors.inputinnertext,secandory:"black",underlineColor:"green"}}}
+                    left={<TextInput.Icon name="lock" color={colors.inputinnertext}   />}
+                    right={<TextInput.Icon name={show === false ? "eye-off-outline" : "eye-outline"} color={colors.inputinnertext} onPress={() => {setVisible(!visible),setShow(!show)}} />}
                     textStyle={{color:"red"}}
                     value={password}
                     onChangeText={(text)=>{setPassword(text),setPasswordvalidation('')}}
@@ -197,31 +209,22 @@ const Login = ({navigation}) => {
                 <TouchableOpacity onPress={()=>{navigation.navigate("ForgotPassword")}}>
                     <Text style={[styles.signinfp,{color:colors.fgp}]}>Forgot Password?</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{submit()}} style={[styles.loginbtn,{backgroundColor:"#1CAE81"}]}>
+                <TouchableOpacity onPress={()=>{submit()}} style={[styles.loginbtn,{backgroundColor:colors.registerbtn}]}>
                     <Text style={[styles.loginbtntext1,{color:"white"}]}>Sign in</Text>
                 </TouchableOpacity>
 
                 <Text style={styles.loginor}>or Sign in with</Text>
 
                 <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
-                    <Icon
-                        reverse={true}
-                        name='facebook'
-                        type='fontisto'
-                        color='#1CAE81'
-                        onPress={()=>{onFacebookButtonPress()}}
-
-                    />
-                    <Icon
-                        reverse={true}
-                        button
-                        name='google'
-                        type='antdesign'
-                        color='#1CAE81'
-                        onPress={()=>{Google()}}
-
-                    />
-                <TouchableOpacity onPress={()=>{navigation.navigate("vrda1login")}}><Text style={{fontWeight:"bold",fontSize:28,backgroundColor:"#1CAE81",paddingHorizontal:15,color:"white",paddingVertical:5,borderRadius:50,marginLeft:7}}>V</Text></TouchableOpacity>
+                  <TouchableOpacity>
+                      <Icon reverse={true} name='facebook' type='fontisto' color={colors.registerbtn} onPress={()=>{onFacebookButtonPress()}}/>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                      <Icon reverse={true} button name='google' type='antdesign' color={colors.registerbtn} onPress={()=>{Google()}}/>
+                  </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{navigation.navigate("vrda1login")}}>
+                    <Text style={{fontWeight:"bold",fontSize:28,backgroundColor:colors.registerbtn,paddingHorizontal:17,color:"white",paddingVertical:7,borderRadius:50,marginLeft:7}}>V</Text>
+                </TouchableOpacity>
                 </View>
                 <View style={[styles.signinqcontainer,{backgroundColor:"transparent"}]}>
                     <Text style={[styles.loginq1,{color:colors.inputtext}]}>Don't have an account?</Text>
@@ -230,9 +233,9 @@ const Login = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
                 {token==true &&navigation.reset({ index: 0, routes: [{ name: "App Tab" }], })}
-                <TouchableOpacity onPress={setTheam}>
-                        <Text style={{color:"black"}}>Change Theme</Text>
-                    </TouchableOpacity>
+                {/*<TouchableOpacity onPress={setTheam}>*/}
+                {/*        <Text style={{color:colors.inputtext}}>Change Theme</Text>*/}
+                {/*    </TouchableOpacity>*/}
             </View>
 
          </View>

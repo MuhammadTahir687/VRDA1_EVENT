@@ -40,7 +40,6 @@ const UpdateProfile = ({navigation}) => {
 
     const userinfo = async () => {
         const userdata=await get_data("user")
-
         setUserid(userdata.user.id)
         setName(userdata.user.name)
         setCity(userdata.user.city);
@@ -54,13 +53,21 @@ const UpdateProfile = ({navigation}) => {
         setImage(userdata.user.picture)
     }
 
+    const onChange = (text) => {
+        const input = text;
+        if (/^[a-zA-Z]+$/.test(input) || input == "") {
+            setName(input);
+        }
+    };
+
     const submit=async ()=>{
+
         try{
             const data=new FormData();
-            data.append("id",userid);
-            data.append('name', name,);
+            data.append("id",'3');
+            data.append('name', "name");
             data.append("cnic", cnic);
-            data.append("dob", date);
+            {date && data.append("dob", date)}
             data.append("phone", phone);
             data.append("address", address);
             data.append("city", city);
@@ -84,7 +91,11 @@ const UpdateProfile = ({navigation}) => {
           <ImageBackground source={require('../../Assets/background.png')} style={styles.profilebg}>
               <ScrollView contentContainerStyle={{flexGrow:1}} style={styles.profilecontainer}>
                   <View style={styles.profileheader}>
-                      <Text style={[styles.profileheadertext,{color:colors.skincolor}]}>Profile</Text>
+                      <TouchableOpacity onPress={()=>{navigation.goBack()}} style={{flexDirection:"row",alignItems:"center"}}>
+                          <Ionicons name={"arrow-back"} color={colors.skincolor} size={20}  />
+                          <Text style={[styles.profileheadertext,{color:colors.skincolor}]}>Profile</Text>
+                      </TouchableOpacity>
+
                       <FontAwesome name="edit" color="white" size={20}/>
                   </View>
 
@@ -99,16 +110,16 @@ const UpdateProfile = ({navigation}) => {
                               style={[styles.avatarinput,{color:colors.profilrtext,borderColor:colors.profilrtext}]}
                               placeholder="Name"
                               value={name}
-                              onChangeText={(text)=>{setName(text)}}
+                              onChangeText={(text)=>{onChange(text)}}
                           />
                       </View>
                   </View>
 
                   <View style={[styles.profiledetailsection,{backgroundColor:colors.profilebg}]}>
                       <Text style={[{fontSize:18,fontWeight:"bold" ,color:colors.skincolor}]}>Detail</Text>
-                      <DI icon1={"call"} icon2={"calendar"} text1={"Phone"} text2={"D.O.B"} keyboardtype1={'numeric'} placeholder1={"Phone"} value1={phone?phone:""}  onChangeText1={(text)=>{setPhone(text)}} date={date} datechange={(date)=>setDate(date)}/>
-                      <PI icon1={"mail"} icon2={"location"}  editable1={false} editable2={false} text1={"Email"} text2={"City"} placeholder1={"Email"} placeholder2={"City"} value1={email?email:""} value2={city?city:"Not Available"} onChangeText1={(text)=>{setCountry(text)}} onChangeText2={(text)=>{setCity(text)}}/>
-                      <PI icon1={"business"} icon2={"user"} editable2={false} text1={"Address"} text2={"CNIC"} placeholder1={"Address"} placeholder2={"CNIC"} value1={address?address:""} value2={cnic?cnic:""} onChangeText1={(text)=>{setAddress(text)}} onChangeText2={(text)=>{setCnic(text)}}/>
+                      <DI icon1={"call"} icon2={"calendar"} text1={"Phone"} text2={"D.O.B"} keyboardtype1={'number-pad'} placeholder1={"Phone"} value1={phone?phone:""}  onChangeText1={(text)=>{setPhone(text)}} date={date} datechange={(date)=>setDate(date)}/>
+                      <PI icon1={"mail"} icon2={"location"}  editable1={false} editable2={true} text1={"Email"} text2={"City"} placeholder1={"Email"} placeholder2={"City"} value1={email?email:""} value2={city?city:""} onChangeText1={(text)=>{setCountry(text)}} onChangeText2={(text)=>{setCity(text)}}/>
+                      <PI icon1={"business"} icon2={"user"} editable2={true} text1={"Address"} text2={"CNIC"} placeholder1={"Address"} placeholder2={"CNIC"} value1={address?address:""} value2={cnic?cnic:""} onChangeText1={(text)=>{setAddress(text)}} onChangeText2={(text)=>{setCnic(text)}}/>
                       <PI icon1={"earth"} icon3={"location"} text1={"Country"} text2={"Nationality"} placeholder1={"country"} placeholder2={"Nationality"}  value1={country?country:""} value2={nationality?nationality:""} onChangeText1={(text)=>{setCountry(text)}} onChangeText2={(text)=>{setNationality(text)}}/>
 
                       <TouchableOpacity onPress={()=>{submit()}} style={[styles.updateprofilebtn,{backgroundColor:colors.registerbtn}]}>

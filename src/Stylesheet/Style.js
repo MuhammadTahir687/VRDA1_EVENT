@@ -49,7 +49,8 @@ export default StyleSheet.create({
     righticon:{marginHorizontal:10,borderRadius:50,padding:5},
     homesearchicon:{borderRadius:25,padding:10},
     homesearchinput:{height:40,flex:1,color:"white"},
-    searchcontainer:{flex:1,flexDirection:"row",justifyContent:"center",marginHorizontal:40,alignItems:"center",bottom:5},
+    searchcontainer:{flex:1,flexDirection:"row",justifyContent:"center",marginHorizontal:40,alignItems:"center",top:8},
+    searchcontainer1:{flex:1,flexDirection:"row",justifyContent:"center",marginHorizontal:40,alignItems:"center",bottom:8},
     filtercontainer:{flex:3,flexDirection:"row",borderBottomRightRadius:50,borderTopRightRadius:50,height:40,alignItems:"center",paddingLeft:10},
     searchleftcontainer:{flex:8,flexDirection:"row",height:40},
 

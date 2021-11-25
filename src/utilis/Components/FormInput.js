@@ -3,11 +3,15 @@ import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useTheme} from "@react-navigation/native";
 
-const Input = ({ text1, text2,onPress2,onChangeText1, onBlur1,value1,backgroundColor,showicon ,color,iconname1 }) => {
+const Input = ({ text1, text2,text3,onPress2,onChangeText1, onBlur1,value1,backgroundColor,showicon ,color,iconname1 }) => {
     const {colors}=useTheme();
     return (
         <View style={{marginTop:10}}>
-            <Text style={{fontWeight:"normal",color:colors.inputtext}}>{text1}</Text>
+            <View style={{flexDirection:"row"}}>
+                <Text style={{fontWeight:"normal",color:colors.inputtext}}>{text1}</Text>
+                {text3 && <Text style={{fontWeight:"normal",color:colors.star}}>{text3}</Text>}
+            </View>
+
             <View style={{flex:1,flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:colors.inputbg,paddingHorizontal:10,borderRadius:10}} >
                 <Ionicons name={iconname1} size={20} color={colors.inputinnertext}/>
             <TextInput

@@ -9,6 +9,7 @@ import Moment from "moment";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import {get_request} from "../../utilis/Api/Requests";
 import {Coming_Events} from "../../utilis/Api/Api_controller";
+import Loader from "../../utilis/Loader";
 
 
 const AllEvent = ({navigation}) => {
@@ -17,6 +18,7 @@ const AllEvent = ({navigation}) => {
     const [eventdata,setEventdata]=useState([]);
     const [filterdata,setFilterdata]=useState([]);
     const [search,setSearch]=useState('');
+    const [loading,setLoading]= useState(true);
 
     Moment.locale('en');
     const Button=[{id:1,title:"UPCOMING"}, {id:2,title:"PAST EVENT"}]
@@ -25,15 +27,21 @@ const AllEvent = ({navigation}) => {
 
     const response =async(index) => {
         if (index==0){
+            setLoading(true)
             const res= await get_request('/api/coming-events');
+            setLoading(false)
             setEventdata(res.event_start);
         }
         else if (index==1){
+            setLoading(true)
             const res= await get_request('/api/past-events');
+            setLoading(false)
             setEventdata(res.past_events);
         }
         else{
+            setLoading(true)
             const res= await get_request('/api/coming-events');
+            setLoading(false)
             setEventdata(res.event_start);
         }
     }
@@ -64,8 +72,9 @@ const AllEvent = ({navigation}) => {
 
     return(
         <SafeAreaView style={{flex:1}}>
+            <Loader animating={loading}/>
             <ImageBackground source={require('../../Assets/background.png')} style={[styles.alleventheader1,]}>
-                <View style={styles.searchcontainer}>
+                <View style={styles.searchcontainer1}>
                     <View style={styles.searchleftcontainer}>
                         <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={["rgba(12,12,12,0.4)", "#1CAE81"]} style={{backgroundColor:"rgba(12,12,12,0.4)",flexDirection:"row",borderRadius:50,flex:1}}>
                             <FontAwesome name="search" color={colors.loginbackground} size={18} style={[styles.homesearchicon,{backgroundColor:'rgba(12,12,12,0.4)',borderWidth:2,borderColor:colors.loginbackground}]}/>

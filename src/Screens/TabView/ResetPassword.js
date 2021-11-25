@@ -47,12 +47,11 @@ const ResetPassword = ({navigation}) => {
         else{
 
             const body={email:email,old_password:oldpassword,new_password:password,new_confirm_password:confirmpassword}
-            alert(JSON.stringify(body))
             const response= await changepassword_api(body)
             console.log("------------",response.data)
             if (response != "Error"){
                 if (response.data.status === true) {
-                    navigation.replace("Signin",{data:"text"})
+                    navigation.replace("Login",{data:"text"})
                 }
                 else {Toast.show(response.data.message)}
             }else{Toast.show("Something Went Wrong !!! ")}

@@ -73,6 +73,9 @@ const CustomDarkTheme = {
         headercolor:"#082D25",
         qrtext:"#FAFAFA",
         avatarcolor:"#000",
+        loginbackground2:"#030D0D",
+        logininputbg:"#030D0D",
+        star:"#1CAE81"
 
 
 
@@ -126,6 +129,9 @@ const CustomDefaultTheme = {
         headercolor:"#1CAE81",
         qrtext:"#FAFAFA",
         avatarcolor:"#fafafa",
+        loginbackground2:"#fafafa",
+        logininputbg:"#fafafa",
+        star:"red"
 
 
     },
