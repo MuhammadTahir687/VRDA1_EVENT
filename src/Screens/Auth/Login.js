@@ -17,8 +17,9 @@ import {useToast} from "react-native-styled-toast";
 import auth, {firebase} from '@react-native-firebase/auth';
 import Google from "../../SocialLogin/Google";
 import onFacebookButtonPress from "../../SocialLogin/Facebook";
-import Toast from "react-native-simple-toast";
+// import Toast from "react-native-simple-toast";
 import Loader from "../../utilis/Loader";
+// import {Button, useToast, VStack, Center, NativeBaseProvider,} from "native-base"
 
 
 
@@ -110,11 +111,11 @@ const Login = ({navigation}) => {
                 }
                 else {
                     // Toast.show(response.data.message)
+
                     toast({
-                        duration:0,
-                        intent:"ERROR",
-                        accentColor:"red",
                         message: response.data.message,
+                        duration:0,
+                        accentColor:"red",
                         toastStyles: {
                             bg: 'white',
                         },
@@ -131,7 +132,7 @@ const Login = ({navigation}) => {
                         closeIconColor: 'white',
                         hideAccent: false
                     })
-                    setLoading(false)
+                    // setLoading(false)
 
 
                 }
@@ -139,8 +140,8 @@ const Login = ({navigation}) => {
                 // Toast.show("Invalid Email or Password ")
                 toast({
                     duration:0,
-                    accentColor:"red",
                     message: response.data.message,
+                    accentColor:"red",
                     toastStyles: {
                         bg: 'lightblue',
                         borderRadius: 16
@@ -157,7 +158,7 @@ const Login = ({navigation}) => {
                     closeIconColor: 'white',
                     hideAccent: false
                 })
-                setLoading(false)
+                // setLoading(false)
 
             }
         }
@@ -165,12 +166,12 @@ const Login = ({navigation}) => {
 
 
     return(
-     <SafeAreaView style={{flex:1,backgroundColor:colors.loginbackground2}}>
-         <Loader animating={loading}/>
-         <View style={{flex:1,justifyContent:"center"}}>
-             { value ==false? <Image source={require('../../Assets/New_Logo.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>:
-                 <Image source={require('../../Assets/White_New_Login.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>
 
+     <SafeAreaView style={{flex:1,backgroundColor:colors.loginbackground2}}>
+
+         <View style={{flex:1,justifyContent:"center"}}>
+             { value ==true? <Image source={require('../../Assets/New_Logo.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>:
+                 <Image source={require('../../Assets/White_New_Login.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>
              }
             <View style={{marginHorizontal:20}}>
                 <TextInput
@@ -237,7 +238,6 @@ const Login = ({navigation}) => {
                 {/*        <Text style={{color:colors.inputtext}}>Change Theme</Text>*/}
                 {/*    </TouchableOpacity>*/}
             </View>
-
          </View>
 
 

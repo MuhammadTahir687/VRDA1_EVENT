@@ -84,7 +84,7 @@ export default StyleSheet.create({
     eventdesc:{marginHorizontal:10,textAlign:"justify"},
 
     eventdetailbackbtn:{flexDirection:"row",marginHorizontal:10,bottom:120,alignSelf:"flex-start",paddingHorizontal:10,borderRadius:5},
-    eventavatar:{flexDirection:"row",marginHorizontal:10,marginTop:30,alignItems:"center"},
+    eventavatar:{flexDirection:"row",marginHorizontal:10,alignItems:"center"},
     profileavatar:{flexDirection:"row",marginTop:10,alignItems:"center",padding:10,borderRadius:10},
     avatartext:{flex:1,marginHorizontal:10},
     qrcontainer:{},
@@ -122,7 +122,7 @@ export default StyleSheet.create({
     registerimagename:{flex:1,borderBottomWidth:1,flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginRight:10,paddingVertical:5},
 
 
-    shopmodal:{flex:1,backgroundColor: "white", alignSelf: "center", width: 300, borderRadius: 10},
+    shopmodal:{backgroundColor: "white", alignSelf: "center", width: 300, borderRadius: 10},
     modalcrossicon:{ justifyContent: "flex-end", flexDirection: "row", marginVertical: 10, marginRight: 20},
     crossicon:{backgroundColor: "gray", borderRadius: 50},
     modalcontentcontainer:{flex: 1,marginHorizontal:10},

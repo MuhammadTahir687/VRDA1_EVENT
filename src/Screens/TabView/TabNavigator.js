@@ -20,7 +20,6 @@ export default function AppTab() {
                     if (route.name === 'Home') {iconName = focused ? 'home' : 'home-outline'}
                     else if (route.name === 'Profile') {iconName = focused ? 'person-circle' : 'person-circle-outline'}
                     else if (route.name === 'Calendar') {iconName = focused ? 'calendar' : 'calendar-outline'}
-                    else if (route.name === 'MAP') {iconName = focused ? 'location' : 'location-outline'}
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
                 headerShown:false,
@@ -32,7 +31,7 @@ export default function AppTab() {
             <Tab.Screen name="Home"  component={Home}  />
             <Tab.Screen name="Profile"  component={Profile}  />
             <Tab.Screen name="Calendar"  component={EventCalendar}  />
-            <Tab.Screen name="MAP"  component={MAP}  />
+            {/*<Tab.Screen name="MAP"  component={MAP}  />*/}
 
         </Tab.Navigator>
 

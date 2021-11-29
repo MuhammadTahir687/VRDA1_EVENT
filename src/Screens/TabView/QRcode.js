@@ -56,19 +56,6 @@ const QRcode =({route,navigation}) => {
                   <Text style={{color:"white",fontSize:15}}>Event Detail</Text>
               </TouchableOpacity>
           </View>
-          {/*<View style={styles.qravatar}>*/}
-          {/*    <Avatar*/}
-          {/*        size="large"*/}
-          {/*        rounded*/}
-          {/*        icon={{name: 'user', type: 'font-awesome',}}*/}
-          {/*        source={{uri:eventdata.image}}*/}
-          {/*        containerStyle={{backgroundColor:colors.skincolor,borderWidth:0,borderColor:colors.skincolor}}*/}
-          {/*    />*/}
-
-          {/*    <Text style={[styles.qrusername,]}>{name}</Text>*/}
-          {/*    <Text style={[styles.qrusername,]}>{role}</Text>*/}
-          {/*    <Text style={[styles.qrusername,]}>{email}</Text>*/}
-          {/*</View>*/}
 
           {role!='' && role=="user" ?
               <View style={{flex:1,alignItems:"center",justifyContent:"center",}}>
@@ -111,6 +98,7 @@ const QRcode =({route,navigation}) => {
                       markerStyle={{borderRadius:10,borderColor:colors.skincolor,borderWidth:5}}
                       onRead={onSuccess}
                       showMarker={true}
+                      checkAndroid6Permissions={false}
                       flashMode={RNCamera.Constants.FlashMode.auto}
                   />
               </View>

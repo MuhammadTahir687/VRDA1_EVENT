@@ -16,7 +16,7 @@ const PI = ({icon1,icon2,value1,value2,editable1,editable2,keyboardtype1,keyboar
                 <View style={styles.p1textview}>
                     <Text style={[styles.pi1text,{color:colors.profilrtext}]}>{text1}</Text>
                      <TextInput
-                        style={[styles.avatarinput,{color:colors.profilrtext,borderColor:colors.profilrtext}]}
+                        style={[styles.avatarinput,{color:(editable1==false)?"white":colors.profilrtext,borderColor:colors.profilrtext,backgroundColor:(editable1==false)?colors.registerbtn:"transparent"}]}
                         placeholder={placeholder1}
                         onChangeText={onChangeText1}
                         placeholderTextColor={colors.inputtext}

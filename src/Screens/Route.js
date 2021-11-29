@@ -75,7 +75,8 @@ const CustomDarkTheme = {
         avatarcolor:"#000",
         loginbackground2:"#030D0D",
         logininputbg:"#030D0D",
-        star:"#1CAE81"
+        star:"#1CAE81",
+        eventdetailavatrbg:"#031a03"
 
 
 
@@ -131,7 +132,9 @@ const CustomDefaultTheme = {
         avatarcolor:"#fafafa",
         loginbackground2:"#fafafa",
         logininputbg:"#fafafa",
-        star:"red"
+        star:"red",
+        profilrtext:"#000",
+        eventdetailavatrbg:"#1CAE81"
 
 
     },
@@ -171,7 +174,7 @@ const Route = () => {
 
     const darkTheme=useSelector((state:RootState)=>state.themeReducer.isDarkTheme)
     const scheme = useColorScheme();
-    const theme= value===true?CustomDarkTheme:CustomDefaultTheme;
+    const theme= value===false?CustomDarkTheme:CustomDefaultTheme;
     const Stack = createNativeStackNavigator();
 
 

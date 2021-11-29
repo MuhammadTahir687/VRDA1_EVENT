@@ -14,10 +14,14 @@ import {Tooltip} from "react-native-elements";
 import Feather from "react-native-vector-icons/Feather";
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {get_request} from "../../utilis/Api/Requests";
+import { useIsFocused } from '@react-navigation/native';
+import Loader from "../../utilis/Loader";
 
 
 const Profile = ({navigation}) => {
     const {colors}=useTheme();
+    const isFocused = useIsFocused();
     const [name,setName]=useState('');
     const [role,setRole]=useState('');
     const [image,setImage]=useState(null);
@@ -31,25 +35,33 @@ const Profile = ({navigation}) => {
     const [organization,setOrganization]=useState('');
     const [email,setEmail]=useState('');
     const[logincheck,setLogincheck]=useState(true);
+    const [loading,setLoading]= useState(false)
 
-    useEffect(()=>{userinfo()},[])
+    useEffect(()=>{userinfo()},[isFocused])
 
     const userinfo = async () => {
+        setLoading(true)
         const userdata=await get_data("user")
-        const profiledata=await get_data("profile")
-        console.log("********************",userdata.user.picture)
-        setName(userdata.user.name);
-        setImage(userdata.user.picture);
-        setCountry(profiledata.country);
-        setCity(profiledata.city);
-        setDob(profiledata.dob);
-        setPhone(profiledata.phone);
-        setAddress(profiledata.address);
-        setNationality(profiledata.nationality);
-        setRole(userdata.user.role);
-        setCnic(profiledata.cnic);
-        setOrganization(profiledata.organization);
-        setEmail(userdata.user.email)
+        const response=await get_request("/api/user-profile/"+userdata.user.id)
+        console.log("fbjdbgsj",response.data.nationality)
+        setLoading(false)
+        if(response.status==true){
+            setName(response.data.first_name + response.data.last_name );
+            setImage(response.data.picture);
+            setCountry(response.data.country);
+            setCity(response.data.city);
+            setDob(response.data.dob);
+            setPhone(response.data.phone);
+            setAddress(response.data.address);
+            setNationality(response.data.nationality);
+            setRole(userdata.user.role);
+            setCnic(response.data.cnic);
+            setOrganization(response.data.organization);
+            setEmail(userdata.user.email)
+        }
+        else{
+            //Nothing to do
+        }
     }
 
     auth().onAuthStateChanged(async(user)=>{
@@ -83,10 +95,11 @@ const Profile = ({navigation}) => {
 
     return(
       <SafeAreaView style={{flex:1}}>
+          <Loader animating={loading}/>
         <ImageBackground source={require('../../Assets/background.png')} style={styles.profilebg}>
             <ScrollView contentContainerStyle={{flexGrow:1}} style={styles.profilecontainer}>
                 <View style={styles.profileheader}>
-                    <Text style={[styles.profileheadertext,{color:colors.skincolor}]}>Profile</Text>
+                    <Text style={[styles.profileheadertext,{color:colors.greencolor}]}>Profile</Text>
                     <TouchableOpacity onPress={()=>{logout()}} style={{flexDirection:"row",alignItems:"center"}}>
                         <Text style={{color:"white",marginRight:10}}>Log Out</Text>
                         <Feather name="log-out" color="white" size={20}/>
@@ -97,14 +110,14 @@ const Profile = ({navigation}) => {
                     <View style={[styles.profileavatar,{backgroundColor:colors.profilebg}]}>
                         <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} source={{uri:"http://emailsend.mirindaweb.com/"+image}} containerStyle={{backgroundColor:colors.skincolor}}/>
                         <View style={styles.avatartext}>
-                            <Text style={[styles.avatarname,{color:colors.skincolor}]}>{email}</Text>
-                            <Text style={[styles.avatarname,{color:colors.skincolor}]}>{name}</Text>
+                            <Text style={[styles.avatarname,{color:colors.greencolor}]}>{email}</Text>
+                            <Text style={[styles.avatarname,{color:colors.greencolor}]}>{name}</Text>
                             <Text style={{color:colors.profilrtext}}>{role}</Text>
                         </View>
                     </View>
 
                 <View style={[styles.profiledetailsection,{backgroundColor:colors.profilebg}]}>
-                    <Text style={[{fontSize:18,fontWeight:"bold" ,color:colors.skincolor}]}>Detail</Text>
+                    <Text style={[{fontSize:18,fontWeight:"bold" ,color:colors.greencolor}]}>Detail</Text>
                     <PD icon1={"call"} icon2={"calendar"} text1={'Phone'} text2={phone?phone:""} text3={"D.O.B"} text4={dob?dob:""}/>
                     <PD icon1={"earth"} icon2={"location"} text1={'Country'} text2={country?country:""} text3={"City"} text4={city?city:""}/>
                     <PD icon1={"location"}  icon2={"user"} text1={'Address'} text2={address?address:""} text3={"CNIC"} text4={cnic?cnic:""}/>
@@ -119,7 +132,6 @@ const Profile = ({navigation}) => {
                             <Text style={{textAlign:"center",color:colors.registerbtntext}}>Update Password</Text>
                             </TouchableOpacity>:<View></View>}
                         </View>
-
                         :<View></View>}
                 </View>
 

@@ -60,7 +60,7 @@ const Vrda1Login = ({navigation}) => {
         <SafeAreaView style={{flex:1,backgroundColor:colors.headercolor}}>
             <HB onPress={()=>{ navigation.goBack()}} iconname={"arrow-back"} text1={"Login"} />
             <View style={[styles.signinmain1,{backgroundColor:colors.signinmain}]}>
-                {value==false?<Image source={require('../../Assets/VRDa1_hi_Res_logo_Vertical.png')} style={styles.vrda1loginimage}/>
+                {value==true?<Image source={require('../../Assets/VRDa1_hi_Res_logo_Vertical.png')} style={styles.vrda1loginimage}/>
                     :
                     <Image source={require('../../Assets/VRDa1_hi_Res_logo_Vertical_white.png')} style={styles.vrda1loginimage}/>
 

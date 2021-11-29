@@ -13,15 +13,17 @@ import Fontisto from "react-native-vector-icons/Fontisto";
 import Moment from "moment";
 import {Avatar} from "react-native-elements";
 import {get_data} from "../../utilis/AsyncStorage/Controller";
+import MapView from 'react-native-maps';
+import Modal from "react-native-modal";
 
 const EventDetails=({route,navigation})=>{
     const {colors}=useTheme();
     const eventdata=route.params.data;
     const rootdata=route.params.root;
-
     const [name,setName]=useState('');
     const [role,setRole]=useState('');
     const [image,setImage]=useState(null)
+    const [isModalVisible, setModalVisible] = useState(false);
 
     useEffect(()=>{ userinfo()},[])
     const userinfo = async () => {
@@ -34,7 +36,7 @@ const EventDetails=({route,navigation})=>{
 
     return(
         <SafeAreaView style={{flex:1,}}>
-            <ScrollView style={{backgroundColor:colors.screenbg}}>
+            <ScrollView style={{backgroundColor:colors.screenbg,flex:1}} contentContainerStyle={{flexGrow:1}}>
                 { rootdata=="allevents"?
                     <Image source={{uri:"http://emailsend.mirindaweb.com/"+eventdata.image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]}/>:
                     <Image source={{uri:eventdata.image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]}/>
@@ -43,17 +45,24 @@ const EventDetails=({route,navigation})=>{
                     <Ionicons name="arrow-back" size={20} color="white"/>
                     <Text style={{color:"white",fontSize:15}}>Event Detail</Text>
                 </TouchableOpacity>
+
                 <Text style={[styles.eventdetailtitile,{color:colors.greencolor}]}>{eventdata.title}</Text>
+
+                <View style={{ flex:1,flexDirection:"row"}}>
+
                 <View style={styles.eventlocation}>
                     <Fontisto name="date" color="white"  size={20} style={[styles.dateicon,{backgroundColor:colors.greencolor}]} />
                     <Text style={[styles.eventtime,{color:colors.screentext}]}>{Moment(eventdata.start_time).format('D MMM YYYY')}</Text>
                 </View>
 
-                <View style={styles.eventlocation}>
+                <TouchableOpacity onPress={()=>{setModalVisible(true)}} style={styles.eventlocation}>
                     <Ionicons name="location" color="white"  size={20} style={[styles.dateicon,{backgroundColor:colors.skincolor}]}/>
                     <Text style={[styles.eventtime,{color:colors.screentext}]}>{eventdata.event_location}</Text>
+                </TouchableOpacity>
+
                 </View>
-                <View style={styles.eventavatar}>
+
+                <View style={[styles.eventavatar,{backgroundColor:colors.eventdetailavatrbg,padding:10,borderRadius:10,marginTop:10}]}>
                     <Avatar
                         size="large"
                         rounded
@@ -62,11 +71,12 @@ const EventDetails=({route,navigation})=>{
                         containerStyle={{backgroundColor:colors.skincolor,borderWidth:2,borderColor:colors.greencolor}}
                     />
                     <View style={styles.avatartext}>
-                        <Text style={[{fontSize:18, color:colors.greencolor}]}>{name}</Text>
-                        <Text style={{color:colors.screentext}}>{role}</Text>
+                        <Text style={[{fontSize:18, color:"white"}]}>{name}</Text>
+                        <Text style={{color:"white"}}>{role}</Text>
                     </View>
                 </View>
-                <View >
+
+                <View>
                     <Text style={[styles.eventdetilsh,{color:colors.screentext}]}>About Event</Text>
                     <Text style={[styles.eventdesc,{color:colors.screentext}]}>{eventdata.description}</Text>
                 </View>
@@ -74,7 +84,27 @@ const EventDetails=({route,navigation})=>{
                     <Text style={{fontSize:18,color:colors.text}}>Enter Event</Text>
                     <MaterialCommunityIcons name="arrow-collapse-right" size={20} color="white" style={styles.cardbtnicon}/>
                 </TouchableOpacity>:<View></View>}
+
             </ScrollView>
+
+            <Modal isVisible={isModalVisible}>
+            {/*<View style={[styles.shopmodal,{backgroundColor:colors.modalbg}]}>*/}
+                <TouchableOpacity onPress={()=>{setModalVisible(false)}} style={[styles.modalcrossicon,{top:50,zIndex:10}]}>
+                    <Ionicons name={"close"} color={"white"} size={25} style={[styles.crossicon,{backgroundColor:"red"}]} />
+                </TouchableOpacity>
+
+                <MapView style={{height:300,width:300,margin:10}}
+                         initialRegion={{
+                             latitude: 37.78825,
+                             longitude: -122.4324,
+                             latitudeDelta: 0.0922,
+                             longitudeDelta: 0.0421,
+                         }}
+                >
+                </MapView>
+            {/*</View>*/}
+            </Modal>
+
         </SafeAreaView>
 
     )

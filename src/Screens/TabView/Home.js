@@ -34,9 +34,11 @@ const Home=({navigation})=>{
     useEffect(()=>{  response()},[])
 
      const response =async() => {
+        setLoading(true)
       const response= await get_request('/api/get-all-events');
       setEventdata(response.data)
          setShow(true)
+         setLoading(false)
     }
     // Moment.locale('en');
 
@@ -122,7 +124,7 @@ const Home=({navigation})=>{
                 </TouchableOpacity>
             </View>
 
-                    {eventdata!=null && <FlatList data={ eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase())) || eventdata.filter((item)=>item.event_location.toUpperCase().includes(search.toUpperCase()))}
+                    {eventdata!=null && <FlatList data={ eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase()) || item.event_location.toUpperCase().includes(search.toUpperCase())) || eventdata.filter((item)=>item.event_location.toUpperCase().includes(search.toUpperCase()))}
                       horizontal={true}
                       renderItem={({ item, index }) => (
                           <TouchableOpacity
@@ -130,16 +132,16 @@ const Home=({navigation})=>{
                               style={[styles.eventcard,{borderColor:colors.loginbackground,backgroundColor:"white"}]}>
                           <Image source={{uri:item.image}} style={styles.eventimage}/>
                               {item.title.length>20?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,18)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
-                              {item.short_description.length>21?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
+                              {item.short_description.length>21?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,15)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
 
                               <View style={styles.eventlocation}>
                                   <Fontisto name="date" />
-                                  <Text style={styles.eventtime}>{item.start_time}</Text>
+                                  {item.start_time.length>10?<Text style={styles.eventtime}>{Moment(item.start_time).format("YYYY-MM-DD")}</Text>:<Text style={styles.eventtime}>{item.start_time}</Text>}
                               </View>
 
                               <View style={styles.eventlocation}>
                                   <Ionicons name="location"/>
-                                  {item.event_location.length>21? <Text style={styles.eventtime}>{item.event_location.slice(0,21)+"..."}</Text>:<Text style={styles.eventtime}>{item.event_location}</Text>}
+                                  {item.event_location.length>21? <Text style={styles.eventtime}>{item.event_location.slice(0,15)+"..."}</Text>:<Text style={styles.eventtime}>{item.event_location}</Text>}
                               </View>
                               <View style={styles.eventdate}>
                                   <Text style={{fontSize:16,color:colors.loginbackground}}>{Moment(item.start_time).format('D MMM')}</Text>
