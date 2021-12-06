@@ -9,6 +9,7 @@ import {sameDate} from "../../utilis/Components/sameDate";
 import {get_request} from "../../utilis/Api/Requests";
 import moment from "moment";
 import Moment from "moment";
+import {selectedDayBackgroundColor} from "react-native-calendars/src/style";
 
 const EventCalendar = () => {
     const {colors}=useTheme();
@@ -29,15 +30,13 @@ const EventCalendar = () => {
         console.log(typeof '2011-12-19',"jbvdfjbjk")
 
     }
-    const EVENTS = event.map(item=>({start:Moment(item.start_time).format("YYYY-MM-DD hh:mm"),end:Moment(item.end_time).format("YYYY-MM-DD hh:mm"),title:item.title,summary:item.short_description,color:colors.skincolor}))
+    const EVENTS = event.map(item=>({start:Moment(item.start_time).format("YYYY-MM-DD hh:mm"),end:Moment(item.end_time).format("YYYY-MM-DD hh:mm"),title:item.title,summary:item.short_description,color:"rgba(41,198,96,0.34)"}))
   return(
       <SafeAreaView style={{flex:1}}>
           <ImageBackground source={require('../../Assets/background.png')} style={styles.profilebg}>
               <ScrollView>
           <View style={styles.calendarcontainer}>
-
-              <Text style={[styles.calendarh,{color:"orange"}]}>Calendar</Text>
-              {/*<Cal/>*/}
+              <Text style={[styles.calendarh,{color:colors.greencolor}]}>Calendar</Text>
               <Calendar
                   onDayPress={(day)=>{setCurrentDate(day.dateString),console.log("--------------------",day.dateString)}}
                   current={currentDate}

@@ -1,5 +1,5 @@
 import React, {Component, useEffect, useState} from "react";
-import {View, Text, SafeAreaView, Image, ImageBackground, TouchableOpacity, ScrollView} from "react-native";
+import {View, Text, SafeAreaView, Image, ImageBackground, TouchableOpacity, ScrollView, StatusBar} from "react-native";
 import {GoogleSignin, GoogleSigninButton, statusCodes,} from '@react-native-google-signin/google-signin';
 import {LoginManager} from "react-native-fbsdk-next";
 import styles from '../../Stylesheet/Style';
@@ -24,7 +24,7 @@ const Profile = ({navigation}) => {
     const isFocused = useIsFocused();
     const [name,setName]=useState('');
     const [role,setRole]=useState('');
-    const [image,setImage]=useState(null);
+    const [image,setImage]=useState('');
     const [address,setAddress]=useState('');
     const [country,setCountry]=useState('');
     const [city,setCity]=useState('');
@@ -36,17 +36,21 @@ const Profile = ({navigation}) => {
     const [email,setEmail]=useState('');
     const[logincheck,setLogincheck]=useState(true);
     const [loading,setLoading]= useState(false)
+    const[profiledata,setProfiledata]=useState('')
 
     useEffect(()=>{userinfo()},[isFocused])
 
     const userinfo = async () => {
         setLoading(true)
+
         const userdata=await get_data("user")
+        console.log(userdata.user.id)
         const response=await get_request("/api/user-profile/"+userdata.user.id)
-        console.log("fbjdbgsj",response.data.nationality)
+        console.log("fbjdbgsj",response.data.picture)
         setLoading(false)
         if(response.status==true){
-            setName(response.data.first_name + response.data.last_name );
+            setProfiledata(response.data)
+            setName(response.user_name);
             setImage(response.data.picture);
             setCountry(response.data.country);
             setCity(response.data.city);
@@ -61,16 +65,12 @@ const Profile = ({navigation}) => {
         }
         else{
             //Nothing to do
-        }
+            }
     }
 
     auth().onAuthStateChanged(async(user)=>{
-        if(user){
-            setLogincheck(true)
-            console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$",user)
-        }
-        else {setLogincheck(false), console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$ No User")}
-
+        if(user){setLogincheck(true)}
+        else {setLogincheck(false)}
     })
     const logout =async () => {
             try {
@@ -81,7 +81,7 @@ const Profile = ({navigation}) => {
                     await GoogleSignin.signOut();
                     await auth().signOut()
                     await AsyncStorage.getAllKeys()
-                        .then(keys => AsyncStorage.multiRemove([user,profile,token])).then( navigation.replace("Login",{data:"text"}))
+                        .then(keys => AsyncStorage.multiRemove(["user","profile","token"])).then( navigation.replace("Login",{data:"text"}))
                 }
                 else{
                     await AsyncStorage.getAllKeys()
@@ -96,6 +96,7 @@ const Profile = ({navigation}) => {
     return(
       <SafeAreaView style={{flex:1}}>
           <Loader animating={loading}/>
+          <StatusBar backgroundColor={"#000"}/>
         <ImageBackground source={require('../../Assets/background.png')} style={styles.profilebg}>
             <ScrollView contentContainerStyle={{flexGrow:1}} style={styles.profilecontainer}>
                 <View style={styles.profileheader}>
@@ -104,7 +105,6 @@ const Profile = ({navigation}) => {
                         <Text style={{color:"white",marginRight:10}}>Log Out</Text>
                         <Feather name="log-out" color="white" size={20}/>
                     </TouchableOpacity>
-
                 </View>
 
                     <View style={[styles.profileavatar,{backgroundColor:colors.profilebg}]}>
@@ -125,7 +125,7 @@ const Profile = ({navigation}) => {
 
                     {role!=''&& role=="user"?
                         <View>
-                        <TouchableOpacity onPress={()=>{navigation.navigate("Update Profile")}} style={[styles.updateprofilebtn,{backgroundColor:colors.registerbtn}]}>
+                        <TouchableOpacity onPress={()=>{navigation.navigate("Update Profile",{data:profiledata,name:name,email:email})}} style={[styles.updateprofilebtn,{backgroundColor:colors.registerbtn}]}>
                          <Text style={{textAlign:"center",color:colors.registerbtntext}}>Update Detail</Text>
                         </TouchableOpacity>
                             {logincheck !=true? <TouchableOpacity onPress={()=>{navigation.navigate("ResetPassword")}} style={[styles.updateprofilebtn,{backgroundColor:colors.registerbtn,marginTop:10}]}>

@@ -13,7 +13,9 @@ import MapView from 'react-native-maps';
 
 const MAP = ({navigation}) => {
     const {colors}=useTheme();
-  return(
+    const [pin, setPin] = React.useState([{ latitude: 37.78825, longitude: -122.4324 }, { latitude: 35.78825, longitude: -118.4324 }]);
+
+    return(
       <SafeAreaView style={{flex:1}}>
           <MapView style={{width:"100%",height:"100%"}}
               initialRegion={{
@@ -22,7 +24,25 @@ const MAP = ({navigation}) => {
                   latitudeDelta: 0.0922,
                   longitudeDelta: 0.0421,
               }}
-          />
+          >
+              <Marker coordinate={{
+                  latitude: 37.78825,
+                  longitude: -122.4324,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+              }}
+                      pinColor="red"
+              >
+                  <Callout>
+                      <Text>I am Here</Text>
+                  </Callout>
+                  <Circle
+                      center={pin}
+                      radius={10000}
+                  >
+                  </Circle>
+              </Marker>
+          </MapView>
 
       </SafeAreaView>
   )

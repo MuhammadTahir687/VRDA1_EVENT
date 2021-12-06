@@ -37,7 +37,7 @@ const Splash = ({navigation}) => {
         // }, 3000);
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            {/*<StatusBar backgroundColor={colors.loginbackground}/>*/}
+            <StatusBar backgroundColor={"#1CAE81"}  />
             <ImageBackground source={require("../Assets/Splash.png")} style={{ width: "100%", height: "100%",alignItems:"center",justifyContent:"center" }}>
                 <Image source={require('../Assets/NewLogo.png')} style={{resizeMode:"contain",width:200,height:200}}/>
             </ImageBackground>

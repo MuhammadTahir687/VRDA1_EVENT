@@ -18,7 +18,7 @@ import AllEvent from "./TabView/AllEvents";
 import ForgotPassword from "./Auth/ForgotPassword";
 import UpdatePassword from "./Auth/UpdatePassword";
 import ResetPassword from "./TabView/ResetPassword";
-// import linking from "../Linking";
+import VerifyCode from './Auth/VerifyCode';
 import {Linking} from 'react-native';
 import Vrda1Login from '../Screens/Auth/Vrda1Login'
 import {get_data} from "../utilis/AsyncStorage/Controller";
@@ -152,8 +152,6 @@ const config={
         },
         Register: 'user',
         Signin:"sign",
-
-
     },
 }
     const linking={
@@ -164,20 +162,16 @@ const config={
 
 const Route = () => {
     const dispatch=useDispatch();
-    const [value,setValue]=useState(false)
-            AsyncStorage.getItem("savetheme").then(savetheme=>{
-                console.log("&&&&&&&&&&&", JSON.parse(savetheme))
+    const isDarkTheme=useSelector((state:RootState)=>state.themeReducer.isDarkTheme);
+    const [value,setValue]=useState(isDarkTheme)
+            AsyncStorage.getItem("savetheme").then(savetheme=>{console.log("&&&&&&&&&&&", JSON.parse(savetheme))
                 setValue(JSON.parse(savetheme))
             })
-
-
 
     const darkTheme=useSelector((state:RootState)=>state.themeReducer.isDarkTheme)
     const scheme = useColorScheme();
     const theme= value===false?CustomDarkTheme:CustomDefaultTheme;
     const Stack = createNativeStackNavigator();
-
-
 
   return(
       <PaperProvider theme={theme}>
@@ -196,6 +190,7 @@ const Route = () => {
               <Stack.Screen name="UpdatePassword" component={UpdatePassword}/>
               <Stack.Screen name="All Events" component={AllEvent}/>
               <Stack.Screen name="vrda1login" component={Vrda1Login}/>
+              <Stack.Screen name={'VerifyCode'} component={VerifyCode}/>
           </Stack.Navigator>
       </NavigationContainer>
       </PaperProvider>

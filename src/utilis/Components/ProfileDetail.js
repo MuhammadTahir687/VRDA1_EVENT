@@ -18,8 +18,8 @@ const PD = ({icon1,icon2,text1,text2,text3,text4,iconcategory,icon3}) => {
                     <Text style={[styles.pdtext,{color:colors.profilrtext}]}>{text1}</Text>
                     {text2.length>14?
                         <Tooltip
-                            backgroundColor="grey"
-                            highlightColor="grey"
+                            backgroundColor={colors.registerbtn}
+                            highlightColor={colors.registerbtn}
                             pointerColor="orange"
                             width={300}
                             withOverlay={false}
@@ -43,8 +43,8 @@ const PD = ({icon1,icon2,text1,text2,text3,text4,iconcategory,icon3}) => {
                     <Text style={[styles.pdtext,{color:colors.profilrtext}]}>{text3}</Text>
                     {text4.length>14?
                         <Tooltip
-                            backgroundColor="grey"
-                            highlightColor="grey"
+                            backgroundColor={colors.registerbtn}
+                            highlightColor={colors.registerbtn}
                             pointerColor="orange"
                             width={300}
                             withOverlay={false}

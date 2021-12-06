@@ -43,10 +43,7 @@ const Login = ({navigation}) => {
 
     async  function setTheam(){
         dispatch(setIsDarkTheme(!isDarkTheme))
-        // await save_data('savetheme',isDarkTheme)
-        await AsyncStorage.setItem(
-            "savetheme", JSON.stringify(isDarkTheme)
-        );
+        await AsyncStorage.setItem("savetheme", JSON.stringify(isDarkTheme));
     }
 
     useEffect(()=>{getInitialURL()},[])
@@ -54,7 +51,6 @@ const Login = ({navigation}) => {
     const getInitialURL=async()=> {
         const url = await Linking.getInitialURL();
         if (url != null) {
-            // console.log("==========================",url)
             navigation.navigate("UpdatePassword")
             return url;
         }
@@ -168,7 +164,7 @@ const Login = ({navigation}) => {
     return(
 
      <SafeAreaView style={{flex:1,backgroundColor:colors.loginbackground2}}>
-
+         <StatusBar backgroundColor={colors.loginbackground2}/>
          <View style={{flex:1,justifyContent:"center"}}>
              { value ==true? <Image source={require('../../Assets/New_Logo.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>:
                  <Image source={require('../../Assets/White_New_Login.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>
@@ -214,7 +210,7 @@ const Login = ({navigation}) => {
                     <Text style={[styles.loginbtntext1,{color:"white"}]}>Sign in</Text>
                 </TouchableOpacity>
 
-                <Text style={styles.loginor}>or Sign in with</Text>
+                <Text style={[styles.loginor,{color:colors.profilrtext}]}>or Sign in with</Text>
 
                 <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
                   <TouchableOpacity>
@@ -228,7 +224,7 @@ const Login = ({navigation}) => {
                 </TouchableOpacity>
                 </View>
                 <View style={[styles.signinqcontainer,{backgroundColor:"transparent"}]}>
-                    <Text style={[styles.loginq1,{color:colors.inputtext}]}>Don't have an account?</Text>
+                    <Text style={[styles.loginq1,{color:colors.profilrtext}]}>Don't have an account?</Text>
                     <TouchableOpacity onPress={()=>{navigation.navigate("Register")}}>
                         <Text style={[styles.loginqbtn,{color:'#1CAE81'}]}> Register</Text>
                     </TouchableOpacity>

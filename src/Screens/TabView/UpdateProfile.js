@@ -23,22 +23,25 @@ import {border} from "native-base/lib/typescript/theme/styled-system";
 
 
 
-const UpdateProfile = ({navigation}) => {
+const UpdateProfile = ({navigation,route}) => {
     const {colors}=useTheme();
-    const [name,setName]=useState('');
+    const profiledata=route.params.data;
+    const username=route.params.name;
+    const emailid=route.params.email;
+    const [name,setName]=useState(username);
     const [role,setRole]=useState('');
     const [image,setImage]=useState(null);
-    const [address,setAddress]=useState('');
-    const [country,setCountry]=useState(null);
-    const [city,setCity]=useState('');
-    const [cnic,setCnic]=useState('')
-    const [nationality,setNationality]=useState('');
-    const [phone,setPhone]=useState('');
-    const [dob,setDob]=useState('');
+    const [address,setAddress]=useState(profiledata.address);
+    const [country,setCountry]=useState(profiledata.country);
+    const [city,setCity]=useState(profiledata.city);
+    const [cnic,setCnic]=useState(profiledata.cnic)
+    const [nationality,setNationality]=useState(profiledata.nationality);
+    const [phone,setPhone]=useState(profiledata.phone);
+    const [dob,setDob]=useState(profiledata.dob);
     const [organization,setOrganization]=useState('');
-    const [email,setEmail]=useState('');
-    const [userid,setUserid]=useState('');
-    const [date,setDate]=useState('');
+    const [email,setEmail]=useState(emailid);
+    const [userid,setUserid]=useState(profiledata.user_id);
+    const [date,setDate]=useState(profiledata.dob);
     const [filePath, setFilePath] = useState(null);
     const [show,setShow]=useState(false)
     const [loading,setLoading]= useState(false)
@@ -52,37 +55,10 @@ const UpdateProfile = ({navigation}) => {
     const [withCallingCode, setWithCallingCode] = useState(true)
     const [value,setValue]=useState(false)
 
-    const onSelect = (country: Country) => {setCountryCode(country.cca2),setCountry(country)}
+    const onSelect = (country: Country) => {setCountryCode(country.cca2),AsyncStorage.setItem("countrycode",JSON.stringify(country.cca2)),setCountry(country.name),console.log(country.cca2)}
     AsyncStorage.getItem("savetheme").then(savetheme=>{setValue(JSON.parse(savetheme))})
+    AsyncStorage.getItem("countrycode").then(countrycode=>{setCountryCode(JSON.parse(countrycode))})
 
-    useEffect(()=>{userinfo()},[])
-
-    const userinfo = async () => {
-        setLoading(true)
-        const userdata=await get_data("user")
-        const response=await get_request("/api/user-profile/"+userdata.user.id)
-        console.log("fbjdbgsj",response.data.picture)
-        setLoading(false)
-        if(response.status==true){
-            setUserid(userdata.user.id)
-            setName(response.data.first_name + response.data.last_name );
-            setImage(response.data.picture);
-            setCountry(response.data.country);
-            setCity(response.data.city);
-            setDob(response.data.dob);
-            setPhone(response.data.phone);
-            setAddress(response.data.address);
-            setNationality(response.data.nationality);
-            setRole(userdata.user.role);
-            setCnic(response.data.cnic);
-            setOrganization(response.data.organization);
-            setEmail(userdata.user.email)
-
-        }
-        else{
-            //Nothing to do
-        }
-    }
 
     const onChange = (text) => {
         const input = text;
@@ -96,13 +72,13 @@ const UpdateProfile = ({navigation}) => {
         try{
             const data=new FormData();
             data.append("id",userid);
-            data.append('name', 'name')
+            data.append('name', name)
             data.append("cnic", cnic);
             {date && data.append("dob", date)}
             data.append("phone", phone);
             data.append("address", address);
             data.append("city", city);
-            {country && data.append("country", country.name);}
+            data.append("country", country)
             data.append("nationality", nationality);
             {image && data.append("picture", {uri:image,name:`photo.jpg`,type:`image/jpg` })}
 
@@ -133,7 +109,7 @@ const UpdateProfile = ({navigation}) => {
 
                   <View style={[styles.profileavatar,{backgroundColor:colors.profilebg}]}>
                       {show==false ?
-                          <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:"http://emailsend.mirindaweb.com/"+image}} containerStyle={{backgroundColor:colors.skincolor}}/>
+                          <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:"http://emailsend.mirindaweb.com/"+profiledata.picture}} containerStyle={{backgroundColor:colors.skincolor}}/>
                           :
                           <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:image}} containerStyle={{backgroundColor:colors.skincolor}}/>
                       }

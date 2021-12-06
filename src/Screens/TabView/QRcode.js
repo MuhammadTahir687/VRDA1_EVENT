@@ -9,6 +9,7 @@ import {get_data} from "../../utilis/AsyncStorage/Controller";
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {attendance_api} from "../../utilis/Api/Api_controller";
 
 
 const QRcode =({route,navigation}) => {
@@ -20,6 +21,7 @@ const QRcode =({route,navigation}) => {
     const [name,setName]=useState('');
     const [role,setRole]=useState('');
     const [image,setImage]=useState(null);
+    const [adminid,setadminid]=useState('')
     const width=Dimensions.get('screen').width;
     const height=Dimensions.get('screen').height;
 
@@ -27,6 +29,7 @@ const QRcode =({route,navigation}) => {
 
     const userdata =async () => {
         var qrdata=await get_data('user');
+        setadminid(qrdata.user.id)
         setRole(qrdata.user.role)
         setEmail(qrdata.user.email)
         setName(qrdata.user.name)
@@ -41,10 +44,16 @@ const QRcode =({route,navigation}) => {
             }
         ))
     }
-    const onSuccess = (e) => {
-        console.log("====================",e.data)
-        alert(e.data)
-        // return scanner.current.reactivate()
+    const onSuccess = async (e) => {
+        const response=JSON.parse(e.data)
+        if(response.user_id !='' || response.user_id !=undefined)
+        {
+             const res=await attendance_api({user_id:response.user_id,event_id:response.event_id,admin_id:adminid})
+            console.log("dfdfg",res.data)
+        }
+        else{
+
+        }
     }
 
   return(

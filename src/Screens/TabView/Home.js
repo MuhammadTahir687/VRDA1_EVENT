@@ -1,5 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, FlatList, ScrollView} from "react-native";
+import {
+    View,
+    Text,
+    SafeAreaView,
+    TextInput,
+    TouchableOpacity,
+    Image,
+    FlatList,
+    ScrollView,
+    StatusBar,
+    Linking
+} from "react-native";
 import styles from '../../Stylesheet/Style'
 import {useTheme} from "react-native-paper";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -18,6 +29,11 @@ import {setIsDarkTheme} from "../../Store/MainSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useDispatch, useSelector} from "react-redux";
 import Loader from "../../utilis/Loader";
+import {get_data} from "../../utilis/AsyncStorage/Controller";
+import auth from "@react-native-firebase/auth";
+import {LoginManager} from "react-native-fbsdk-next";
+import {GoogleSignin} from "@react-native-google-signin/google-signin";
+import {firebase} from '@react-native-firebase/messaging'
 
 const Home=({navigation})=>{
     const {colors}=useTheme();
@@ -29,24 +45,78 @@ const Home=({navigation})=>{
     const [show,setShow]=useState(false)
     const [icon,setIcon]=useState(false)
     const [isModalVisible, setModalVisible] = useState(false);
+    const [userid,setUserid]=useState('')
 
 
-    useEffect(()=>{  response()},[])
+    useEffect(()=>{  response(),getToken(),getInitialURL()},[])
+
+
+    const getInitialURL=async()=> {
+        const url = await Linking.getInitialURL();
+        if (url != null) {
+            console.log("link,===",url)
+            navigation.navigate("UpdatePassword")
+            return url;
+        }
+        else{
+            console.log("No URL")
+            //code here
+        }
+    }
+
+
+    const getToken = async () => {
+        try {
+            const token = await firebase.messaging().getToken();
+            if (token)
+                console.log("FCM Token========",token)
+                // return token;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
      const response =async() => {
         setLoading(true)
+         const userdata= await get_data("user");
+         setUserid(userdata.user.id)
       const response= await get_request('/api/get-all-events');
-      setEventdata(response.data)
-         setShow(true)
-         setLoading(false)
+         console.log(response.success,"status")
+         if(response.success==true){
+             setEventdata(response.data)
+             setShow(true)
+             setLoading(false)
+         }
+         else if(response.message=='Unauthenticated'){logout()}
     }
-    // Moment.locale('en');
+
+    const logout =async () => {
+        try {
+            const user= await auth().currentUser;
+            if(user!=null){
+                await LoginManager.logOut();
+                // await GoogleSignin.revokeAccess();
+                await GoogleSignin.signOut();
+                await auth().signOut()
+                await AsyncStorage.getAllKeys()
+                    .then(keys => AsyncStorage.multiRemove(["user","profile","token"])).then( navigation.replace("Login",{data:"text"}))
+            }
+            else{
+                await AsyncStorage.getAllKeys()
+                    .then(keys => AsyncStorage.multiRemove(["user","profile","token"])).then( navigation.replace("Login",{data:"text"}))
+            }
+            console.log("sign out")
+        } catch (error) {console.error(error);}
+
+    }
+
+    Moment.locale('en');
 
     const handlenotification = () => {
       PushNotification.localNotification({
           channelId: "reminder",
           title:"Notifications",
-          message:"jhkdfhgkdfjgkdfjiljvifdiznbn"
+          message:"Event"
       })
     }
 
@@ -61,6 +131,7 @@ const Home=({navigation})=>{
     return(
         <SafeAreaView style={{flex:1}}>
             <Loader animating={loading}/>
+            <StatusBar backgroundColor={"#1CAE81"}  />
             <ScrollView>
             <View style={[styles.homeheader,{backgroundColor:colors.loginbackground}]}>
                 <View style={{flex:1}}>
@@ -119,8 +190,8 @@ const Home=({navigation})=>{
             <View style={styles.homemain1}>
                 <Text style={[styles.homemainh1,{color:colors.loginbackground}]}>Upcomming Event</Text>
                 <TouchableOpacity onPress={()=>{navigation.navigate("All Events")}} style={styles.seeallcontainer}>
-                    <Text style={{color:"#938d8d"}}>See All</Text>
-                    <AntDesign name="right"/>
+                    <Text style={{color:colors.profilrtext}}>See All</Text>
+                    <AntDesign name="right" color={colors.profilrtext}/>
                 </TouchableOpacity>
             </View>
 
@@ -128,19 +199,19 @@ const Home=({navigation})=>{
                       horizontal={true}
                       renderItem={({ item, index }) => (
                           <TouchableOpacity
-                              onPress={()=>{navigation.navigate("Event Detail",{ data:item,root:"Events"})}}
+                              onPress={()=>{navigation.navigate("Event Detail",{ data:item,root:"Events",user:userid})}}
                               style={[styles.eventcard,{borderColor:colors.loginbackground,backgroundColor:"white"}]}>
                           <Image source={{uri:item.image}} style={styles.eventimage}/>
                               {item.title.length>20?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,18)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
                               {item.short_description.length>21?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,15)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
 
                               <View style={styles.eventlocation}>
-                                  <Fontisto name="date" />
+                                  <Fontisto name="date" color={"black"} />
                                   {item.start_time.length>10?<Text style={styles.eventtime}>{Moment(item.start_time).format("YYYY-MM-DD")}</Text>:<Text style={styles.eventtime}>{item.start_time}</Text>}
                               </View>
 
                               <View style={styles.eventlocation}>
-                                  <Ionicons name="location"/>
+                                  <Ionicons name="location" color={"black"}/>
                                   {item.event_location.length>21? <Text style={styles.eventtime}>{item.event_location.slice(0,15)+"..."}</Text>:<Text style={styles.eventtime}>{item.event_location}</Text>}
                               </View>
                               <View style={styles.eventdate}>
