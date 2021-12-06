@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import { useColorScheme } from 'react-native';
 import { DefaultTheme as PaperDefaultTheme,DarkTheme as PaperDarkTheme, Provider as PaperProvider } from 'react-native-paper';
 import{useDispatch,useSelector} from 'react-redux';
+import {Alert} from "react-native";
 import {RootState} from '@reduxjs/toolkit/dist/query/core/apiState';
 import Splash from "./Splash";
 import Login from './Auth/Login';
@@ -24,6 +25,8 @@ import Vrda1Login from '../Screens/Auth/Vrda1Login'
 import {get_data} from "../utilis/AsyncStorage/Controller";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {setIsDarkTheme} from "../Store/MainSlice";
+import {firebase} from '@react-native-firebase/messaging'
+import PushNotification from "react-native-push-notification";
 
 
 const CustomDarkTheme = {
@@ -161,6 +164,26 @@ const config={
 
 
 const Route = () => {
+    useEffect(()=>{notification()},[])
+
+    const notification = () => {
+        const messaging=firebase.messaging;
+        const unsubscribe = messaging().onMessage(async remoteMessage => {
+            // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+
+            PushNotification.localNotification({
+                channelId: "reminder",
+                message: remoteMessage.notification.body,
+                title: remoteMessage.notification.title,
+                bigPictureUrl: remoteMessage.notification.android.imageUrl,
+                smallIcon: remoteMessage.notification.android.imageUrl,
+            });
+
+        });
+
+        return unsubscribe;
+    }
+
     const dispatch=useDispatch();
     const isDarkTheme=useSelector((state:RootState)=>state.themeReducer.isDarkTheme);
     const [value,setValue]=useState(isDarkTheme)

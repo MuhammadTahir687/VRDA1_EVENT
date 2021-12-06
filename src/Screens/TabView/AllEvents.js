@@ -94,19 +94,19 @@ const AllEvent = ({navigation}) => {
                 </View>
             </ImageBackground>
 
-            <View style={[styles.alleventbtncontainer,{borderRadius:50,backgroundColor:colors.skincolor}]}>
+            <View style={[styles.alleventbtncontainer,{borderRadius:50,backgroundColor:colors.greencolor}]}>
                 {Button.map( (item,index)=>(
-                        <TouchableOpacity key={index} onPress={()=>{setBtn(index); response(index)}} style={[styles.alleventbtn,{backgroundColor:(btn==index)?"white":colors.skincolor,elevation:(btn==index)?6:0,paddingHorizontal:(btn==index)?20:10}]}>
-                            <Text style={[styles.alleventbtntext,{color:(btn==index)?colors.skincolor:colors.text}]}>{item.title}</Text>
+                        <TouchableOpacity key={index} onPress={()=>{setBtn(index); response(index)}} style={[styles.alleventbtn,{backgroundColor:(btn==index)?"white":colors.greencolor,elevation:(btn==index)?6:0,paddingHorizontal:(btn==index)?20:10}]}>
+                            <Text style={[styles.alleventbtntext,{color:(btn==index)?colors.greencolor:colors.text}]}>{item.title}</Text>
                         </TouchableOpacity>
                 ))}
             </View>
-            {eventdata!=null && <FlatList data={eventdata.filter(item => item.title.toUpperCase().includes(search.toUpperCase()))}
+            {eventdata!=null && <FlatList data={eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase()) || item.event_location.toUpperCase().includes(search.toUpperCase()))}
                       keyExtractor={(item,index)=>index.toString()}
                       renderItem={({ item, index }) => (
                           <TouchableOpacity onPress={()=>{navigation.navigate("Event Detail",{ data:item,root:"allevents"})}}  style={[styles.eventcard1,{borderColor:colors.loginbackground,backgroundColor:"white"}]}>
                               <Image source={{uri: "http://emailsend.mirindaweb.com/"+item.image}} style={styles.eventimage1}/>
-                              {item.title.length>21?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,21)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
+                              {item.title.length>21?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,31)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
                               {item.short_description.length>20?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
 
                               <View style={styles.eventlocation}>
@@ -117,7 +117,7 @@ const AllEvent = ({navigation}) => {
                                   <Ionicons name="location"/>
                                   {item.event_location.length>20? <Text style={styles.eventtime}>{item.event_location.slice(0,20)+"..."}</Text>:<Text style={styles.eventtime}>{item.event_location}</Text>}
                               </View>
-                              <View style={styles.eventdate}>
+                              <View style={styles.eventdate1}>
                                   <Text style={{fontSize:16,color:colors.loginbackground}}>{Moment(item.start_time).format('D MMM')}</Text>
                               </View>
                           </TouchableOpacity>

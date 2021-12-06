@@ -76,7 +76,7 @@ export default StyleSheet.create({
     eventtime:{marginHorizontal:5,color:"black"},
 
     eventdate:{bottom:189,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
-    eventdate1:{bottom:219,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
+    eventdate1:{bottom:218,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
     eventdetailheader:{height:devicehieght/4.5,width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20},
     eventdetailtitile:{fontSize:20,fontWeight:"bold",marginHorizontal:10},
     dateicon:{padding:7,borderRadius:5,marginTop:10},
@@ -109,7 +109,7 @@ export default StyleSheet.create({
     pdvalue:{fontSize:12},
 
     alleventheader:{height:devicehieght/4.5,width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20,},
-    alleventheader1:{height:devicehieght/6,width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20,},
+    alleventheader1:{height:devicehieght/6, width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20,},
     alleventbtncontainer:{flexDirection:"row",alignSelf:"center",marginTop:10,bottom:30},
     alleventbtn:{alignSelf:"center",paddingHorizontal:15,paddingVertical:10,borderRadius:50},
     alleventbtntext:{fontWeight:"bold"},

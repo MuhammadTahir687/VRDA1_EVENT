@@ -1,14 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-    View,
-    Text,
-    SafeAreaView,
-    TextInput,
-    TouchableOpacity,
-    Image,
-    FlatList,
-    ScrollView,
-    RefreshControl
+import {View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, FlatList, ScrollView, RefreshControl
 } from "react-native";
 import styles from '../../Stylesheet/Style'
 import {useTheme} from "@react-navigation/native";

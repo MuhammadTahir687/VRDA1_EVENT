@@ -35,6 +35,7 @@ import {LoginManager} from "react-native-fbsdk-next";
 import {GoogleSignin} from "@react-native-google-signin/google-signin";
 import {firebase} from '@react-native-firebase/messaging'
 
+
 const Home=({navigation})=>{
     const {colors}=useTheme();
     const dispatch=useDispatch();
@@ -195,8 +196,9 @@ const Home=({navigation})=>{
                 </TouchableOpacity>
             </View>
 
-                    {eventdata!=null && <FlatList data={ eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase()) || item.event_location.toUpperCase().includes(search.toUpperCase())) || eventdata.filter((item)=>item.event_location.toUpperCase().includes(search.toUpperCase()))}
+                    {eventdata!=null && <FlatList data={ eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase()) || item.event_location.toUpperCase().includes(search.toUpperCase())) }
                       horizontal={true}
+                                                  showsHorizontalScrollIndicator={false}
                       renderItem={({ item, index }) => (
                           <TouchableOpacity
                               onPress={()=>{navigation.navigate("Event Detail",{ data:item,root:"Events",user:userid})}}
