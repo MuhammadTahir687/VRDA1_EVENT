@@ -36,11 +36,12 @@ const EventDetails=({route,navigation})=>{
     const [refreshing, setRefreshing] = useState(false);
 
 
-    useEffect(()=>{ userinfo(),visitorrequest()},[])
+    useEffect(()=>{ userinfo();visitorrequest()},[])
 
     const refresh = async () => {
-        setRefreshing(true)
-      visitorrequest()
+        await setRefreshing(true);
+        await visitorrequest();
+        await userinfo();
         setRefreshing(false)
     }
 
@@ -71,15 +72,19 @@ const EventDetails=({route,navigation})=>{
     const submitt = async () => {
       const response=await eventvisitor_api({user_id:userid,event_id:eventid,visiting_status:"pending"});
         console.log(response.data)
-      if(response.data.user_status=="pending"){
-          alert(response.data.message)
-      }
-      else if(response.data.user_status=="accepted"){
-          navigation.navigate("QR Code",{data:eventdata})
-      }
-      else if(response.data.user_status=="rejected"){
-          alert(response.data.message)
-      }
+        if(role=="user") {
+            await refresh();
+            if (response.data.user_status == "pending") {
+                alert(response.data.message)
+            } else if (response.data.user_status == "accepted") {
+                navigation.navigate("QR Code", {data: eventdata})
+            } else if (response.data.user_status == "rejected") {
+                alert(response.data.message)
+            }
+        }
+        else{
+            navigation.navigate("QR Code", {data: eventdata})
+        }
 
         // navigation.navigate("QR Code",{data:eventdata})
     }
@@ -106,7 +111,7 @@ const EventDetails=({route,navigation})=>{
                     <Text style={[styles.eventtime,{color:colors.screentext}]}>{Moment(eventdata.start_time).format('D MMM YYYY')}</Text>
                 </View>
 
-                    {status !="" ?<View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
+                    {status !="" && role!="admin" ?<View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
                         <Text style={{color:"white",fontSize:15,padding:10,backgroundColor:colors.greencolor,borderRadius:5,textAlign:"center"}}>{status}</Text>
                     </View>:<View></View>}
 

@@ -73,4 +73,14 @@ const visitorrequest_api = async (body) => {
     return Test
 }
 
-export {visitorrequest_api,attendance_api,eventvisitor_api,forgotpassword_api,resetpassword_api, changepassword_api,Login_api, Signup_api, Event_visitor_api, Event_visitor_response_api, Update_profile_api, OTP_api, Attendance_api, Events_details,Coming_Events,register_api   }
+const verifycode_api = async (body) => {
+    const Test = await post_request({ target: "/api/verification-code", body: body });
+    return Test
+}
+
+const resendcode_api = async (body) => {
+    const Test = await post_request({ target: "/api/verification-code", body: body });
+    return Test
+}
+
+export {resendcode_api,verifycode_api,visitorrequest_api,attendance_api,eventvisitor_api,forgotpassword_api,resetpassword_api, changepassword_api,Login_api, Signup_api, Event_visitor_api, Event_visitor_response_api, Update_profile_api, OTP_api, Attendance_api, Events_details,Coming_Events,register_api   }

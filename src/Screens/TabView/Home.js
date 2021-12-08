@@ -1,16 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-    View,
-    Text,
-    SafeAreaView,
-    TextInput,
-    TouchableOpacity,
-    Image,
-    FlatList,
-    ScrollView,
-    StatusBar,
-    Linking
-} from "react-native";
+import {View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, FlatList, ScrollView, StatusBar, Linking, RefreshControl} from "react-native";
 import styles from '../../Stylesheet/Style'
 import {useTheme} from "react-native-paper";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -46,11 +35,17 @@ const Home=({navigation})=>{
     const [show,setShow]=useState(false)
     const [icon,setIcon]=useState(false)
     const [isModalVisible, setModalVisible] = useState(false);
-    const [userid,setUserid]=useState('')
+    const [userid,setUserid]=useState('');
+    const [refreshing, setRefreshing] = useState(false);
 
 
     useEffect(()=>{  response(),getToken(),getInitialURL()},[])
 
+    const refresh = async () => {
+        await setRefreshing(true);
+        await response();
+        setRefreshing(false);
+    }
 
     const getInitialURL=async()=> {
         const url = await Linking.getInitialURL();
@@ -78,7 +73,7 @@ const Home=({navigation})=>{
     }
 
      const response =async() => {
-        setLoading(true)
+         setLoading(true)
          const userdata= await get_data("user");
          setUserid(userdata.user.id)
       const response= await get_request('/api/get-all-events');
@@ -131,9 +126,9 @@ const Home=({navigation})=>{
 
     return(
         <SafeAreaView style={{flex:1}}>
-            <Loader animating={loading}/>
+            {refreshing==true?null:<Loader animating={loading}/>}
             <StatusBar backgroundColor={"#1CAE81"}  />
-            <ScrollView>
+            <ScrollView refreshControl={<RefreshControl progressBackgroundColor={"#fafafa"} colors={['#1CAE81']} refreshing={refreshing} onRefresh={refresh}/>}>
             <View style={[styles.homeheader,{backgroundColor:colors.loginbackground}]}>
                 <View style={{flex:1}}>
                 {/*<Text style={[styles.homeheaderh1,{color:colors.text}]}>Current Location</Text>*/}

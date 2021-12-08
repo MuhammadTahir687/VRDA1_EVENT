@@ -106,6 +106,9 @@ const Login = ({navigation}) => {
                     navigation.reset({ index: 0, routes: [{ name: "App Tab" }], })
                     // navigation.replace("App Tab")
                 }
+                else if(response.data.verified==false){
+                    navigation.replace("VerifyCode",{data:email,screencheck:"login"})
+                }
                 else {
                     // Toast.show(response.data.message)
 

@@ -97,15 +97,21 @@ const Register = ({navigation}) => {
             setLoading(true)
             const res=await register_api(data)
            if(res !='Error'){
-               if(res.data.success==true){
-                   setLoading(false)
-                   Toast.show(res.data.message)
-                   navigation.navigate("Login",{data:"text"})
+               if(res.data.status==true){
+                   setLoading(false);
+                   Toast.show(res.data.message);
+                   navigation.navigate("VerifyCode",{data:email,screencheck:"register"})
                }
-               else{Toast.show("Email Address already Taken")
-               setLoading(false)}
+               else{
+                   console.log("#######",res)
+                   Toast.show('The email has already been taken');
+                   setLoading(false)
+               }
            }
-        else{ Toast.show("Something Went Wrong")
+        else{
+               console.log("####77777###",res)
+            Toast.show('The email has already been taken')
+
         setLoading(false)}
         }
         }

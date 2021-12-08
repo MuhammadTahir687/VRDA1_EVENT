@@ -10,6 +10,8 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {attendance_api} from "../../utilis/Api/Api_controller";
+import Toast from "react-native-simple-toast";
+
 
 
 const QRcode =({route,navigation}) => {
@@ -50,6 +52,12 @@ const QRcode =({route,navigation}) => {
         {
              const res=await attendance_api({user_id:response.user_id,event_id:response.event_id,admin_id:adminid})
             console.log("dfdfg",res.data)
+            if(res.data.status){
+                Toast.show(res.data.message)
+            }
+            else{
+                Toast.show(res.data.message)
+            }
         }
         else{
 
