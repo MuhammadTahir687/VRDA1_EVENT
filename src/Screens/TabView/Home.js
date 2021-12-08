@@ -145,7 +145,7 @@ const Home=({navigation})=>{
                         <MaterialCommunityIcons name="theme-light-dark" color={colors.loginbackground2} size={30}/>
                     </TouchableOpacity>
                     <View style={styles.homerighticoncontainer}>
-                        <TouchableOpacity onPress={()=>{handlenotification(),setModalVisible(true)}}>
+                        <TouchableOpacity onPress={()=>{handlenotification()}}>
                             <FontAwesome name="bell" color="white" size={18} style={[styles.righticon,{backgroundColor:colors.signinHeader}]} />
                         </TouchableOpacity>
                         {/*<TouchableOpacity onPress={()=>{navigation.navigate('QR Code',{data:eventdata})}}>*/}

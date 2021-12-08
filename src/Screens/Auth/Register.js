@@ -120,7 +120,7 @@ const Register = ({navigation}) => {
             <ScrollView style={[{backgroundColor:colors.signinmain}]}>
                 <View style={styles.signinmaincontainer}>
                     {/*<Text>Hello there, register to continue!</Text>*/}
-                    { value ==true? <Image source={require('../../Assets/New_Logo.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center",marginTop:20}}/>:
+                    { value ==true  || value==null? <Image source={require('../../Assets/New_Logo.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center",marginTop:20}}/>:
                         <Image source={require('../../Assets/White_New_Login.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center",marginTop:20}}/>
                     }
                     <Text style={[styles.signinmainh1,{color:colors.signinh1}]}>Register</Text>

@@ -46,7 +46,7 @@ const ForgotPassword = ({navigation}) => {
       <SafeAreaView style={{flex:1,backgroundColor:colors.loginbackground2}}>
         <StatusBar backgroundColor={colors.loginbackground2}/>
           <View style={{flex:1,justifyContent:"center"}}>
-              { value ==true? <Image source={require('../../Assets/New_Logo.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>:
+              { value ==true  || value==null? <Image source={require('../../Assets/New_Logo.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>:
                   <Image source={require('../../Assets/White_New_Login.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>
               }
               <View style={{marginHorizontal:20}}>
