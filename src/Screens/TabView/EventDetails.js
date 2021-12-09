@@ -44,8 +44,6 @@ const EventDetails=({route,navigation})=>{
         await userinfo();
         setRefreshing(false)
     }
-
-
     const userinfo = async () => {
         const userdata= await get_data("user");
         const profiledata=await get_data('profile')
@@ -74,19 +72,11 @@ const EventDetails=({route,navigation})=>{
         console.log(response.data)
         if(role=="user") {
             await refresh();
-            if (response.data.user_status == "pending") {
-                alert(response.data.message)
-            } else if (response.data.user_status == "accepted") {
-                navigation.navigate("QR Code", {data: eventdata})
-            } else if (response.data.user_status == "rejected") {
-                alert(response.data.message)
-            }
+            if (response.data.user_status == "pending") {alert(response.data.message)}
+            else if (response.data.user_status == "accepted") {navigation.navigate("QR Code", {data: eventdata})}
+            else if (response.data.user_status == "rejected") {alert(response.data.message)}
         }
-        else{
-            navigation.navigate("QR Code", {data: eventdata})
-        }
-
-        // navigation.navigate("QR Code",{data:eventdata})
+        else{navigation.navigate("QR Code", {data: eventdata})}
     }
 
     return(
@@ -114,13 +104,6 @@ const EventDetails=({route,navigation})=>{
                     {status !="" && role!="admin" ?<View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
                         <Text style={{color:"white",fontSize:15,padding:10,backgroundColor:colors.greencolor,borderRadius:5,textAlign:"center"}}>{status}</Text>
                     </View>:<View></View>}
-
-
-                {/*<TouchableOpacity onPress={()=>{setModalVisible(true)}} style={styles.eventlocation}>*/}
-                {/*    <Ionicons name="location" color="white"  size={20} style={[styles.dateicon,{backgroundColor:colors.skincolor}]}/>*/}
-                {/*    <Text style={[styles.eventtime,{color:colors.screentext}]}>{eventdata.event_location}</Text>*/}
-                {/*</TouchableOpacity>*/}
-
                 </View>
 
                 <TouchableOpacity onPress={()=>{setModalVisible(true)}} style={styles.eventlocation}>
@@ -133,12 +116,12 @@ const EventDetails=({route,navigation})=>{
                         size="large"
                         rounded
                         icon={{name: 'user', type: 'font-awesome',}}
-                        source={{uri:"http://emailsend.mirindaweb.com/"+image}}
+                        source={{uri:"http://emailsend.mirindaweb.com/"+ eventdata.speaker_img}}
                         containerStyle={{backgroundColor:colors.skincolor,borderWidth:2,borderColor:colors.greencolor}}
                     />
                     <View style={styles.avatartext}>
-                        <Text style={[{fontSize:18, color:"white"}]}>{name}</Text>
-                        <Text style={{color:"white"}}>{role}</Text>
+                        <Text style={[{fontSize:18, color:"white"}]}>{eventdata.speaker_name}</Text>
+                        <Text style={{color:"white"}}>Speaker</Text>
                     </View>
                 </View>
 
@@ -181,7 +164,6 @@ const EventDetails=({route,navigation})=>{
 
                     </Marker>
                 </MapView>
-            {/*</View>*/}
             </Modal>
 
         </SafeAreaView>

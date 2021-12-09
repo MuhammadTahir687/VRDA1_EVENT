@@ -45,35 +45,10 @@ const AllEvent = ({navigation}) => {
             setEventdata(res.event_start);
         }
     }
-
-
-
-    // const renderitem = ({item,index}) => {
-    //   return(
-    //       <TouchableOpacity  style={[styles.eventcard1,{borderColor:colors.loginbackground}]}>
-    //           <Image source={{uri:item.image}} style={styles.eventimage}/>
-    //           {item.title.length>21?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,21)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
-    //           {item.short_description.length>20?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
-    //           <View style={styles.eventdate}>
-    //               <Text style={{fontSize:16,color:colors.loginbackground}}>{Moment(item.start_time).format('d MMM')}</Text>
-    //           </View>
-    //           <View style={styles.eventlocation}>
-    //               <Fontisto name="date" />
-    //               <Text style={styles.eventtime}>{item.start_time}</Text>
-    //           </View>
-    //           <View style={styles.eventlocation}>
-    //               <Ionicons name="location"/>
-    //               {item.event_location.length>20? <Text style={styles.eventtime}>{item.event_location.slice(0,20)+"..."}</Text>:<Text style={styles.eventtime}>{item.event_location}</Text>}
-    //           </View>
-    //       </TouchableOpacity>
-    //   )
-    // }
-
-
     return(
         <SafeAreaView style={{flex:1}}>
             <Loader animating={loading}/>
-            <ImageBackground source={require('../../Assets/background.png')} style={[styles.alleventheader1,]}>
+            <ImageBackground source={require('../../Assets/EventIMG.png')} imageStyle={{borderBottomLeftRadius:50,borderBottomRightRadius:50}} style={[styles.alleventheader1,]}>
                 <View style={styles.searchcontainer1}>
                     <View style={styles.searchleftcontainer}>
                         <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={["rgba(12,12,12,0.4)", "#1CAE81"]} style={{backgroundColor:"rgba(12,12,12,0.4)",flexDirection:"row",borderRadius:50,flex:1}}>
@@ -87,10 +62,6 @@ const AllEvent = ({navigation}) => {
                             />
                         </LinearGradient>
                     </View>
-                    {/*<TouchableOpacity style={[styles.filtercontainer,{backgroundColor:"rgba(12,12,12,0.58)"}]}>*/}
-                    {/*    <Ionicons name="filter" color="white" size={20}/>*/}
-                    {/*    <Text style={{color:"white",marginHorizontal:5}}>Filter</Text>*/}
-                    {/*</TouchableOpacity>*/}
                 </View>
             </ImageBackground>
 
@@ -104,10 +75,10 @@ const AllEvent = ({navigation}) => {
             {eventdata!=null && <FlatList data={eventdata.filter((item)=>item.title.toUpperCase().includes(search.toUpperCase()) || item.event_location.toUpperCase().includes(search.toUpperCase()))}
                       keyExtractor={(item,index)=>index.toString()}
                       renderItem={({ item, index }) => (
-                          <TouchableOpacity onPress={()=>{navigation.navigate("Event Detail",{ data:item,root:"allevents"})}}  style={[styles.eventcard1,{borderColor:colors.loginbackground,backgroundColor:"white"}]}>
+                          <TouchableOpacity onPress={()=>{navigation.navigate("Event Detail",{ data:item,root:"allevents"})}}  style={[styles.eventcard1,{borderColor:colors.loginbackground,backgroundColor:"white",elevation:10}]}>
                               <Image source={{uri: "http://emailsend.mirindaweb.com/"+item.image}} style={styles.eventimage1}/>
                               {item.title.length>21?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title.slice(0,31)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.title}</Text>}
-                              {item.short_description.length>20?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}
+                              {/*{item.short_description.length>20?<Text style={styles.eventshortdescription}>{item.short_description.slice(0,21)+"..."}</Text>:<Text style={styles.eventshortdescription}>{item.short_description}</Text>}*/}
 
                               <View style={styles.eventlocation}>
                                   <Fontisto name="date" />
@@ -123,7 +94,6 @@ const AllEvent = ({navigation}) => {
                           </TouchableOpacity>
                       )}
             />}
-
         </SafeAreaView>
     )
 }

@@ -55,7 +55,7 @@ const Login = ({navigation}) => {
             return url;
         }
         else{
-            //code here
+            //Nothing
         }
     }
 
@@ -75,7 +75,6 @@ const Login = ({navigation}) => {
                         console.log("=============",response.data)
                         setLoading(false)
                         settoken(true)
-                        // navigation.replace("App Tab")
                     }
                     else { setLoading(false),Toast.show(response.data.message)}
                 }else{setLoading(false),Toast.show("Invalid Email or Password ")}
@@ -104,61 +103,17 @@ const Login = ({navigation}) => {
                     console.log("=============",response.data)
                     setLoading(false)
                     navigation.reset({ index: 0, routes: [{ name: "App Tab" }], })
-                    // navigation.replace("App Tab")
                 }
                 else if(response.data.verified==false){
                     navigation.replace("VerifyCode",{data:email,screencheck:"login"})
                 }
                 else {
-                    // Toast.show(response.data.message)
-
-                    toast({
-                        message: response.data.message,
-                        duration:0,
-                        accentColor:"red",
-                        toastStyles: {
-                            bg: 'white',
-                        },
-
-                        color: 'black',
-                        iconColor: 'red',
-                        iconFamily: 'Entypo',
-                        iconName: 'info',
-                        closeButtonStyles: {
-                            // px: 2,
-                            bg: 'red',
-                            borderRadius: 50
-                        },
-                        closeIconColor: 'white',
-                        hideAccent: false
-                    })
-                    // setLoading(false)
-
-
+                    setLoading(false)
+                    toast({message: response.data.message, duration:0, accentColor:"red", toastStyles: {bg: 'white',}, color: 'black', iconColor: 'red', iconFamily: 'Entypo', iconName: 'info', closeButtonStyles: { bg: 'red',borderRadius: 50},closeIconColor: 'white',hideAccent: false})
                 }
             }else{
-                // Toast.show("Invalid Email or Password ")
-                toast({
-                    duration:0,
-                    message: response.data.message,
-                    accentColor:"red",
-                    toastStyles: {
-                        bg: 'lightblue',
-                        borderRadius: 16
-                    },
-                    color: 'white',
-                    iconColor: 'white',
-                    iconFamily: 'Entypo',
-                    iconName: 'info',
-                    closeButtonStyles: {
-                        px: 4,
-                        bg: 'darkgrey',
-                        borderRadius: 16
-                    },
-                    closeIconColor: 'white',
-                    hideAccent: false
-                })
-                // setLoading(false)
+                setLoading(false)
+                toast({duration:0, message: response.data.message, accentColor:"red", toastStyles: {bg: 'lightblue', borderRadius: 16}, color: 'white', iconColor: 'white', iconFamily: 'Entypo', iconName: 'info', closeButtonStyles: {px: 4, bg: 'darkgrey', borderRadius: 16}, closeIconColor: 'white', hideAccent: false})
 
             }
         }
@@ -235,47 +190,8 @@ const Login = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
                 {token==true &&navigation.reset({ index: 0, routes: [{ name: "App Tab" }], })}
-                {/*<TouchableOpacity onPress={setTheam}>*/}
-                {/*        <Text style={{color:colors.inputtext}}>Change Theme</Text>*/}
-                {/*    </TouchableOpacity>*/}
             </View>
          </View>
-
-
-
-
-         {/*<StatusBar backgroundColor={colors.loginbackground1}/>*/}
-         {/*<ScrollView contentContainerStyle={{flexGrow:1}}>*/}
-         {/*    <View style={{flex:1,paddingTop:"25%",marginHorizontal:10}} >*/}
-         {/*    <Image source={require('../../Assets/calendar.png')} style={styles.loginimage}/>*/}
-         {/*<View style={styles.loginhcontainer}>*/}
-         {/*    <Text style={[styles.welcome,{color:colors.text}]}>Welcome</Text>*/}
-         {/*    <Text style={[styles.loginh2,{color:colors.text}]}>Life is an Event</Text>*/}
-         {/*    <Text style={[styles.loginh3,{color:colors.text}]}>Make it Memorable</Text>*/}
-         {/*</View>*/}
-         {/*<View style={styles.logincontainer3}>*/}
-         {/*    <TouchableOpacity  onPress={()=>{navigation.navigate("Signin",{data:"text"})}} style={[styles.loginbtncontainer1,{backgroundColor:colors.loginbuttonsbg}]}>*/}
-         {/*        <Text style={styles.loginbtntext}>User Login</Text>*/}
-         {/*    </TouchableOpacity>*/}
-         {/*    <TouchableOpacity onPress={()=>{navigation.navigate("Signin",{data:"admin"})}} style={[styles.loginbtncontainer2,{borderColor:colors.loginborder}]}>*/}
-         {/*        <Text style={[styles.loginbtntext2,{color:colors.text}]}>Admin Login</Text>*/}
-         {/*    </TouchableOpacity>*/}
-             {/*<View style={styles.loginqcontainer}>*/}
-             {/*<Text style={[styles.loginq,{color:colors.text}]}>Already have an account?</Text>*/}
-             {/*<TouchableOpacity>*/}
-             {/*    <Text style={[styles.loginqbtn,{color:colors.loginsubbtn}]}> Login</Text>*/}
-             {/*</TouchableOpacity>*/}
-             {/*</View>*/}
-         {/*    <TouchableOpacity onPress={*/}
-         {/*        setTheam*/}
-         {/*    }>*/}
-         {/*        <Text style={{color:colors.text}}>Change Theme</Text>*/}
-         {/*    </TouchableOpacity>*/}
-         {/*</View>*/}
-         {/*    </View>*/}
-         {/*    <Text style={{color:"white",textAlign:"center",bottom:5,fontSize:12}}>Powered by VRDA1.com</Text>*/}
-         {/*</ScrollView>*/}
-
      </SafeAreaView>
   )
 }

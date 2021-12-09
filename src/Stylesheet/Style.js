@@ -67,16 +67,16 @@ export default StyleSheet.create({
     cardimg:{flex:0.7,height:180,alignSelf:"flex-end",top:5.5,},
 
     eventimage:{width:devicewidth/2.36,height:110,borderTopRightRadius:20,borderTopLeftRadius:20,},
-    eventimage1:{height:140,borderTopRightRadius:20,borderTopLeftRadius:20,},
+    eventimage1:{height:140,borderTopRightRadius:10,borderTopLeftRadius:10,},
     eventcard:{flex:1,marginHorizontal:10,borderRadius:20,borderWidth:2,marginVertical:10,width:devicewidth/2.3},
-    eventcard1:{flex:1,marginHorizontal:40,borderRadius:20,borderWidth:1,marginVertical:10},
+    eventcard1:{flex:1,marginHorizontal:10,borderRadius:10,borderWidth:1,marginVertical:10},
     eventtitle:{flex:1,fontWeight:"bold",paddingHorizontal:10,flexWrap:"wrap",fontSize:16},
     eventshortdescription:{flex:1,marginHorizontal:10,textAlign:"justify",color:"black"},
     eventlocation:{flexDirection:"row",alignItems:"center",marginHorizontal:10},
     eventtime:{marginHorizontal:5,color:"black"},
 
     eventdate:{bottom:189,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
-    eventdate1:{bottom:218,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
+    eventdate1:{bottom:199,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
     eventdetailheader:{height:devicehieght/4.5,width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20},
     eventdetailtitile:{fontSize:20,fontWeight:"bold",marginHorizontal:10},
     dateicon:{padding:7,borderRadius:5,marginTop:10},
@@ -132,7 +132,8 @@ export default StyleSheet.create({
     loginbtntext1:{textAlign:"center"},
     loginbtn:{padding:15,marginTop:10,borderRadius:50,elevation:5},
     loginor:{textAlign:"center",marginTop:10},
-    loginicon:{borderRadius:50,marginHorizontal:10,paddingHorizontal:10,paddingVertical:10}
+    loginicon:{borderRadius:50,marginHorizontal:10,paddingHorizontal:10,paddingVertical:10},
+    eventtitle1:{fontWeight:"bold",fontSize:15,marginHorizontal:10}
 
 
 
