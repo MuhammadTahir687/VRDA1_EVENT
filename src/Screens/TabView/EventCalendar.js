@@ -31,6 +31,16 @@ const EventCalendar = () => {
 
     }
     const EVENTS = event.map(item=>({start:Moment(item.start_time).format("YYYY-MM-DD hh:mm"),end:Moment(item.end_time).format("YYYY-MM-DD hh:mm"),title:item.title,summary:item.short_description,color:"rgba(41,198,96,0.34)"}))
+    let markedDay = {};
+    event.map((item) => {
+        markedDay[Moment(item.start_time).format("YYYY-MM-DD")] = {
+            selected: true,
+            marked: true,
+            selectedColor: "#1CAE81",
+        };
+    });
+    console.log(markedDay,"dates marked----------")
+
     return(
         <SafeAreaView style={{flex:1}}>
             <ImageBackground source={require('../../Assets/background.png')} style={styles.profilebg}>
@@ -38,12 +48,13 @@ const EventCalendar = () => {
                     <View style={styles.calendarcontainer}>
                         <Text style={[styles.calendarh,{color:colors.greencolor}]}>Calendar</Text>
                         <Calendar
-                            onDayPress={(day)=>{setCurrentDate(day.dateString),console.log("--------------------",day.dateString)}}
-                            style={{height: 320, borderRadius:10, marginTop:10,}}
 
+                            onDayPress={(day)=>{setCurrentDate(day.dateString),console.log("--------------------",day.dateString)}}
+                            markedDates={markedDay}
+                            style={{height: 320, borderRadius:10, marginTop:10,}}
                             theme={{
                                 todayButtonTextColor: "white",
-                                todayBackgroundColor:"black",
+                                todayBackgroundColor:"#1CAE81",
                                 backgroundColor: 'black',
                                 calendarBackground: '#ffffff',
                                 textSectionTitleColor: '#b6c1cd',

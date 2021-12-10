@@ -51,11 +51,13 @@ const QRcode =({route,navigation}) => {
         if(response.user_id !='' || response.user_id !=undefined)
         {
              const res=await attendance_api({user_id:response.user_id,event_id:response.event_id,admin_id:adminid})
-            console.log("dfdfg",res.data)
-            if(res.data.status){
+            console.log("dfdfg============",res.data)
+            if(res.data.status==true){
+                console.log("dfdfg============",res.data)
                 Toast.show(res.data.message)
             }
             else{
+                console.log("dfdfg============",res.data)
                 Toast.show(res.data.message)
             }
         }

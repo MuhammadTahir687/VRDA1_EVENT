@@ -31,14 +31,18 @@ const VerifyCode = ({navigation,route}) => {
         let body={verify_code:code}
       const response =await verifycode_api(body)
         try {
+
+
             if(response.data.status==true)
             {
-                if(check=="register"){
-                    navigation.replace("Login",{data:"text"})
-                }
-                else {
-                    navigation.replace('Home')
-                }
+                navigation.replace("Login",{data:"text"})
+
+                // if(check=="register"){
+                //     navigation.replace("Login",{data:"text"})
+                // }
+                // else {
+                //     navigation.replace("Login",{data:"text"})
+                // }
             }
             else{Toast.show(response.data.message)}
         }
