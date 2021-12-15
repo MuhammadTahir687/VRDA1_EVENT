@@ -1,5 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, SafeAreaView, TouchableOpacity, Image, Linking, ScrollView, StatusBar} from "react-native";
+import {
+    View,
+    Text,
+    SafeAreaView,
+    TouchableOpacity,
+    Image,
+    Linking,
+    ScrollView,
+    StatusBar,
+    ActivityIndicator
+} from "react-native";
 import styles from "../../Stylesheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -93,7 +103,6 @@ const Login = ({navigation}) => {
             setLoading(true)
             const body={email: email, password: password,type:"normal"}
             const response = await Login_api(body)
-            setLoading(false)
             console.log(response)
             if (response != "Error"){
                 if (response.data.status === true) {
@@ -123,8 +132,10 @@ const Login = ({navigation}) => {
     return(
 
      <SafeAreaView style={{flex:1,backgroundColor:colors.loginbackground2}}>
+         {/*<ActivityIndicator animating={loading} color={"red"} size={"large"} style={{position:"absolute"}} />*/}
          <StatusBar backgroundColor={colors.loginbackground2}/>
          <Loader animating={loading} />
+
          <View style={{flex:1,justifyContent:"center"}}>
              { value ==true || value==null ? <Image source={require('../../Assets/New_Logo.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>:
                  <Image source={require('../../Assets/White_New_Login.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>

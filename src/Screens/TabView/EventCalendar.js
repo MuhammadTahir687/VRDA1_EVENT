@@ -48,10 +48,9 @@ const EventCalendar = () => {
                     <View style={styles.calendarcontainer}>
                         <Text style={[styles.calendarh,{color:colors.greencolor}]}>Calendar</Text>
                         <Calendar
-
                             onDayPress={(day)=>{setCurrentDate(day.dateString),console.log("--------------------",day.dateString)}}
                             markedDates={markedDay}
-                            style={{height: 320, borderRadius:10, marginTop:10,}}
+                            style={{borderRadius:10, marginTop:10,paddingVertical:5}}
                             theme={{
                                 todayButtonTextColor: "white",
                                 todayBackgroundColor:"#1CAE81",
@@ -72,7 +71,7 @@ const EventCalendar = () => {
                             }}
                         />
 
-                        <View style={{borderWidth:0,borderColor:colors.skincolor,borderRadius:10,marginVertical:10,}}>
+                        <View style={{borderWidth:0,borderColor:colors.skincolor,borderRadius:10,marginVertical:20,}}>
                             <Timeline
 
                                 style={{borderWidth:5,borderRadius:10}}

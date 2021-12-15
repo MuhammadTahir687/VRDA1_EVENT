@@ -9,7 +9,7 @@ import {useTheme} from "@react-navigation/native";
 
         return (
             <Modal visible = {animating} transparent = {true}>
-                <ActivityIndicator style = {{flex:1}} size = "large" color ={"white"} animating={animating} />
+                <ActivityIndicator style = {{flex:1}} size = "large" color ={colors.inputinnertext} animating={animating} />
             </Modal>
         )
 
