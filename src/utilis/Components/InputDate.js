@@ -1,12 +1,16 @@
-import React, { Component } from 'react'
+import React, {Component, useEffect} from 'react'
 import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useTheme} from "@react-navigation/native";
 import styles from "../../Stylesheet/Style";
 import DatePicker from "react-native-datepicker";
+import Moment from "moment";
 
 const ID = ({ text1, text2,text3,text4,validation1,validation2,placeholder1,placeholder2,onChangeText1,onChangeText2,keyboardtype1,keyboardtype2,securetextentry1,securetextentry2, onBlur1,value1,value2,backgroundColor,showicon1,showicon2 ,color,iconname1,iconname2,datechange,date }) => {
+
     const {colors}=useTheme();
+    var yearsago = Moment(new Date()).subtract(18, 'years').format("YYYY-MM-DD");
+
     return (
         <View style={styles.rowinputcontainer}>
 
@@ -42,6 +46,7 @@ const ID = ({ text1, text2,text3,text4,validation1,validation2,placeholder1,plac
                         showIcon={false}
                         placeholder="D.O.B"
                         format="YYYY-MM-DD"
+                        maxDate={yearsago}
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         customStyles={{

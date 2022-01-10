@@ -18,6 +18,7 @@ import Loader from "../../utilis/Loader";
 import CountryPicker from 'react-native-country-picker-modal'
 import { CountryCode, Country } from './src/types'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Moment from "moment";
 
 const Register = ({navigation}) => {
     const {colors}=useTheme();
@@ -32,7 +33,7 @@ const Register = ({navigation}) => {
     const [phonevalidation,setPhonevalidation]=useState('');
     const [cnic,setCnic]=useState('');
     const [cnicvalidation,setCnicvalidation]=useState('');
-    const [country,setCountry]=useState(null);
+    const [country,setCountry]=useState('');
     const [countryvalidation,setCountryvalidation]=useState('');
     const [date,setDate]=useState('');
     const [datevalidation,setDatevalidation]=useState('');
@@ -40,10 +41,10 @@ const Register = ({navigation}) => {
     const [namevalidation,setNamevalidation]=useState('');
     const [nationality,setNationality]=useState('');
     const [nationalityvalidation,setNationalityvalidation]=useState('');
-   const [imagename,setImagename]=useState(null)
+    const [imagename,setImagename]=useState(null)
     const [filePath, setFilePath] = useState(null);
-   const [imagevalidation,setImagevalidation]=useState('');
-   const [show,setShow]=useState(false)
+    const [imagevalidation,setImagevalidation]=useState('');
+    const [show,setShow]=useState(false)
 
 
     const [countryCode, setCountryCode] = useState('')
@@ -57,8 +58,9 @@ const Register = ({navigation}) => {
     const [show1,setShow1]=useState(false)
     const [count,setcount]=useState('')
     const [value,setValue]=useState(false)
+    const[agecheck,setAgecheck]=useState('');
 
-    const onSelect = (country: Country) => {setCountryCode(country.cca2),AsyncStorage.setItem("countrycode",JSON.stringify(country.cca2)),setCountry(country)}
+    const onSelect = (country: Country) => {setCountryCode(country.cca2),AsyncStorage.setItem("countrycode",JSON.stringify(country.cca2)),setCountry(country),setCountryvalidation('')}
     AsyncStorage.getItem("savetheme").then(savetheme=>{setValue(JSON.parse(savetheme))})
 
     const onChange = (text) => {
@@ -70,19 +72,22 @@ const Register = ({navigation}) => {
 
     const submit =async () => {
         let regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+        let strongRegex =/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()+=-\?;,./{}|\":<>\[\]\\\' ~_]).{8,}/;
         if(email==""){setEmailvalidation("Required*")}
         else if(regex.test(email)==false){setEmailvalidation("Incorrect Email")}
         else if(name==''){setNamevalidation('Required*')}
+        else if(name.length<3){setNamevalidation("Name Must be atleast 3 alphabets")}
         else if(password==""){setPasswordvalidation("Required*")}
-        else if (password.length<6){setPasswordvalidation("Password must be atleast 6 alphabet")}
+        else if(strongRegex.test(password)==false){alert(password);setPasswordvalidation("Password include (A,a,Special Characters){min 6}")}
+        else if (password.length>36){setPasswordvalidation("Password Length Exceeded")}
         else if (confirmpassword==''){setConfirmpasswordvalidation("Required*")}
         else if (password != confirmpassword){setConfirmpasswordvalidation("Password not match")}
         else if (phone==''){setPhonevalidation("Required*")}
         else if (phone.length<7){setPhonevalidation("Phone must be atleast 7 digit")}
         else if(date==''){setDatevalidation("Required*")}
+        // else if(agecheck<18){setDatevalidation('Your age must be atleat 18 years')}
         else if(country==''){setCountryvalidation("Required*")}
         else{
-
             const data=new FormData();
             data.append('name', name,);
             data.append("email", email);
@@ -134,8 +139,8 @@ const Register = ({navigation}) => {
                     {emailvalidation !='' && <Text style={{color:"red"}}>{emailvalidation}</Text>}
                     <RI text1={"Name"} text2={"CNIC"} text3={"*"} validation1={namevalidation} validation2={cnicvalidation} value1={name} value2={cnic} placeholder1={"Enter Your Name"} placeholder2={"Enter Your CNIC"} iconname1={"person"} iconname2={"card"}  securetextentry1={false} securetextentry2={false} keyboardtype1={""} keyboardtype2={"phone-pad"} onChangeText1={(text)=>{setNamevalidation('');onChange(text)}} onChangeText2={(text)=>{setCnic(text),setCnicvalidation('')}} />
                     <RI text1={"Password"} text2={"Confirm Password"} text3={"*"} text4={"*"} validation1={passwordvalidation} validation2={confirmpasswordvalidation} value1={password} value2={confirmpassword} placeholder1={"Enter Your Password"} placeholder2={"Enter Your Password"} iconname1={"lock-closed"} iconname2={"lock-closed"}  securetextentry1={true} securetextentry2={true} onChangeText1={(text)=>{setPassword(text),setPasswordvalidation('')}} onChangeText2={(text)=>{setConfirmpassword(text),setConfirmpasswordvalidation('')}} />
-                    <ID text1={"Phone"} text2={"D.O.B"} text3={"*"} text4={"*"} validation1={phonevalidation} validation2={datevalidation} value1={phone} keyboardtype1={"phone-pad"}  placeholder1={"Enter Your Phone"} date={date} datechange={(date)=>{setDate(date),setDatevalidation('')}} iconname1={"call"} iconname2={"calendar"}  onChangeText1={(text)=>{setPhone(text),setPhonevalidation('')}}/>
-                    {/*<RI text1={"Country"} text2={"Nationality"} text3={"*"}  validation1={countryvalidation} validation2={nationalityvalidation} value1={country} value2={nationality}  placeholder1={"Enter Your Country"} placeholder2={"Enter Your Nationality"} iconname1={"earth"} iconname2={"earth"}  onChangeText1={(text)=>{setCountry(text),setCountryvalidation('')}} onChangeText2={(text)=>{setNationality(text),setNationalityvalidation('')}}/>*/}
+                    <ID text1={"Phone"} text2={"D.O.B"} text3={"*"} text4={"*"} validation1={phonevalidation} validation2={datevalidation} value1={phone} keyboardtype1={"phone-pad"}  placeholder1={"Enter Your Phone"} date={date} datechange={(date)=>{setDate(date);calculate_age(date);setDatevalidation('')}} iconname1={"call"} iconname2={"calendar"}  onChangeText1={(text)=>{setPhone(text),setPhonevalidation('')}}/>
+
 
                     <View style={styles.rowinputcontainer}>
                         <View style={styles.signininputcontainer}>

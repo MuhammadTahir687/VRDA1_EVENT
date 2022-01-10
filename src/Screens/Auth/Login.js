@@ -48,6 +48,7 @@ const Login = ({navigation}) => {
     const [token,settoken]=useState(false)
     const [loading,setLoading]=useState(false)
     const [value,setValue]=useState(false);
+    const[fcmtoken,setFcmtoken]=useState('');
 
     AsyncStorage.getItem("savetheme").then(savetheme=>{setValue(JSON.parse(savetheme))})
 
@@ -56,7 +57,7 @@ const Login = ({navigation}) => {
         await AsyncStorage.setItem("savetheme", JSON.stringify(isDarkTheme));
     }
 
-    useEffect(()=>{getInitialURL()},[])
+    useEffect(()=>{getInitialURL(),getToken()},[])
 
     const getInitialURL=async()=> {
         const url = await Linking.getInitialURL();
@@ -69,13 +70,24 @@ const Login = ({navigation}) => {
         }
     }
 
+    const getToken = async () => {
+        try {
+            const token = await firebase.messaging().getToken();
+            if (token)
+                setFcmtoken(token)
+                console.log("FCM Token========",token)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     auth()
         .onAuthStateChanged(async(user)=>{
             if(user){
                 setLoading(true)
                 console.log("User===**********=",user.providerData[0].email)
                 console.log("======66666666666666666==========",type)
-                const response = await Login_api({email: user.providerData[0].email, password: user.uid,type:type,name:user.displayName,user_id:"",first_name:"",last_name:"",phone:user.phoneNumber,picture:user.photoURL})
+                const response = await Login_api({email: user.providerData[0].email, password: user.uid,type:type,name:user.displayName,user_id:"",first_name:"",last_name:"",phone:user.phoneNumber,picture:user.photoURL,device_token:fcmtoken})
                 console.log("************************",response.data)
                 if (response != "Error"){
                     if (response.data.status === true) {
@@ -101,7 +113,7 @@ const Login = ({navigation}) => {
         else if (password.length<6){setPasswordvalidation("Password must be atleast 6 character")}
         else {
             setLoading(true)
-            const body={email: email, password: password,type:"normal"}
+            const body={email: email, password: password,type:"normal",device_token:fcmtoken}
             const response = await Login_api(body)
             console.log(response)
             if (response != "Error"){
@@ -174,7 +186,7 @@ const Login = ({navigation}) => {
 
                 />
                 {passwordvalidation !='' && <Text style={{color:"red"}}>{passwordvalidation}</Text>}
-                <TouchableOpacity onPress={()=>{navigation.navigate("ForgotPassword")}}>
+                <TouchableOpacity onPress={()=>{navigation.navigate("ForgotPassword")}} style={{alignSelf:"flex-end"}}>
                     <Text style={[styles.signinfp,{color:colors.fgp}]}>Forgot Password?</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>{submit()}} style={[styles.loginbtn,{backgroundColor:colors.registerbtn}]}>

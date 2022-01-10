@@ -1,5 +1,15 @@
 import React, {Component, useEffect, useState} from "react";
-import {View, Text, SafeAreaView, Image, ImageBackground, TouchableOpacity, ScrollView, StatusBar} from "react-native";
+import {
+    View,
+    Text,
+    SafeAreaView,
+    Image,
+    ImageBackground,
+    TouchableOpacity,
+    ScrollView,
+    StatusBar,
+    RefreshControl
+} from "react-native";
 import {GoogleSignin, GoogleSigninButton, statusCodes,} from '@react-native-google-signin/google-signin';
 import {LoginManager} from "react-native-fbsdk-next";
 import styles from '../../Stylesheet/Style';
@@ -37,21 +47,22 @@ const Profile = ({navigation}) => {
     const[logincheck,setLogincheck]=useState(true);
     const [loading,setLoading]= useState(false)
     const[profiledata,setProfiledata]=useState('')
+    const [refreshing, setRefreshing] = useState(false);
 
-    useEffect(()=>{userinfo()},[isFocused])
+    useEffect(()=>{userinfo(); console.log("ffujfjfjfjgjgjjgjjgjgjj",image)},[isFocused])
 
     const userinfo = async () => {
         setLoading(true)
 
         const userdata=await get_data("user")
-        console.log(userdata.user.id)
-        const response=await get_request("/api/user-profile/"+userdata.user.id)
-        console.log("fbjdbgsj",response.data.picture)
+       // alert(JSON.stringify(userdata.profile.user_id))
+        const response=await get_request("/api/events/user-profile/"+userdata.profile.user_id)
+        // console.log("Picture",response.data.picture)
         setLoading(false)
         if(response.status==true){
             setProfiledata(response.data)
             setName(response.user_name);
-            setImage(response.data.picture);
+            setImage('http://emailsend.mirindaweb.com/'+response.data.picture);
             setCountry(response.data.country);
             setCity(response.data.city);
             setDob(response.data.dob);
@@ -63,9 +74,12 @@ const Profile = ({navigation}) => {
             setOrganization(response.data.organization);
             setEmail(userdata.user.email)
         }
-        else{
-            //Nothing to do
-            }
+        else{}
+    }
+    const refresh = async () => {
+        await setRefreshing(true);
+        await userinfo();
+        setRefreshing(false);
     }
 
     auth().onAuthStateChanged(async(user)=>{
@@ -89,16 +103,13 @@ const Profile = ({navigation}) => {
                 }
                 console.log("sign out")
             } catch (error) {console.error(error);}
-
     }
-
-
     return(
-      <SafeAreaView style={{flex:1}}>
-          <Loader animating={loading}/>
+      <SafeAreaView  style={{flex:1}}>
+          {refreshing==true?null:<Loader animating={loading}/>}
           <StatusBar backgroundColor={"#000"}/>
         <ImageBackground source={require('../../Assets/background.png')} style={styles.profilebg}>
-            <ScrollView contentContainerStyle={{flexGrow:1}} style={styles.profilecontainer}>
+            <ScrollView refreshControl={<RefreshControl progressBackgroundColor={"#fafafa"} colors={['#1CAE81']} refreshing={refreshing} onRefresh={refresh}/>} contentContainerStyle={{flexGrow:1}} style={styles.profilecontainer}>
                 <View style={styles.profileheader}>
                     <Text style={[styles.profileheadertext,{color:colors.greencolor}]}>Profile</Text>
                     <TouchableOpacity onPress={()=>{logout()}} style={{flexDirection:"row",alignItems:"center"}}>
@@ -108,11 +119,10 @@ const Profile = ({navigation}) => {
                 </View>
 
                     <View style={[styles.profileavatar,{backgroundColor:colors.profilebg}]}>
-                        <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} source={{uri:"http://emailsend.mirindaweb.com/"+image}} containerStyle={{backgroundColor:colors.skincolor}}/>
+                        <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} source={{uri: image+'?' + new Date()}} containerStyle={{backgroundColor:colors.greencolor}}/>
                         <View style={styles.avatartext}>
-                            <Text style={[styles.avatarname,{color:colors.greencolor}]}>{email}</Text>
                             <Text style={[styles.avatarname,{color:colors.greencolor}]}>{name}</Text>
-                            <Text style={{color:colors.profilrtext}}>{role}</Text>
+                            <Text style={{color:colors.profilrtext}}>{email}</Text>
                         </View>
                     </View>
 

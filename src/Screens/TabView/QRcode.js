@@ -18,6 +18,7 @@ const QRcode =({route,navigation}) => {
     const scanner=useRef();
     const {colors}=useTheme();
     const eventdata=route.params.data;
+    const rootscreen=route.params.root;
     const [qrvalue,setQrvalue]= useState('')
     const [email,setEmail]=useState('');
     const [name,setName]=useState('');
@@ -31,6 +32,7 @@ const QRcode =({route,navigation}) => {
 
     const userdata =async () => {
         var qrdata=await get_data('user');
+        console.log(eventdata.image)
         setadminid(qrdata.user.id)
         setRole(qrdata.user.role)
         setEmail(qrdata.user.email)
@@ -69,7 +71,8 @@ const QRcode =({route,navigation}) => {
   return(
       <SafeAreaView style={{flex:1,backgroundColor:colors.screenbg}}>
           <View>
-          <Image source={{uri:eventdata.image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]} />
+              {rootscreen == 'SEvents' ? <Image source={{uri:'http://emailsend.mirindaweb.com/'+ eventdata.event_image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]} />:
+          <Image source={{uri:'http://emailsend.mirindaweb.com/'+ eventdata.event_image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]} />}
               <TouchableOpacity onPress={()=>{navigation.goBack()}} style={[styles.eventdetailbackbtn,{backgroundColor:colors.greencolor,}]}>
                   <Ionicons name="arrow-back" size={20} color="white"/>
                   <Text style={{color:"white",fontSize:15}}>Event Detail</Text>

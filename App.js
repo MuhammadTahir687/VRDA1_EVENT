@@ -7,6 +7,7 @@ import linking from "./src/Linking";
 import {ToastProvider} from "react-native-styled-toast";
 import Example from './src/utilis/Components/CountryPicker'
 import {useTheme} from "@react-navigation/native";
+import Carosel from "./src/utilis/Components/Carosal";
 
 
 const App=()=>{

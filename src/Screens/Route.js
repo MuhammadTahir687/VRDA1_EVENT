@@ -169,8 +169,6 @@ const Route = () => {
     const notification = () => {
         const messaging=firebase.messaging;
         const unsubscribe = messaging().onMessage(async remoteMessage => {
-            // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-
             PushNotification.localNotification({
                 channelId: "reminder",
                 message: remoteMessage.notification.body,
@@ -178,11 +176,11 @@ const Route = () => {
                 bigPictureUrl: remoteMessage.notification.android.imageUrl,
                 smallIcon: remoteMessage.notification.android.imageUrl,
             });
-
         });
-
         return unsubscribe;
     }
+
+
 
     const dispatch=useDispatch();
     const isDarkTheme=useSelector((state:RootState)=>state.themeReducer.isDarkTheme);

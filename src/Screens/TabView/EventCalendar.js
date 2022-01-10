@@ -19,7 +19,7 @@ const EventCalendar = () => {
     useEffect(()=>{date(),response()},[])
 
     const response =async() => {
-        const response= await get_request('/api/get-all-events');
+        const response= await get_request('/api/events/get-all-events');
         setEvent(response.data)
     }
     const date =async () => {
@@ -30,17 +30,15 @@ const EventCalendar = () => {
         await setCurrentDate(Date.now())
 
     }
-    const EVENTS = event.map(item=>({start:Moment(item.start_time).format("YYYY-MM-DD hh:mm"),end:Moment(item.end_time).format("YYYY-MM-DD hh:mm"),title:item.title,summary:item.short_description,color:"rgba(41,198,96,0.34)"}))
+    const EVENTS = event.map(item=>({start:Moment(item.event_start_time).format("YYYY-MM-DD hh:mm"),end:Moment(item.event_end_time).format("YYYY-MM-DD hh:mm"),title:item.event_name,summary:item.event_description,color:"rgba(41,198,96,0.34)"}))
     let markedDay = {};
     event.map((item) => {
-        markedDay[Moment(item.start_time).format("YYYY-MM-DD")] = {
+        markedDay[Moment(item.event_start_time).format("YYYY-MM-DD")] = {
             selected: true,
             marked: true,
             selectedColor: "#1CAE81",
         };
     });
-    console.log(markedDay,"dates marked----------")
-
     return(
         <SafeAreaView style={{flex:1}}>
             <ImageBackground source={require('../../Assets/background.png')} style={styles.profilebg}>
@@ -48,7 +46,7 @@ const EventCalendar = () => {
                     <View style={styles.calendarcontainer}>
                         <Text style={[styles.calendarh,{color:colors.greencolor}]}>Calendar</Text>
                         <Calendar
-                            onDayPress={(day)=>{setCurrentDate(day.dateString),console.log("--------------------",day.dateString)}}
+                            onDayPress={(day)=>{setCurrentDate(day.dateString)}}
                             markedDates={markedDay}
                             style={{borderRadius:10, marginTop:10,paddingVertical:5}}
                             theme={{
@@ -70,10 +68,8 @@ const EventCalendar = () => {
                                 monthTextColor: '#000',
                             }}
                         />
-
                         <View style={{borderWidth:0,borderColor:colors.skincolor,borderRadius:10,marginVertical:20,}}>
                             <Timeline
-
                                 style={{borderWidth:5,borderRadius:10}}
                                 format24h={true}
                                 events={EVENTS.filter(event => moment(event.start).isSame(currentDate,"day"))}

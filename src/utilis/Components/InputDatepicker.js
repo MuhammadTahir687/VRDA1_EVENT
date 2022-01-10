@@ -4,9 +4,11 @@ import {View,TextInput,Text} from "react-native";
 import styles from '../../Stylesheet/Style';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useTheme} from "@react-navigation/native";
+import Moment from "moment";
 
 const DI = ({icon1,icon2,text1,text2,value1,value2,keyboardtype1,editable1,onChangeText1,placeholder1,onBlur1,datechange,date}) => {
  const {colors}=useTheme();
+    var yearsago = Moment(new Date()).subtract(18, 'years').format("YYYY-MM-DD");
   return(
       <View style={{flexDirection:"row"}} >
           <View style={{flex:1,flexDirection:"row",alignItems:"center"}}>
@@ -34,6 +36,7 @@ const DI = ({icon1,icon2,text1,text2,value1,value2,keyboardtype1,editable1,onCha
                           style={{width:"100%"}}
                           date={date}
                           showIcon={false}
+                          maxDate={yearsago}
                           placeholder="D.O.B"
                           format="YYYY-MM-DD"
                           confirmBtnText="Confirm"

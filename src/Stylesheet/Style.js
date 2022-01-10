@@ -32,7 +32,7 @@ export default StyleSheet.create({
 
     signininputcontainer:{flex:1,marginTop:10},
     signininput:{borderRadius:10,fontSize:13},
-    signinfp:{marginVertical:10,textAlign:"right"},
+    signinfp:{marginVertical:10,textAlign:"right",alignSelf:"flex-end"},
     signinbtn:{paddingVertical:10,borderRadius:10,marginTop:10},
     rowinputcontainer:{flex:1,flexDirection:"row"},
 

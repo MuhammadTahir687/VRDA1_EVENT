@@ -31,24 +31,12 @@ const VerifyCode = ({navigation,route}) => {
         let body={verify_code:code}
       const response =await verifycode_api(body)
         try {
-
-
-            if(response.data.status==true)
-            {
-                navigation.replace("Login",{data:"text"})
-
-                // if(check=="register"){
-                //     navigation.replace("Login",{data:"text"})
-                // }
-                // else {
-                //     navigation.replace("Login",{data:"text"})
-                // }
-            }
+            if(response.data.status==true) {navigation.replace("Login",{data:"text"})}
             else{Toast.show(response.data.message)}
         }
         catch (e){Toast.show(e)}
     }
-    const resendemail =async () => {
+    const resendcode =async () => {
       // const response=await
     }
 
@@ -72,15 +60,14 @@ const VerifyCode = ({navigation,route}) => {
                         onCodeFilled = {(code) => {setCode(code), console.log(`Code is ${code}, you are good to go!`)}}
                     />
                 </View>
-                <TouchableOpacity onPress={()=>{resendemail()}}  style={[styles.loginbtn,{backgroundColor:colors.registerbtn,marginHorizontal:20}]}>
-                    <Text style={[styles.loginbtntext1,{color:"white"}]}>Resend Code</Text>
-                </TouchableOpacity>
                 <TouchableOpacity onPress={()=>{submit()}}  style={[styles.loginbtn,{backgroundColor:colors.registerbtn,marginHorizontal:20}]}>
                     <Text style={[styles.loginbtntext1,{color:"white"}]}>Verify</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{resendcode()}}  style={[styles.loginbtn,{backgroundColor:colors.registerbtn,marginHorizontal:20}]}>
+                    <Text style={[styles.loginbtntext1,{color:"white"}]}>Resend Code</Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
-
     )
 }
 export default VerifyCode

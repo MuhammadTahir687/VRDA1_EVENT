@@ -38,7 +38,7 @@ const ForgotPassword = ({navigation}) => {
             // console.log("475834753489",response.data)
 
             navigation.replace("UpdatePassword")
-            alert("Link snd to the Email !!!")
+            alert("Link send to the Email !!!")
         }
     }
 
@@ -67,55 +67,10 @@ const ForgotPassword = ({navigation}) => {
                   {emailvalidation !='' && <Text style={{color:"red",}}>{emailvalidation}</Text>}
 
                   <TouchableOpacity onPress={()=>{submit()}} style={[styles.loginbtn,{backgroundColor:colors.registerbtn,marginTop:30}]}>
-                      <Text style={[styles.loginbtntext1,{color:"white"}]}>Sign in</Text>
+                      <Text style={[styles.loginbtntext1,{color:"white"}]}>Send Link</Text>
                   </TouchableOpacity>
-
-                  {/*<Text style={[styles.loginor,{color:colors.profilrtext}]}>or Sign in with</Text>*/}
-
-                  {/*<View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>*/}
-                  {/*    <TouchableOpacity>*/}
-                  {/*        <Icon reverse={true} name='facebook' type='fontisto' color={colors.registerbtn} onPress={()=>{onFacebookButtonPress()}}/>*/}
-                  {/*    </TouchableOpacity>*/}
-                  {/*    <TouchableOpacity>*/}
-                  {/*        <Icon reverse={true} button name='google' type='antdesign' color={colors.registerbtn} onPress={()=>{Google()}}/>*/}
-                  {/*    </TouchableOpacity>*/}
-                  {/*    <TouchableOpacity onPress={()=>{navigation.navigate("vrda1login")}}>*/}
-                  {/*        <Text style={{fontWeight:"bold",fontSize:28,backgroundColor:colors.registerbtn,paddingHorizontal:17,color:"white",paddingVertical:7,borderRadius:50,marginLeft:7}}>V</Text>*/}
-                  {/*    </TouchableOpacity>*/}
-                  {/*</View>*/}
-
-                  {/*<View style={[styles.signinqcontainer,{backgroundColor:"transparent"}]}>*/}
-                  {/*    <Text style={[styles.loginq1,{color:colors.profilrtext}]}>Don't have an account?</Text>*/}
-                  {/*    <TouchableOpacity onPress={()=>{navigation.navigate("Register")}}>*/}
-                  {/*        <Text style={[styles.loginqbtn,{color:'#1CAE81'}]}> Register</Text>*/}
-                  {/*    </TouchableOpacity>*/}
-                  {/*</View>*/}
               </View>
           </View>
-
-
-          {/*<HB onPress={()=>{navigation.goBack()}} iconname={"arrow-back"} text1={"Forgot Password"} />*/}
-          {/*<View style={[styles.signinmain1,{backgroundColor:colors.signinmain}]}>*/}
-          {/*    <View style={[styles.fpcontainer,{justifyContent:"space-between",flex:1}]}>*/}
-          {/*        <View>*/}
-          {/*            <Text style={{marginVertical:10,color:colors.inputtext}}>Email</Text>*/}
-          {/*            <View style={{flexDirection:"row",alignItems:"center",backgroundColor:colors.inputbg,borderRadius:10,paddingHorizontal:10}}>*/}
-          {/*                <Ionicons name="mail" size={20} color={colors.inputinnertext}/>*/}
-          {/*                <TextInput*/}
-          {/*                    style={{flex:1,color:colors.inputinnertext}}*/}
-          {/*                    placeholderTextColor={colors.inputtext}*/}
-          {/*                    placeholder="Enter Your Email"*/}
-          {/*                    value={email}*/}
-          {/*                    onChangeText={(text)=>{setEmail(text)}}*/}
-          {/*                />*/}
-          {/*            </View>*/}
-          {/*            {emailvalidation !='' && <Text style={{color:"red"}}>{emailvalidation}</Text>}*/}
-          {/*        </View>*/}
-          {/*        <TouchableOpacity onPress={()=>{submit()}}  style={[styles.signinbtn,{backgroundColor:colors.registerbtn}]}>*/}
-          {/*            <Text style={{textAlign:"center",color:colors.registerbtntext}}>Send Email</Text>*/}
-          {/*        </TouchableOpacity>*/}
-          {/*    </View>*/}
-          {/*</View>*/}
       </SafeAreaView>
   )
 }

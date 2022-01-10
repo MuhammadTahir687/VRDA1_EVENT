@@ -10,7 +10,6 @@ import org.reactnative.camera.RNCameraPackage;
 import com.zoontek.rnpermissions.RNPermissionsPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
-// import com.rncamerakit.RNCameraKitPackage;
 import com.horcrux.svg.SvgPackage;
 import com.horcrux.svg.SvgPackage;
 import com.oblador.vectoricons.VectorIconsPackage;

@@ -29,6 +29,7 @@ const UpdateProfile = ({navigation,route}) => {
     const username=route.params.name;
     const emailid=route.params.email;
     const [name,setName]=useState(username);
+    const [nameValidation,setNamevalidation]=useState('');
     const [role,setRole]=useState('');
     const [image,setImage]=useState(null);
     const [address,setAddress]=useState(profiledata.address);
@@ -62,7 +63,7 @@ const UpdateProfile = ({navigation,route}) => {
 
     const onChange = (text) => {
         const input = text;
-        if (/^[a-zA-Z]+$/.test(input) || input == "") {
+        if (/^[a-zA-Z ]*$/.test(input) || input == "") {
             setName(input);
         }
     };
@@ -81,10 +82,12 @@ const UpdateProfile = ({navigation,route}) => {
             data.append("country", country)
             data.append("nationality", nationality);
             {image && data.append("picture", {uri:image,name:`photo.jpg`,type:`image/jpg` })}
-
-            const res=await Update_profile_api(data)
-            if(res.data[0].status==true){Toast.show("Profile Updated Successfully !!!")}
-            else{Toast.show("Something Went Wrong !!!")}
+            if(name.length<3){setNamevalidation("Name must be atleast 3 Alphabets")}
+            else{
+                const res=await Update_profile_api(data)
+                if(res.data[0].status==true){Toast.show("Profile Updated Successfully !!!")}
+                else{Toast.show("Something Went Wrong !!!")}
+            }
         }
         catch (e) {Toast.show(e)}
     }
@@ -109,7 +112,7 @@ const UpdateProfile = ({navigation,route}) => {
 
                   <View style={[styles.profileavatar,{backgroundColor:colors.profilebg}]}>
                       {show==false ?
-                          <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:"http://emailsend.mirindaweb.com/"+profiledata.picture}} containerStyle={{backgroundColor:colors.skincolor}}/>
+                          <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:"http://emailsend.mirindaweb.com/"+profiledata.picture+'?' + new Date()}} containerStyle={{backgroundColor:colors.skincolor}}/>
                           :
                           <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:image}} containerStyle={{backgroundColor:colors.skincolor}}/>
                       }
@@ -120,6 +123,7 @@ const UpdateProfile = ({navigation,route}) => {
                               value={name}
                               onChangeText={(text)=>{onChange(text)}}
                           />
+                          {nameValidation !='' && <Text style={{color:"red"}}>{nameValidation}</Text>}
                       </View>
                   </View>
 
