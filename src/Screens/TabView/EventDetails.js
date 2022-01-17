@@ -22,8 +22,6 @@ const EventDetails=({route,navigation})=>{
     const [eventid,setEventid]=useState(eventdata.event_id)
     const [status,setStatus]=useState('')
     const [image,setImage]=useState(null)
-    const [isModalVisible, setModalVisible] = useState(false);
-    const [pin, setPin] = React.useState({ latitude: 37.78825, longitude: -122.4324 });
     const [refreshing, setRefreshing] = useState(false);
 
 
