@@ -115,7 +115,7 @@ const Login = ({navigation}) => {
             setLoading(true)
             const body={email: email, password: password,type:"normal",device_token:fcmtoken}
             const response = await Login_api(body)
-            console.log(response)
+            console.log("login =================",response)
             if (response != "Error"){
                 if (response.data.status === true) {
                     await save_data("user", response.data)

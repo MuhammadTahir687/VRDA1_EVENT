@@ -19,7 +19,7 @@ const EventCalendar = () => {
     useEffect(()=>{date(),response()},[])
 
     const response =async() => {
-        const response= await get_request('/api/events/get-all-events');
+        const response= await get_request('/api/get-all-events');
         setEvent(response.data)
     }
     const date =async () => {

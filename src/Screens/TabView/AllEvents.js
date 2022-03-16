@@ -31,20 +31,20 @@ const AllEvent = ({navigation}) => {
     const response =async(index) => {
         if (index==0){
             setLoading(true)
-            const res= await get_request('/api/events/coming-events');
+            const res= await get_request('/api/coming-events');
             setLoading(false)
             setEventdata(res.event_start);
         }
         else if (index==1){
             setLoading(true)
-            const res= await get_request('/api/events/past-events');
+            const res= await get_request('/api/past-events');
             setLoading(false)
             setEventdata(res.past_events);
         }
         else{
             setBtn(0)
             setLoading(true)
-            const res= await get_request('/api/events/coming-events');
+            const res= await get_request('/api/coming-events');
             setLoading(false)
             setEventdata(res.event_start);
         }

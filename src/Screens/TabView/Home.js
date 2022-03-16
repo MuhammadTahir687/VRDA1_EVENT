@@ -49,7 +49,7 @@ const Home = ({ navigation }) => {
     useEffect(() => { notification(); response(); SpecialEvent(); getInitialURL() }, [])
 
     const notification = async () => {
-        const resp = await get_request('/api/events/notifications')
+        const resp = await get_request('/api/notifications')
         if (resp.status == true) {
             setMessages(resp.data)
         }
@@ -80,7 +80,7 @@ const Home = ({ navigation }) => {
         const userdata = await get_data("user");
         setUserid(userdata.user.id)
 
-        const response = await get_request('/api/events/get-all-events');
+        const response = await get_request('/api/get-all-events');
         console.log(response.success, "status")
         if (response.status == true) {
             setEventdata(response.data)
@@ -91,8 +91,9 @@ const Home = ({ navigation }) => {
     }
 
     const SpecialEvent = async () => {
-        const resp = await get_request('/api/events/special-events')
-        console.log('specal event==========', resp)
+        const resp = await get_request('/api/special-events')
+        console.log('specal event==========', resp.event_start[0])
+
         setSpecialevent(resp.event_start[0])
     }
 
@@ -185,7 +186,7 @@ const Home = ({ navigation }) => {
                                 <TouchableOpacity
                                     onPress={() => { navigation.navigate("Event Detail", { data: item, root: "Events", user: userid }) }}
                                     style={[styles.eventcard, { borderColor: colors.loginbackground, backgroundColor: "white" }]}>
-                                    <Image source={{ uri: `https://emailsend.mirindaweb.com/${item.event_image}` }} style={styles.eventimage} />
+                                    <Image source={{ uri: `https://event.vrda1.net/${item.event_image}` }} style={styles.eventimage} />
                                     {item.event_name.length > 20 ? <Text style={[styles.eventtitle, { color: colors.loginbackground }]}>{item.event_name.slice(0, 18) + "..."}</Text> : <Text style={[styles.eventtitle, { color: colors.loginbackground }]}>{item.event_name}</Text>}
                                     {item.event_description.length > 21 ? <Text style={styles.eventshortdescription}>{item.event_description.slice(0, 15) + "..."}</Text> : <Text style={styles.eventshortdescription}>{item.event_description}</Text>}
 
@@ -208,11 +209,10 @@ const Home = ({ navigation }) => {
                     <Text style={[styles.homemainh2, { color: colors.loginbackground }]}>Special Event</Text>
                     <View style={[styles.homecardcotainer, { backgroundColor: colors.loginbackground }]}>
                         <View style={{ flex: 1 }}>
-                            {specialevent != '' ? <Text style={[styles.homemainh2, { color: colors.text }]}>{specialevent.event_name}</Text> :
+                            {specialevent != null ? <Text style={[styles.homemainh2, { color: colors.text }]}>{specialevent.event_name}</Text> :
                                 <Text style={[styles.homemainh2, { color: colors.text }]}>Comming Soon</Text>}
-                            <Text
-                                style={[styles.cardtext, { color: colors.text }]}>{specialevent.event_description}</Text>
-                            {specialevent != '' ? <TouchableOpacity onPress={() => { navigation.navigate("Event Detail", { data: specialevent, root: "SEvents", user: userid }) }} style={[styles.cardbtn, { backgroundColor: colors.signinHeader }]}>
+                           {specialevent != null ? <Text style={[styles.cardtext, { color: colors.text }]}>{specialevent.event_description}</Text>:<Text></Text>}
+                            {specialevent != null ? <TouchableOpacity onPress={() => { navigation.navigate("Event Detail", { data: specialevent, root: "SEvents", user: userid }) }} style={[styles.cardbtn, { backgroundColor: colors.signinHeader }]}>
                                 <Text style={{ color: colors.text }}>View Now</Text>
                                 <Ionicons name="eye" size={15} color="white" style={styles.cardbtnicon} />
                             </TouchableOpacity> :

@@ -72,7 +72,7 @@ const EventDetails=({route,navigation})=>{
         <SafeAreaView style={{flex:1,}}>
             <ScrollView refreshControl={<RefreshControl progressBackgroundColor={'#1CAE81'} colors={["#fafafa"]} refreshing={refreshing} onRefresh={refresh}/>} style={{backgroundColor:colors.screenbg,flex:1}} contentContainerStyle={{flexGrow:1}}>
         
-                    <Image source={{uri:"https://emailsend.mirindaweb.com/"+eventdata.event_image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]}/>
+                    <Image source={{uri:"https://event.vrda1.net/"+eventdata.event_image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]}/>
                 <TouchableOpacity onPress={()=>{navigation.goBack()}} style={[styles.eventdetailbackbtn,{backgroundColor:colors.greencolor,}]}>
                     <Ionicons name="arrow-back" size={20} color="white"/>
                     <Text style={{color:"white",fontSize:15}}>Event Detail</Text>

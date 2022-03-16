@@ -63,9 +63,9 @@ const VerifyCode = ({navigation,route}) => {
                 <TouchableOpacity onPress={()=>{submit()}}  style={[styles.loginbtn,{backgroundColor:colors.registerbtn,marginHorizontal:20}]}>
                     <Text style={[styles.loginbtntext1,{color:"white"}]}>Verify</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{resendcode()}}  style={[styles.loginbtn,{backgroundColor:colors.registerbtn,marginHorizontal:20}]}>
+                {/* <TouchableOpacity onPress={()=>{resendcode()}}  style={[styles.loginbtn,{backgroundColor:colors.registerbtn,marginHorizontal:20}]}>
                     <Text style={[styles.loginbtntext1,{color:"white"}]}>Resend Code</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </SafeAreaView>
     )

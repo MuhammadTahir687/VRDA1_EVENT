@@ -56,7 +56,7 @@ const Profile = ({navigation}) => {
 
         const userdata=await get_data("user")
        // alert(JSON.stringify(userdata.profile.user_id))
-        const response=await get_request("/api/events/user-profile/"+userdata.profile.user_id)
+        const response=await get_request("/api/user-profile/"+userdata.profile.user_id)
         // console.log("Picture",response.data.picture)
         setLoading(false)
         if(response.status==true){
