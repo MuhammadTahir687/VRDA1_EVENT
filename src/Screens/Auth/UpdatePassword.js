@@ -47,7 +47,7 @@ const UpdatePassword = ({navigation}) => {
                 if (response != "Error"){
                     if (response.data.status === true) {
                        Toast.show(response.data.message)
-                        navigation.replace("Signin",{data:"text"})
+                        navigation.replace("Login",{data:"text"})
                     }
                     else {Toast.show(response.data.message)}
                 }else{Toast.show("Network Error ")}

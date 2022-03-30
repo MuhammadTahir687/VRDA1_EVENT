@@ -57,13 +57,14 @@ const Login = ({navigation}) => {
         await AsyncStorage.setItem("savetheme", JSON.stringify(isDarkTheme));
     }
 
-    useEffect(()=>{getInitialURL(),getToken()},[])
+    useEffect(()=>{getToken()},[])
 
     const getInitialURL=async()=> {
         const url = await Linking.getInitialURL();
         if (url != null) {
             navigation.navigate("UpdatePassword")
-            return url;
+            console.log("==========URL===========",url)
+
         }
         else{
             //Nothing
@@ -196,9 +197,9 @@ const Login = ({navigation}) => {
                 <Text style={[styles.loginor,{color:colors.profilrtext}]}>or Sign in with</Text>
 
                 <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
-                  <TouchableOpacity>
+                  {/* <TouchableOpacity>
                       <Icon reverse={true} name='facebook' type='fontisto' color={colors.registerbtn} onPress={()=>{onFacebookButtonPress()}}/>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   <TouchableOpacity>
                       <Icon reverse={true} button name='google' type='antdesign' color={colors.registerbtn} onPress={()=>{Google()}}/>
                   </TouchableOpacity>

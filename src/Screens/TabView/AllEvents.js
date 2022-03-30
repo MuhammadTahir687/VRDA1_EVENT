@@ -91,7 +91,7 @@ const AllEvent = ({navigation}) => {
 
                       renderItem={({ item, index }) => (
                           <TouchableOpacity onPress={()=>{navigation.navigate("Event Detail",{ data:item,root:"allevents"})}}  style={[styles.eventcard1,{borderColor:colors.loginbackground,backgroundColor:"white",elevation:10}]}>
-                              <Image source={{uri: "http://emailsend.mirindaweb.com/"+item.event_image}} style={styles.eventimage1}/>
+                              <Image source={{uri: "https://event.vrda1.net/"+item.event_image}} style={styles.eventimage1}/>
                               {item.event_name.length>21?<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.event_name.slice(0,31)+"..."}</Text>:<Text style={[styles.eventtitle,{color:colors.loginbackground}]}>{item.event_name}</Text>}
                               <View style={styles.eventlocation}>
                                   <Fontisto name="date" />

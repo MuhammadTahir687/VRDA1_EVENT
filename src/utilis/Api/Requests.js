@@ -9,7 +9,7 @@ const post_request = async ({ target, body }) => {
         
         const token =await get_data("token");
    
-        const instance = axios.create({baseURL: "https://event.vrda1.net"});
+        const instance = axios.create({baseURL: "https://event.vrda1.net", headers: {"Authorization":"Bearer " + token }});
         console.log("Api Hit=====================",body)
         const response = await instance.post(target, body)
         console.log("post response", response.data);

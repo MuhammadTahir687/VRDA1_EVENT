@@ -48,7 +48,8 @@ const Vrda1Login = ({navigation}) => {
                 if (response.data.status === true) {
                     await save_data("user", response.data)
                     await save_data("profile", response.data.profile)
-                    // await save_data("token",response.data.access_token)
+                    await save_data("token",response.data.access_token)
+                    console.log("=============",response.data)
                     //  console.log("=============",response.data.profile.adress)
                     // navigation.replace("App Tab")
                     navigation.reset({ index: 0, routes: [{ name: "App Tab" }], })

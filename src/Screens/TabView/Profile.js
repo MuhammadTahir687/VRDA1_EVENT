@@ -62,7 +62,7 @@ const Profile = ({navigation}) => {
         if(response.status==true){
             setProfiledata(response.data)
             setName(response.user_name);
-            setImage('http://emailsend.mirindaweb.com/'+response.data.picture);
+            setImage(response.data.picture);
             setCountry(response.data.country);
             setCity(response.data.city);
             setDob(response.data.dob);

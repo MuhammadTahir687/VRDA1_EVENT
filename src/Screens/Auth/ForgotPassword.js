@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {View, Text, SafeAreaView, TouchableOpacity, ScrollView, Image, StatusBar} from "react-native";
+import React, {useState,useEffect} from "react";
+import {View, Text, SafeAreaView, TouchableOpacity,Linking, ScrollView, Image, StatusBar} from "react-native";
 import styles from "../../Stylesheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -27,18 +27,34 @@ const ForgotPassword = ({navigation}) => {
     const [value,setValue]=useState(false);
 
     AsyncStorage.getItem("savetheme").then(savetheme=>{setValue(JSON.parse(savetheme))})
+   useEffect(()=>{getInitialURL()},[])
+
+    const getInitialURL=async()=> {
+        const url = await Linking.getInitialURL();
+        if (url != null) {
+            navigation.navigate("UpdatePassword",{data:url})
+            console.log("url",url)
+        }
+        else{
+            //Nothing
+        }
+    }
 
     const submit=async()=>{
         let regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
         if(email==""){setEmailvalidation("Required*")}
         else if(regex.test(email)==false){setEmailvalidation("Incorrect Email")}
         else{
-            // AsyncStorage.setItem("email",JSON.stringify(email))
-            // const response=await forgotpassword_api({email:email})
-            // console.log("475834753489",response.data)
-
-            navigation.replace("UpdatePassword")
-            alert("Link send to the Email !!!")
+            AsyncStorage.setItem("email",JSON.stringify(email))
+            const response=await forgotpassword_api({email:email})
+            console.log("475834753489",response)
+            if(response.data.status==true){
+               alert(response.data.message)
+            }
+            else{
+                Toast.show(response.message)
+            }
+           
         }
     }
 

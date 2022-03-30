@@ -71,6 +71,7 @@ const UpdateProfile = ({navigation,route}) => {
     const submit=async ()=>{
 
         try{
+            console.log("Image====",image)
             const data=new FormData();
             data.append("id",userid);
             data.append('name', name)
@@ -81,7 +82,8 @@ const UpdateProfile = ({navigation,route}) => {
             data.append("city", city);
             data.append("country", country)
             data.append("nationality", nationality);
-            {image && data.append("picture", {uri:image,name:`photo.jpg`,type:`image/jpg` })}
+            {image && data.append("picture",image)}
+            // {image && data.append("picture", {uri:image,name:`photo.jpg`,type:`image/jpg` })}
             if(name.length<3){setNamevalidation("Name must be atleast 3 Alphabets")}
             else{
                 const res=await Update_profile_api(data)
@@ -112,7 +114,7 @@ const UpdateProfile = ({navigation,route}) => {
 
                   <View style={[styles.profileavatar,{backgroundColor:colors.profilebg}]}>
                       {show==false ?
-                          <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:"http://emailsend.mirindaweb.com/"+profiledata.picture+'?' + new Date()}} containerStyle={{backgroundColor:colors.skincolor}}/>
+                          <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:"https://event.vrda1.net/"+profiledata.picture+'?' + new Date()}} containerStyle={{backgroundColor:colors.skincolor}}/>
                           :
                           <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:image}} containerStyle={{backgroundColor:colors.skincolor}}/>
                       }

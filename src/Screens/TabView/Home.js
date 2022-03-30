@@ -46,7 +46,7 @@ const Home = ({ navigation }) => {
     const [specialevent, setSpecialevent] = useState('')
     const [messages, setMessages] = useState([]);
 
-    useEffect(() => { notification(); response(); SpecialEvent(); getInitialURL() }, [])
+    useEffect(() => { notification(); response(); SpecialEvent(); }, [])
 
     const notification = async () => {
         const resp = await get_request('/api/notifications')
@@ -62,16 +62,6 @@ const Home = ({ navigation }) => {
         await SpecialEvent();
         await notification();
         setRefreshing(false);
-    }
-
-    const getInitialURL = async () => {
-        const url = await Linking.getInitialURL();
-        if (url != null) {
-            console.log("link,===", url)
-            navigation.navigate("UpdatePassword")
-            return url;
-        }
-        else { console.log("No URL") }
     }
 
 
@@ -93,7 +83,6 @@ const Home = ({ navigation }) => {
     const SpecialEvent = async () => {
         const resp = await get_request('/api/special-events')
         console.log('specal event==========', resp.event_start[0])
-
         setSpecialevent(resp.event_start[0])
     }
 

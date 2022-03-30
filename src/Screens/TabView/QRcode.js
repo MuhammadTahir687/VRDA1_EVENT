@@ -71,8 +71,8 @@ const QRcode =({route,navigation}) => {
   return(
       <SafeAreaView style={{flex:1,backgroundColor:colors.screenbg}}>
           <View>
-              {rootscreen == 'SEvents' ? <Image source={{uri:'http://emailsend.mirindaweb.com/'+ eventdata.event_image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]} />:
-          <Image source={{uri:'http://emailsend.mirindaweb.com/'+ eventdata.event_image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]} />}
+              {rootscreen == 'SEvents' ? <Image source={{uri:'https://event.vrda1.net/'+ eventdata.event_image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]} />:
+          <Image source={{uri:'https://event.vrda1.net/'+ eventdata.event_image}} style={[styles.eventdetailheader,{backgroundColor:"white"}]} />}
               <TouchableOpacity onPress={()=>{navigation.goBack()}} style={[styles.eventdetailbackbtn,{backgroundColor:colors.greencolor,}]}>
                   <Ionicons name="arrow-back" size={20} color="white"/>
                   <Text style={{color:"white",fontSize:15}}>Event Detail</Text>

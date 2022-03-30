@@ -18,6 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const ResetPassword = ({navigation}) => {
+     
     const {colors}=useTheme()
     const [email,setEmail]=useState('')
     const [oldpassword,setOldpassword]=useState('');
@@ -40,9 +41,12 @@ const ResetPassword = ({navigation}) => {
     useEffect(()=>{getdata()},[])
 
     const getdata = async () => {
+       
         const userdata=await get_data('user')
         setEmail(userdata.user.email)
+        console.log("Email from async***********",userdata.user.email)
     }
+
 
     const submit=async()=>{
         if (oldpassword==''){setOldpasswordvalidation("Required*")}
@@ -57,7 +61,7 @@ const ResetPassword = ({navigation}) => {
             console.log("------------",response.data)
             if (response != "Error"){
                 if (response.data.status === true) {
-                    navigation.replace("Login",{data:"text"})
+                    navigation.replace("Login")
                 }
                 else {Toast.show(response.data.message)}
             }else{Toast.show("Something Went Wrong !!! ")}

@@ -57,7 +57,7 @@ const resetpassword_api = async (body) => {
     return Test
 }
 const forgotpassword_api = async (body) => {
-    const Test = await post_request({ target: "/api/send-email", body: body });
+    const Test = await post_request({ target: "/api/forgot-password", body: body });
     return Test
 }
 const eventvisitor_api = async (body) => {

@@ -101,7 +101,7 @@ const EventDetails=({route,navigation})=>{
                         size="large"
                         rounded
                         icon={{name: 'user', type: 'font-awesome',}}
-                        source={{uri:"http://emailsend.mirindaweb.com/"+ eventdata.event_speaker_img}}
+                        source={{uri:"https://event.vrda1.net/"+ eventdata.event_speaker_img}}
                         containerStyle={{backgroundColor:colors.skincolor,borderWidth:2,borderColor:colors.greencolor}}
                     />
                     <View style={styles.avatartext}>
