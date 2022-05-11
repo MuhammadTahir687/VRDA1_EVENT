@@ -1,18 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {View, Text, SafeAreaView, TouchableOpacity, ScrollView, StatusBar, Image} from "react-native";
 import styles from "../../Stylesheet/Style";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Color from "../../utilis/Color";
-import Input from "../../utilis/Components/FormInput";
 import {useTheme} from "@react-navigation/native";
-import RI from "../../utilis/Components/RowInput";
-import ID from "../../utilis/Components/InputDate";
-import {Login_api,changepassword_api} from "../../utilis/Api/Api_controller";
+import {changepassword_api} from "../../utilis/Api/Api_controller";
 import {get_data, save_data} from "../../utilis/AsyncStorage/Controller";
 import Toast from "react-native-simple-toast";
-import HB from "../../utilis/Components/HeaderButton";
-import {post_request} from "../../utilis/Api/Requests";
 import {TextInput} from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -49,13 +41,14 @@ const ResetPassword = ({navigation}) => {
 
 
     const submit=async()=>{
+        let strongRegex =/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()+=-\?;,./{}|\":<>\[\]\\\' ~_]).{8,}/;
         if (oldpassword==''){setOldpasswordvalidation("Required*")}
         else if(password==""){setPasswordvalidation("Required*")}
+        else if(strongRegex.test(password)==false){setPasswordvalidation("Password include (A,a,Special Characters){min 6}")}
         else if (password.length<6){setPasswordvalidation("Password must be atleast 6 alphabet")}
         else if (confirmpassword==''){setConfirmpasswordvalidation("Required*")}
         else if (password != confirmpassword){setConfirmpasswordvalidation("Password not match")}
         else{
-
             const body={email:email,old_password:oldpassword,new_password:password,new_confirm_password:confirmpassword}
             const response= await changepassword_api(body)
             console.log("------------",response.data)
@@ -77,7 +70,7 @@ const ResetPassword = ({navigation}) => {
                 }
                 <View style={{marginHorizontal:20}}>
                     <TextInput
-                        label="Password"
+                        label=" Old Password"
                         placeholder={"Enter Password"}
                         mode={"outlined"}
                         secureTextEntry={visible}
@@ -95,7 +88,7 @@ const ResetPassword = ({navigation}) => {
                     />
                     {oldpasswordvalidation !='' && <Text style={{color:"red"}}>{oldpasswordvalidation}</Text>}
                     <TextInput
-                        label="Password"
+                        label="New Password"
                         placeholder={"Enter Password"}
                         mode={"outlined"}
                         secureTextEntry={visible1}
@@ -131,85 +124,12 @@ const ResetPassword = ({navigation}) => {
                     />
                     {confirmpasswordvalidation!='' && <Text style={{color:"red"}}>{confirmpasswordvalidation}</Text>}
                     <TouchableOpacity onPress={()=>{submit()}} style={[styles.loginbtn,{backgroundColor:colors.registerbtn,marginTop:30}]}>
-                        <Text style={[styles.loginbtntext1,{color:"white"}]}>Sign in</Text>
+                        <Text style={[styles.loginbtntext1,{color:"white"}]}>Update Password</Text>
                     </TouchableOpacity>
 
                 </View>
             </View>
         </SafeAreaView>
-
-
-
-
-
-        // <SafeAreaView style={{flex:1,backgroundColor:colors.headercolor}}>
-        //     <HB onPress={()=>{ navigation.goBack()}} iconname={"arrow-back"} text1={"Update Password"} />
-        //     <View style={[styles.signinmain1,{backgroundColor:colors.signinmain}]}>
-        //         <ScrollView contentContainerStyle={[styles.fpcontainer,{justifyContent:"space-between"}]}>
-        //             <View style={{flex:1}}>
-        //                 <View>
-        //                     <Text style={{marginVertical:10,color:colors.inputtext}}>OLD Password</Text>
-        //                     <View style={{flexDirection:"row",alignItems:"center",backgroundColor:colors.inputbg,paddingHorizontal:10,borderRadius:10}} >
-        //                         <Ionicons name="lock-closed" color={colors.inputinnertext} size={20}/>
-        //                         <TextInput
-        //                             style={{flex:1,color:colors.inputinnertext}}
-        //                             placeholder="Enter Your OLD Password"
-        //                             placeholderTextColor={colors.inputinnertext}
-        //                             value={oldpassword}
-        //                             onChangeText={(text)=>{setOldpassword(text),setOldpasswordvalidation('')}}
-        //                             secureTextEntry={visible2}
-        //                         />
-        //                         <TouchableOpacity onPress={() => {setVisible2(!visible2),setShow2(!show2)}}>
-        //                             <Ionicons name={show2 === false ? "eye-off-outline" : "eye-outline"} color={colors.inputinnertext} size={20}/>
-        //                         </TouchableOpacity>
-        //                     </View>
-        //                 </View>
-        //                 {oldpasswordvalidation !='' && <Text style={{color:"red"}}>{oldpasswordvalidation}</Text>}
-        //                 <View>
-        //                     <Text style={{marginVertical:10,color:colors.inputtext}}>New Password</Text>
-        //                     <View style={{flexDirection:"row",alignItems:"center",backgroundColor:colors.inputbg,paddingHorizontal:10,borderRadius:10}} >
-        //                         <Ionicons name="lock-closed" color={colors.inputinnertext} size={20}/>
-        //                         <TextInput
-        //                             style={{flex:1,color:colors.inputinnertext}}
-        //                             placeholder="Enter Your New Password"
-        //                             placeholderTextColor={colors.inputinnertext}
-        //                             value={password}
-        //                             onChangeText={(text)=>{setPassword(text),setPasswordvalidation('')}}
-        //                             secureTextEntry={visible}
-        //                         />
-        //                         <TouchableOpacity onPress={() => {setVisible(!visible),setShow(!show)}}>
-        //                             <Ionicons name={show === false ? "eye-off-outline" : "eye-outline"} color={colors.inputinnertext} size={20}/>
-        //                         </TouchableOpacity>
-        //                     </View>
-        //                 </View>
-        //                 {passwordvalidation !='' && <Text style={{color:"red"}}>{passwordvalidation}</Text>}
-        //                 <View>
-        //                     <Text style={{marginVertical:10,color:colors.inputtext}}>Confirm Password</Text>
-        //                     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:colors.inputbg,paddingHorizontal:10,borderRadius:10}} >
-        //                         <Ionicons name="lock-closed" color={colors.inputinnertext} size={20}/>
-        //                         <TextInput
-        //                             style={{flex:1,color:colors.inputinnertext}}
-        //                             placeholder="Enter Your Confirm Password"
-        //                             placeholderTextColor={colors.inputinnertext}
-        //                             value={confirmpassword}
-        //                             onChangeText={(text)=>{setConfirmpassword(text),setConfirmpasswordvalidation('')}}
-        //                             secureTextEntry={visible1}
-        //                         />
-        //                         <TouchableOpacity onPress={() => {setVisible1(!visible1),setShow1(!show1)}}>
-        //                             <Ionicons name={show1 === false ? "eye-off-outline" : "eye-outline"} color={colors.inputinnertext} size={20}/>
-        //                         </TouchableOpacity>
-        //                     </View>
-        //                 </View>
-        //                 {confirmpasswordvalidation !='' && <Text style={{color:"red"}}>{confirmpasswordvalidation}</Text>}
-        //             </View>
-        //
-        //         </ScrollView>
-        //         <TouchableOpacity onPress={()=>{submit()}}  style={[styles.signinbtn,{marginHorizontal:10,marginBottom:5,backgroundColor:colors.registerbtn}]}>
-        //             <Text style={{textAlign:"center",color:colors.registerbtntext}}>Update Password</Text>
-        //         </TouchableOpacity>
-        //     </View>
-        //
-        // </SafeAreaView>
     )
 }
 export default ResetPassword

@@ -62,6 +62,7 @@ const EventDetails=({route,navigation})=>{
             else if (response.data.user_status == "rejected") {alert(response.data.message)}
         }
         else{
+            setRefreshing(false)
             Toast.show(response.data.message)
         }
     }

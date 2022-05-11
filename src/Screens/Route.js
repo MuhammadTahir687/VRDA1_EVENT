@@ -27,7 +27,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {setIsDarkTheme} from "../Store/MainSlice";
 import {firebase} from '@react-native-firebase/messaging'
 import PushNotification from "react-native-push-notification";
-
+import VerifyCodePassword from "./Auth/ForgotPasswordVerfication";
 
 const CustomDarkTheme = {
     ...NavigationDarkTheme,
@@ -211,7 +211,8 @@ const Route = () => {
               <Stack.Screen name="UpdatePassword" component={UpdatePassword}/>
               <Stack.Screen name="All Events" component={AllEvent}/>
               <Stack.Screen name="vrda1login" component={Vrda1Login}/>
-              <Stack.Screen name={'VerifyCode'} component={VerifyCode}/>
+              <Stack.Screen name='VerifyCode' component={VerifyCode}/>
+              <Stack.Screen name= 'VerifyCodePassword' component={VerifyCodePassword}/>
           </Stack.Navigator>
       </NavigationContainer>
       </PaperProvider>

@@ -16,7 +16,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {TextInput} from "react-native-paper";
 import OTPInputView from '@twotalltotems/react-native-otp-input'
-
+import {forgotpassword_api} from "../../utilis/Api/Api_controller";
 
 const VerifyCode = ({navigation,route}) => {
     const {colors}=useTheme()
@@ -29,7 +29,7 @@ const VerifyCode = ({navigation,route}) => {
 
     const submit = async () => {
         let body={verify_code:code}
-      const response =await verifycode_api(body)
+         const response =await verifycode_api(body)
         try {
             if(response.data.status==true) {navigation.replace("Login",{data:"text"})}
             else{Toast.show(response.data.message)}
@@ -37,7 +37,18 @@ const VerifyCode = ({navigation,route}) => {
         catch (e){Toast.show(e)}
     }
     const resendcode =async () => {
-      // const response=await
+        const response=await forgotpassword_api({email:emailid});
+        console.log("475834753489",response.data)
+        SweetAlert.showAlertWithOptions({
+            title: '',
+            subTitle: response.data.message,
+            confirmButtonTitle: 'OK',
+            confirmButtonColor: '#000',
+            otherButtonTitle: 'Cancel',
+            otherButtonColor: '#dedede',
+            style: 'success',
+            cancellable: true
+          });
     }
 
     return(
@@ -63,9 +74,9 @@ const VerifyCode = ({navigation,route}) => {
                 <TouchableOpacity onPress={()=>{submit()}}  style={[styles.loginbtn,{backgroundColor:colors.registerbtn,marginHorizontal:20}]}>
                     <Text style={[styles.loginbtntext1,{color:"white"}]}>Verify</Text>
                 </TouchableOpacity>
-                {/* <TouchableOpacity onPress={()=>{resendcode()}}  style={[styles.loginbtn,{backgroundColor:colors.registerbtn,marginHorizontal:20}]}>
+                <TouchableOpacity onPress={()=>{resendcode()}}  style={[styles.loginbtn,{backgroundColor:colors.registerbtn,marginHorizontal:20}]}>
                     <Text style={[styles.loginbtntext1,{color:"white"}]}>Resend Code</Text>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     )

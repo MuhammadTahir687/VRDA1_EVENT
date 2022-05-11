@@ -7,7 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import styles from "../../Stylesheet/Style";
 
 
-const PI = ({icon1,icon2,value1,value2,editable1,editable2,keyboardtype1,keyboardtype2,onChangeText1,onBlur1,onChangeText2,onBlur2,text1,text2,placeholder1,placeholder2,icon3}) => {
+const PI = ({icon1,icon2,value1,value2,editable1,editable2,keyboardtype1,keyboardtype2,onChangeText1,onBlur1,onChangeText2,onBlur2,text1,text2,placeholder1,placeholder2,icon3,validation2}) => {
     const {colors}=useTheme()
     return(
         <View style={styles.piconatiner}>
@@ -42,6 +42,7 @@ const PI = ({icon1,icon2,value1,value2,editable1,editable2,keyboardtype1,keyboar
                         editable={editable2}
                         keyboardType={keyboardtype2}
                     />
+                    {validation2 !='' && <Text style={{color:"red"}}>{validation2}</Text>}
                 </View>
             </View>
         </View>

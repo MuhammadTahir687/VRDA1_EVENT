@@ -32,17 +32,17 @@ const UpdateProfile = ({navigation,route}) => {
     const [nameValidation,setNamevalidation]=useState('');
     const [role,setRole]=useState('');
     const [image,setImage]=useState(null);
-    const [address,setAddress]=useState(profiledata.address);
-    const [country,setCountry]=useState(profiledata.country);
-    const [city,setCity]=useState(profiledata.city);
-    const [cnic,setCnic]=useState(profiledata.cnic)
-    const [nationality,setNationality]=useState(profiledata.nationality);
-    const [phone,setPhone]=useState(profiledata.phone);
-    const [dob,setDob]=useState(profiledata.dob);
+    const [address,setAddress]=useState(profiledata.address!= null?profiledata.address:profiledata.address);
+    const [country,setCountry]=useState(profiledata.country!= null? profiledata.country:profiledata.country);
+    const [city,setCity]=useState(profiledata.city != null?profiledata.city:"");
+    const [cnic,setCnic]=useState(profiledata.cnic !=null ?profiledata.cnic:"")
+    const [nationality,setNationality]=useState(profiledata.nationality!=null?profiledata.nationality:profiledata.nationality);
+    const [phone,setPhone]=useState(profiledata.phone!=null?profiledata.phone:profiledata.phone);
+    const [dob,setDob]=useState(profiledata.dob!=null?profiledata.dob:profiledata.dob);
     const [organization,setOrganization]=useState('');
     const [email,setEmail]=useState(emailid);
     const [userid,setUserid]=useState(profiledata.user_id);
-    const [date,setDate]=useState(profiledata.dob);
+    const [date,setDate]=useState(profiledata.dob!=null?profiledata.dob:profiledata.dob);
     const [filePath, setFilePath] = useState(null);
     const [show,setShow]=useState(false)
     const [loading,setLoading]= useState(false)
@@ -55,6 +55,7 @@ const UpdateProfile = ({navigation,route}) => {
     const [withAlphaFilter, setWithAlphaFilter] = useState(true)
     const [withCallingCode, setWithCallingCode] = useState(true)
     const [value,setValue]=useState(false)
+    const [cnicvalidation,setCnicvalidation]=useState("");
 
     const onSelect = (country: Country) => {setCountryCode(country.cca2),AsyncStorage.setItem("countrycode",JSON.stringify(country.cca2)),setCountry(country.name),console.log(country.cca2)}
     AsyncStorage.getItem("savetheme").then(savetheme=>{setValue(JSON.parse(savetheme))})
@@ -71,7 +72,8 @@ const UpdateProfile = ({navigation,route}) => {
     const submit=async ()=>{
 
         try{
-            console.log("Image====",image)
+            console.log("Image====",filePath)
+
             const data=new FormData();
             data.append("id",userid);
             data.append('name', name)
@@ -82,12 +84,19 @@ const UpdateProfile = ({navigation,route}) => {
             data.append("city", city);
             data.append("country", country)
             data.append("nationality", nationality);
-            {image && data.append("picture",image)}
-            // {image && data.append("picture", {uri:image,name:`photo.jpg`,type:`image/jpg` })}
+            // filePath && data.append("picture",filePath);
+            {filePath && data.append("picture", {uri:filePath,name:`photo.jpg`,type:`image/jpg` })}
+           
             if(name.length<3){setNamevalidation("Name must be atleast 3 Alphabets")}
+            else if(cnic.length>13){
+             setCnicvalidation("Enter 11-13 digits")
+            }
             else{
+                 
                 const res=await Update_profile_api(data)
-                if(res.data[0].status==true){Toast.show("Profile Updated Successfully !!!")}
+                if(res.data[0].status==true){
+                  
+                    Toast.show("Profile Updated Successfully !!!")}
                 else{Toast.show("Something Went Wrong !!!")}
             }
         }
@@ -96,7 +105,7 @@ const UpdateProfile = ({navigation,route}) => {
 
     const takephotofromgallery = () => {
         ImagePicker.openPicker({ width: 300, height: 400, cropping: true, })
-            .then(image => {setImage(image.path),setShow(true)}).catch((error) => {console.log("error")});
+            .then(image => {setFilePath(image.path),setShow(true)}).catch((error) => {console.log("error")});
     };
   return(
       <SafeAreaView style={{flex:1}}>
@@ -116,7 +125,7 @@ const UpdateProfile = ({navigation,route}) => {
                       {show==false ?
                           <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:"https://event.vrda1.net/"+profiledata.picture+'?' + new Date()}} containerStyle={{backgroundColor:colors.skincolor}}/>
                           :
-                          <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:image}} containerStyle={{backgroundColor:colors.skincolor}}/>
+                          <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} onPress={()=>{takephotofromgallery()}} source={{uri:filePath}} containerStyle={{backgroundColor:colors.skincolor}}/>
                       }
                       <View style={styles.avatartext}>
                           <TextInput
@@ -133,7 +142,7 @@ const UpdateProfile = ({navigation,route}) => {
                       <Text style={[{fontSize:18,fontWeight:"bold" ,color:colors.skincolor}]}>Detail</Text>
                       <DI icon1={"call"} icon2={"calendar"} text1={"Phone"} text2={"D.O.B"} keyboardtype1={'phone-pad'} placeholder1={"Phone"} value1={phone?phone:""}  onChangeText1={(text)=>{setPhone(text)}} date={date} datechange={(date)=>setDate(date)}/>
                       <PI icon1={"mail"} icon2={"location"}  editable1={false} editable2={true} text1={"Email"} text2={"City"} placeholder1={"Email"} placeholder2={"City"} value1={email?email:""} value2={city?city:""} onChangeText1={(text)=>{setCountry(text)}} onChangeText2={(text)=>{setCity(text)}}/>
-                      <PI icon1={"business"} icon2={"user"} editable2={true} text1={"Address"} text2={"CNIC"} placeholder1={"Address"} placeholder2={"CNIC"} value1={address?address:""} keyboardtype2={'phone-pad'} value2={cnic?cnic:""} onChangeText1={(text)=>{setAddress(text)}} onChangeText2={(text)=>{setCnic(text)}}/>{/*<PI icon1={"earth"} icon3={"location"} text1={"Country"} text2={"Nationality"} placeholder1={"country"} placeholder2={"Nationality"}  value1={country?country:""} value2={nationality?nationality:""} onChangeText1={(text)=>{setCountry(text)}} onChangeText2={(text)=>{setNationality(text)}}/>*/}
+                      <PI icon1={"business"} icon2={"user"} editable2={true} text1={"Address"} text2={"CNIC"} placeholder1={"Address"} placeholder2={"CNIC"} value1={address?address:""} keyboardtype2={'phone-pad'} value2={cnic?cnic:""} onChangeText1={(text)=>{setAddress(text)}} validation2={cnicvalidation} onChangeText2={(text)=>{setCnic(text),setCnicvalidation("")}}/>{/*<PI icon1={"earth"} icon3={"location"} text1={"Country"} text2={"Nationality"} placeholder1={"country"} placeholder2={"Nationality"}  value1={country?country:""} value2={nationality?nationality:""} onChangeText1={(text)=>{setCountry(text)}} onChangeText2={(text)=>{setNationality(text)}}/>*/}
 
                       <View style={styles.piconatiner}>
                           <View style={styles.pi1container}>

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">VRDa1 Event</string>
     <string name="facebook_app_id">301608775120850</string>
-    <string name="fb_login_protocol_scheme">fb301608775120850</string>
-
+    <string name="facebook_client_token">cf72ab6de4a1624df9347d3f4168933b</string>
+     <string name="fb_login_protocol_scheme">fb301608775120850</string>
 </resources>
+<!-- cf72ab6de4a1624df9347d3f4168933b -->

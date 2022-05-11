@@ -27,10 +27,10 @@ import {useToast} from "react-native-styled-toast";
 import auth, {firebase} from '@react-native-firebase/auth';
 import Google from "../../SocialLogin/Google";
 import onFacebookButtonPress from "../../SocialLogin/Facebook";
-// import Toast from "react-native-simple-toast";
+import SweetAlert from 'react-native-sweet-alert';
 import Loader from "../../utilis/Loader";
-// import {Button, useToast, VStack, Center, NativeBaseProvider,} from "native-base"
-
+import {forgotpassword_api} from "../../utilis/Api/Api_controller";
+import Toast from "react-native-simple-toast";
 
 
 const Login = ({navigation}) => {
@@ -58,18 +58,6 @@ const Login = ({navigation}) => {
     }
 
     useEffect(()=>{getToken()},[])
-
-    const getInitialURL=async()=> {
-        const url = await Linking.getInitialURL();
-        if (url != null) {
-            navigation.navigate("UpdatePassword")
-            console.log("==========URL===========",url)
-
-        }
-        else{
-            //Nothing
-        }
-    }
 
     const getToken = async () => {
         try {
@@ -127,11 +115,22 @@ const Login = ({navigation}) => {
                     navigation.reset({ index: 0, routes: [{ name: "App Tab" }], })
                 }
                 else if(response.data.verified==false){
+                    setLoading(true)
+                    await forgotpassword_api({email:email})
                     navigation.replace("VerifyCode",{data:email,screencheck:"login"})
                 }
                 else {
                     setLoading(false)
-                    toast({message: response.data.message, duration:0, accentColor:"red", toastStyles: {bg: 'white',}, color: 'black', iconColor: 'red', iconFamily: 'Entypo', iconName: 'info', closeButtonStyles: { bg: 'red',borderRadius: 50},closeIconColor: 'white',hideAccent: false})
+                    SweetAlert.showAlertWithOptions({
+                        title: '',
+                        subTitle: response.data.message,
+                        confirmButtonTitle: 'OK',
+                        confirmButtonColor: '#000',
+                        otherButtonTitle: 'Cancel',
+                        otherButtonColor: '#dedede',
+                        style: 'warning',
+                        cancellable: true
+                      });
                 }
             }else{
                 setLoading(false)

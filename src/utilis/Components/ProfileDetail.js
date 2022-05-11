@@ -29,7 +29,7 @@ const PD = ({icon1,icon2,text1,text2,text3,text4,iconcategory,icon3}) => {
                             <Text style={{color:colors.profilrtext}}>{text2.slice(0, 14)+"..."}</Text>
                         </Tooltip>
                         :
-                        <Text style={[styles.pdvalue,{color:colors.profilrtext}]}>{text2}</Text>
+                        <Text style={[styles.pdvalue,{color:colors.profilrtext}]}>{text2 !="null"?text2:""}</Text>
                     }
 
                 </View>
@@ -40,7 +40,7 @@ const PD = ({icon1,icon2,text1,text2,text3,text4,iconcategory,icon3}) => {
                 {icon3 &&<Ionicons name={icon3} size={21} color="white" style={[styles.pi1icon,{backgroundColor:colors.greencolor}]}/>}
 
                 <View style={styles.pdview}>
-                    <Text style={[styles.pdtext,{color:colors.profilrtext}]}>{text3}</Text>
+                    <Text style={[styles.pdtext,{color:colors.profilrtext}]}>{text3 !="null"?text3:""}</Text>
                     {text4.length>14?
                         <Tooltip
                             backgroundColor={colors.registerbtn}
@@ -54,7 +54,7 @@ const PD = ({icon1,icon2,text1,text2,text3,text4,iconcategory,icon3}) => {
                             <Text style={{color:colors.profilrtext}}>{text4.slice(0, 14)+"..."}</Text>
                         </Tooltip>
                         :
-                        <Text style={[styles.pdvalue,{color:colors.profilrtext}]}>{text4}</Text>
+                        <Text style={[styles.pdvalue,{color:colors.profilrtext}]}>{text4 !="null"?text4:""}</Text>
                     }
                 </View>
             </View>

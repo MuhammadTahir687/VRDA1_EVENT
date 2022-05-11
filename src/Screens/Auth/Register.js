@@ -78,7 +78,7 @@ const Register = ({navigation}) => {
         else if(name==''){setNamevalidation('Required*')}
         else if(name.length<3){setNamevalidation("Name Must be atleast 3 alphabets")}
         else if(password==""){setPasswordvalidation("Required*")}
-        else if(strongRegex.test(password)==false){alert(password);setPasswordvalidation("Password include (A,a,Special Characters){min 6}")}
+        else if(strongRegex.test(password)==false){setPasswordvalidation("Password include (A,a,Special Characters){min 6}")}
         else if (password.length>36){setPasswordvalidation("Password Length Exceeded")}
         else if (confirmpassword==''){setConfirmpasswordvalidation("Required*")}
         else if (password != confirmpassword){setConfirmpasswordvalidation("Password not match")}
@@ -108,9 +108,10 @@ const Register = ({navigation}) => {
                    navigation.navigate("VerifyCode",{data:email,screencheck:"register"})
                }
                else{
+                setLoading(false)
                    console.log("#######",res)
-                   Toast.show('The email has already been taken');
-                   setLoading(false)
+                   Toast.show(resp.data.message);
+                  
                }
            }
         else{

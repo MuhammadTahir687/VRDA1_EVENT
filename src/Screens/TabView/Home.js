@@ -76,14 +76,20 @@ const Home = ({ navigation }) => {
             setEventdata(response.data)
             setShow(true)
             setLoading(false)
+            console.log("Event Data ======", response.data[0].event_image)
         }
         else if (response.message == 'Unauthenticated') { logout() }
     }
 
     const SpecialEvent = async () => {
         const resp = await get_request('/api/special-events')
-        console.log('specal event==========', resp.event_start[0])
-        setSpecialevent(resp.event_start[0])
+        if(resp.event_start !=null){
+            setSpecialevent(resp.event_start[0])
+        }
+        else{
+
+        }
+        
     }
 
     const logout = async () => {

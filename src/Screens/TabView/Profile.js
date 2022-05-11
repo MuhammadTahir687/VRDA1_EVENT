@@ -27,6 +27,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {get_request} from "../../utilis/Api/Requests";
 import { useIsFocused } from '@react-navigation/native';
 import Loader from "../../utilis/Loader";
+import { add } from "lodash";
 
 
 const Profile = ({navigation}) => {
@@ -57,11 +58,11 @@ const Profile = ({navigation}) => {
         const userdata=await get_data("user")
        // alert(JSON.stringify(userdata.profile.user_id))
         const response=await get_request("/api/user-profile/"+userdata.profile.user_id)
-        // console.log("Picture",response.data.picture)
+        console.log("GET Profile = ", response)
         setLoading(false)
         if(response.status==true){
             setProfiledata(response.data)
-            setName(response.user_name);
+            setName(response.user_name.toLowerCase().replace(/\b(\w)/g, s => s.toUpperCase()));
             setImage(response.data.picture);
             setCountry(response.data.country);
             setCity(response.data.city);
@@ -73,6 +74,7 @@ const Profile = ({navigation}) => {
             setCnic(response.data.cnic);
             setOrganization(response.data.organization);
             setEmail(userdata.user.email)
+            console.log("Profile Data =============",response.data.picture)
         }
         else{}
     }
@@ -119,7 +121,7 @@ const Profile = ({navigation}) => {
                 </View>
 
                     <View style={[styles.profileavatar,{backgroundColor:colors.profilebg}]}>
-                        <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} source={{uri: image+'?' + new Date()}} containerStyle={{backgroundColor:colors.greencolor}}/>
+                        <Avatar size="medium" rounded icon={{name: 'user', type: 'font-awesome',}} source={{uri: "https://event.vrda1.net/"+image +'?' + new Date()}} containerStyle={{backgroundColor:colors.greencolor}}/>
                         <View style={styles.avatartext}>
                             <Text style={[styles.avatarname,{color:colors.greencolor}]}>{name}</Text>
                             <Text style={{color:colors.profilrtext}}>{email}</Text>
@@ -128,9 +130,9 @@ const Profile = ({navigation}) => {
 
                 <View style={[styles.profiledetailsection,{backgroundColor:colors.profilebg}]}>
                     <Text style={[{fontSize:18,fontWeight:"bold" ,color:colors.greencolor}]}>Detail</Text>
-                    <PD icon1={"call"} icon2={"calendar"} text1={'Phone'} text2={phone?phone:""} text3={"D.O.B"} text4={dob?dob:""}/>
+                    <PD icon1={"call"} icon2={"calendar"} text1={'Phone'} text2={phone ?phone:""} text3={"D.O.B"} text4={dob?dob:""}/>
                     <PD icon1={"earth"} icon2={"location"} text1={'Country'} text2={country?country:""} text3={"City"} text4={city?city:""}/>
-                    <PD icon1={"location"}  icon2={"user"} text1={'Address'} text2={address?address:""} text3={"CNIC"} text4={cnic?cnic:""}/>
+                    <PD icon1={"location"}  icon2={"user"} text1={'Address'} text2={address ?address:""} text3={"CNIC"} text4={cnic?cnic:""}/>
                     <PD icon1={"business"}   text1={'Nationality'} text2={nationality?nationality:""} text4={""} />
 
                     {role!=''&& role=="user"?

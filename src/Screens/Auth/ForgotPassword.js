@@ -1,11 +1,11 @@
-import React, {useState,useEffect} from "react";
+import React, {useState,useEffect,useMount} from "react";
 import {View, Text, SafeAreaView, TouchableOpacity,Linking, ScrollView, Image, StatusBar} from "react-native";
 import styles from "../../Stylesheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Color from "../../utilis/Color";
 import Input from "../../utilis/Components/FormInput";
-import {useTheme} from "@react-navigation/native";
+import {useFocusEffect, useTheme} from "@react-navigation/native";
 import RI from "../../utilis/Components/RowInput";
 import ID from "../../utilis/Components/InputDate";
 import {forgotpassword_api, Login_api} from "../../utilis/Api/Api_controller";
@@ -17,22 +17,38 @@ import {Icon} from "react-native-elements";
 import onFacebookButtonPress from "../../SocialLogin/Facebook";
 import Google from "../../SocialLogin/Google";
 import {TextInput} from "react-native-paper";
-
-
+import Loader from "../../utilis/Loader";
+import {useToast} from "react-native-styled-toast";
+import SweetAlert from 'react-native-sweet-alert';
 const ForgotPassword = ({navigation}) => {
     const {colors}=useTheme()
+    const { toast } = useToast()
     const [email,setEmail]=useState('')
     const [emailvalidation,setEmailvalidation]=useState('')
     const [loading,setLoading]=useState(false)
     const [value,setValue]=useState(false);
 
     AsyncStorage.getItem("savetheme").then(savetheme=>{setValue(JSON.parse(savetheme))})
-   useEffect(()=>{getInitialURL()},[])
+  
+
+    useFocusEffect(() => {
+        const getUrlAsync = async () => {
+          // Get the deep link used to open the app
+          const initialUrl = await Linking.getInitialURL();
+    
+          // The setTimeout is just for testing purpose
+          setTimeout(() => {
+           console.log("initial Url=======",initialUrl)
+          }, 1000);
+        };
+    
+        getUrlAsync();
+      });
 
     const getInitialURL=async()=> {
         const url = await Linking.getInitialURL();
         if (url != null) {
-            navigation.navigate("UpdatePassword",{data:url})
+            navigation.replace("UpdatePassword",{data:url})
             console.log("url",url)
         }
         else{
@@ -41,18 +57,38 @@ const ForgotPassword = ({navigation}) => {
     }
 
     const submit=async()=>{
+        setLoading(true)
         let regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
         if(email==""){setEmailvalidation("Required*")}
         else if(regex.test(email)==false){setEmailvalidation("Incorrect Email")}
         else{
             AsyncStorage.setItem("email",JSON.stringify(email))
             const response=await forgotpassword_api({email:email})
-            console.log("475834753489",response)
+            setLoading(false)
+            console.log("475834753489",response.data)
             if(response.data.status==true){
-               alert(response.data.message)
+                SweetAlert.showAlertWithOptions({
+                    title: '',
+                    subTitle: response.data.message,
+                    confirmButtonTitle: 'OK',
+                    confirmButtonColor: '#000',
+                    otherButtonTitle: 'Cancel',
+                    otherButtonColor: '#dedede',
+                    style: 'success',
+                    cancellable: true
+                  },callback => navigation.replace("VerifyCodePassword",{data:email,screencheck:"password"}));
             }
             else{
-                Toast.show(response.message)
+                SweetAlert.showAlertWithOptions({
+                    title: '',
+                    subTitle: response.data.message,
+                    confirmButtonTitle: 'OK',
+                    confirmButtonColor: '#000',
+                    otherButtonTitle: 'Cancel',
+                    otherButtonColor: '#dedede',
+                    style: 'warning',
+                    cancellable: true
+                  });
             }
            
         }
@@ -62,6 +98,7 @@ const ForgotPassword = ({navigation}) => {
       <SafeAreaView style={{flex:1,backgroundColor:colors.loginbackground2}}>
         <StatusBar backgroundColor={colors.loginbackground2}/>
           <View style={{flex:1,justifyContent:"center"}}>
+          <Loader animating={loading}/>
               { value ==true  || value==null? <Image source={require('../../Assets/New_Logo.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>:
                   <Image source={require('../../Assets/White_New_Login.png')} style={{width:150,height:100,resizeMode:"contain",alignSelf:"center"}}/>
               }
