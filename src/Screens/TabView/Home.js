@@ -76,7 +76,6 @@ const Home = ({ navigation }) => {
             setEventdata(response.data)
             setShow(true)
             setLoading(false)
-            console.log("Event Data ======", response.data[0].event_image)
         }
         else if (response.message == 'Unauthenticated') { logout() }
     }
@@ -131,7 +130,7 @@ const Home = ({ navigation }) => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             {refreshing == true ? null : <Loader animating={loading} />}
-            <StatusBar backgroundColor={"#1CAE81"} />
+            <StatusBar backgroundColor={"#1CAE81"} barStyle="dark-content" translucent={true}/>
             <ScrollView refreshControl={<RefreshControl progressBackgroundColor={"#fafafa"} colors={['#1CAE81']} refreshing={refreshing} onRefresh={refresh} />}>
                 <View style={[styles.homeheader, { backgroundColor: colors.loginbackground }]}>
                     <View style={{ flex: 1 }}>
@@ -143,7 +142,7 @@ const Home = ({ navigation }) => {
                             </TouchableOpacity>
                             <View style={styles.homerighticoncontainer}>
                                 <TouchableOpacity onPress={() => { setModalVisible(true) }}>
-                                    <FontAwesome name="bell" color="white" size={18} style={[styles.righticon, { backgroundColor: colors.signinHeader }]} />
+                                    <FontAwesome name="bell" color="white" size={18} style={[styles.righticon, { backgroundColor: colors.signinHeader}]} />
                                 </TouchableOpacity>
                             </View>
                         </View>

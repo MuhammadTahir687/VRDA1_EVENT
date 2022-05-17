@@ -63,8 +63,8 @@ const AllEvent = ({navigation}) => {
             <Animated.View style={{height: headerHeight,backgroundColor:"#1cae81",borderBottomLeftRadius:80,borderBottomRightRadius:80}}>
                 <View style={styles.searchcontainer1}>
                     <View style={styles.searchleftcontainer}>
-                        <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={["rgba(12,12,12,0.4)", "#1CAE81"]} style={{backgroundColor:"rgba(12,12,12,0.4)",flexDirection:"row",borderRadius:50,flex:1}}>
-                            <FontAwesome name="search" color={colors.loginbackground} size={18} style={[styles.homesearchicon,{backgroundColor:'rgba(12,12,12,0.4)',borderWidth:2,borderColor:colors.loginbackground}]}/>
+                        <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={["rgba(12,12,12,0.57)", "#1CAE81"]} style={{backgroundColor:"rgba(12,12,12,0.4)",flexDirection:"row",borderRadius:50,flex:1}}>
+                            <FontAwesome name="search" color={colors.loginbackground} size={18} style={[styles.homesearchicon,{backgroundColor:'rgba(12,12,12,0.47)',borderWidth:2,borderColor:colors.loginbackground}]}/>
                             <TextInput
                                 style={[styles.homesearchinput]}
                                 placeholder="Search"

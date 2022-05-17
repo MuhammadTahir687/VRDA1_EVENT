@@ -115,7 +115,7 @@ const UpdateProfile = ({navigation,route}) => {
                   <View style={styles.profileheader}>
                       <TouchableOpacity onPress={()=>{navigation.goBack()}} style={{flexDirection:"row",alignItems:"center"}}>
                           <Ionicons name={"arrow-back"} color={colors.skincolor} size={20}  />
-                          <Text style={[styles.profileheadertext,{color:colors.skincolor}]}>Profile</Text>
+                          <Text style={[styles.profileheadertext,{color:colors.greencolor}]}>Profile</Text>
                       </TouchableOpacity>
 
                       <FontAwesome name="edit" color="white" size={20}/>

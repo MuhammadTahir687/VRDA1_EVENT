@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet,Dimensions} from "react-native";
+import {StyleSheet,Dimensions, Platform} from "react-native";
 import Color from "./Color";
 const devicehieght=Dimensions.get("window").height;
 const devicewidth=Dimensions.get("window").width;
@@ -46,9 +46,9 @@ export default StyleSheet.create({
     homeheaderh:{textAlign:"center",fontSize:15},
     homeiconcontianer:{flexDirection:"row",justifyContent:'space-between',marginHorizontal:20,alignItems:"center",marginBottom:10},
     homerighticoncontainer:{flexDirection:"row",alignItems:'center'},
-    righticon:{marginHorizontal:10,borderRadius:50,padding:5},
-    homesearchicon:{borderRadius:25,padding:10},
-    homesearchinput:{height:40,flex:1,color:"white"},
+    righticon:{marginHorizontal:10,width:30,height:30,borderRadius:30/2,overflow:(Platform.OS != "android"?"hidden":"visible"),padding:5},
+    homesearchicon:{width:40,height:40,borderRadius:40/2,padding:10},
+    homesearchinput:{height:40,flex:1,color:"white",marginLeft:5},
     searchcontainer:{flex:1,flexDirection:"row",justifyContent:"center",marginHorizontal:40,alignItems:"center",top:8},
     searchcontainer1:{flex:1,flexDirection:"row",justifyContent:"center",marginHorizontal:40,alignItems:"center",bottom:8},
     filtercontainer:{flex:3,flexDirection:"row",borderBottomRightRadius:50,borderTopRightRadius:50,height:40,alignItems:"center",paddingLeft:10},
@@ -75,11 +75,11 @@ export default StyleSheet.create({
     eventlocation:{flexDirection:"row",alignItems:"center",marginHorizontal:10},
     eventtime:{marginHorizontal:5,color:"black"},
 
-    eventdate:{bottom:189,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
-    eventdate1:{bottom:199,paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
+    eventdate:{bottom:(Platform.OS =="android"?189:180),paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5,overflow:"hidden"},
+    eventdate1:{bottom:(Platform.OS =="android"?199:193),paddingHorizontal:5,alignItems:"center",marginHorizontal:20,backgroundColor:"white",alignSelf:"flex-start",borderBottomLeftRadius:5,borderBottomRightRadius:5},
     eventdetailheader:{height:devicehieght/4.5,width:"100%",borderBottomRightRadius:20,borderBottomLeftRadius:20},
     eventdetailtitile:{fontSize:20,fontWeight:"bold",marginHorizontal:10},
-    dateicon:{padding:7,borderRadius:5,marginTop:10},
+    dateicon:{padding:7,borderRadius:5,marginTop:10,overflow:"hidden"},
     eventdetilsh:{marginHorizontal:10,marginTop:10,fontWeight:"bold",fontSize:15},
     eventdesc:{marginHorizontal:10,textAlign:"justify"},
 
@@ -101,7 +101,7 @@ export default StyleSheet.create({
     avatarinput:{flex:1,borderBottomWidth:1,height:35},
     piconatiner:{flexDirection:"row"},
     pi1container:{flex:1,flexDirection:"row",alignItems:"center",marginRight:5},
-    pi1icon:{paddingVertical:6,paddingHorizontal:7,borderRadius:10},
+    pi1icon:{paddingVertical:6,paddingHorizontal:7,borderRadius:10,overflow:"hidden"},
     p1textview:{flex:1, marginLeft:10},
     pi1text:{flex:1,fontSize:15,fontWeight:"bold"},
     pdview:{marginLeft:10},

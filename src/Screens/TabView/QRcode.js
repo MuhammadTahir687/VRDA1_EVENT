@@ -12,8 +12,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {attendance_api} from "../../utilis/Api/Api_controller";
 import Toast from "react-native-simple-toast";
 
-
-
 const QRcode =({route,navigation}) => {
     const scanner=useRef();
     const {colors}=useTheme();
@@ -32,7 +30,7 @@ const QRcode =({route,navigation}) => {
 
     const userdata =async () => {
         var qrdata=await get_data('user');
-        console.log(eventdata.image)
+        // console.log("hghgfh",eventdata.image)
         setadminid(qrdata.user.id)
         setRole(qrdata.user.role)
         setEmail(qrdata.user.email)
@@ -106,13 +104,10 @@ const QRcode =({route,navigation}) => {
                       </View>
                   </View>
               </View>
-
-
-
               :
               <View style={{flex:1}}>
                   <QRCodeScanner
-                      // ref={scanner}
+                      ref={scanner}
                       reactivate={true}
                       reactivateTimeout={2000}
                       containerStyle={{flex:1,alignItems:"center"}}

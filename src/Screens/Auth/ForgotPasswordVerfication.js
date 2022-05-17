@@ -6,12 +6,12 @@ import {password_verifycode_api,forgotpassword_api} from "../../utilis/Api/Api_c
 import Toast from "react-native-simple-toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import OTPInputView from '@twotalltotems/react-native-otp-input';
-import {useToast} from "react-native-styled-toast";
+// import {useToast} from "react-native-styled-toast";
 import SweetAlert from 'react-native-sweet-alert';
 
 const VerifyCodePassword = ({navigation,route}) => {
     const {colors}=useTheme()
-    const { toast } = useToast()
+    // const { toast } = useToast()
     const emailid=route.params.data;
     const check=route.params.screencheck;
     const[code,setCode]=useState('')
@@ -25,6 +25,7 @@ const VerifyCodePassword = ({navigation,route}) => {
         try {
             if(response.data.status==true) 
             {
+                { Platform.OS=="android"?
                 SweetAlert.showAlertWithOptions({
                     title: '',
                     subTitle: response.data.message,
@@ -35,21 +36,28 @@ const VerifyCodePassword = ({navigation,route}) => {
                     style: 'success',
                     cancellable: true
                   },
-                    callback => navigation.replace("UpdatePassword",{data:"text"}));
+                    callback => navigation.replace("UpdatePassword",{data:"text"}))
+                    :
+                    alert(response.data.message)
+                    navigation.replace("UpdatePassword",{data:"text"})
+                }
                 
         }
             else{
+                { Platform.OS=="android"?
                 SweetAlert.showAlertWithOptions({
-                    title: '',
-                    subTitle: response.data.message,
-                    confirmButtonTitle: 'OK',
-                    confirmButtonColor: '#000',
-                    otherButtonTitle: 'Cancel',
-                    otherButtonColor: '#dedede',
-                    style: 'warning',
-                    cancellable: true
-                  });
-            
+                     title: '',
+                     subTitle: response.data.message,
+                     confirmButtonTitle: 'OK',
+                     confirmButtonColor: '#000',
+                     otherButtonTitle: 'Cancel',
+                     otherButtonColor: '#dedede',
+                     style: 'warning',
+                     cancellable: true
+                   })
+                   :
+                   alert(response.data.message)
+                 }
             }
         }
         catch (e){Toast.show(e)}
@@ -57,16 +65,20 @@ const VerifyCodePassword = ({navigation,route}) => {
     const resendcode =async () => {
         const response=await forgotpassword_api({email:emailid});
         console.log("475834753489",response.data)
+        { Platform.OS=="android"?
         SweetAlert.showAlertWithOptions({
-            title: '',
-            subTitle: response.data.message,
-            confirmButtonTitle: 'OK',
-            confirmButtonColor: '#000',
-            otherButtonTitle: 'Cancel',
-            otherButtonColor: '#dedede',
-            style: 'success',
-            cancellable: true
-          });
+             title: '',
+             subTitle: response.data.message,
+             confirmButtonTitle: 'OK',
+             confirmButtonColor: '#000',
+             otherButtonTitle: 'Cancel',
+             otherButtonColor: '#dedede',
+             style: 'success',
+             cancellable: true
+           })
+           :
+           alert(response.data.message)
+         }
     }
 
     return(

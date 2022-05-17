@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, SafeAreaView, TouchableOpacity, ScrollView, Linking, StatusBar, Image} from "react-native";
+import {View, Text, SafeAreaView, TouchableOpacity, ScrollView, Linking, StatusBar, Image, Platform} from "react-native";
 import styles from "../../Stylesheet/Style";
 import {useTheme} from "@react-navigation/native";
 import {resetpassword_api} from "../../utilis/Api/Api_controller";
@@ -38,6 +38,7 @@ const UpdatePassword = ({navigation}) => {
                 console.log("=======================",response.data)
                 if (response != "Error"){
                     if (response.data.status === true) {
+                        { Platform.OS=="android"?
                         SweetAlert.showAlertWithOptions({
                             title: '',
                             subTitle: response.data.message,
@@ -48,23 +49,33 @@ const UpdatePassword = ({navigation}) => {
                             style: 'success',
                             cancellable: true
                           },
-                            callback =>navigation.replace("Login",{data:"text"}));
+                            callback =>navigation.replace("Login",{data:"text"}))
+                            :
+                            alert(response.data.message)
+                            navigation.replace("Login",{data:"text"})
+                        }
                     }
                     else {
 
+                        { Platform.OS=="android"?
                         SweetAlert.showAlertWithOptions({
-                            title: '',
-                            subTitle: response.data.message,
-                            confirmButtonTitle: 'OK',
-                            confirmButtonColor: '#000',
-                            otherButtonTitle: 'Cancel',
-                            otherButtonColor: '#dedede',
-                            style: 'success',
-                            cancellable: true
-                          });
+                             title: '',
+                             subTitle: response.data.message,
+                             confirmButtonTitle: 'OK',
+                             confirmButtonColor: '#000',
+                             otherButtonTitle: 'Cancel',
+                             otherButtonColor: '#dedede',
+                             style: 'warning',
+                             cancellable: true
+                           })
+                           :
+                           alert(response.data.message)
+                         }
                     
                     }
                 }else{
+                    {
+                        Platform.OS =="android"?
                     SweetAlert.showAlertWithOptions({
                         title: '',
                         subTitle: "Network Error",
@@ -72,9 +83,12 @@ const UpdatePassword = ({navigation}) => {
                         confirmButtonColor: '#000',
                         otherButtonTitle: 'Cancel',
                         otherButtonColor: '#dedede',
-                        style: 'success',
+                        style: 'warning',
                         cancellable: true
-                      });
+                      })
+                      :
+                      alert("Network Error")
+                    }
                 
                 
                 }

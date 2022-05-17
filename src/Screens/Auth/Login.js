@@ -8,7 +8,8 @@ import {
     Linking,
     ScrollView,
     StatusBar,
-    ActivityIndicator
+    ActivityIndicator,
+    Platform
 } from "react-native";
 import styles from "../../Stylesheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -23,7 +24,7 @@ import { Input } from 'react-native-elements'
 import { TextInput } from 'react-native-paper';
 import { Icon, SocialIcon } from 'react-native-elements'
 import {Login_api} from "../../utilis/Api/Api_controller";
-import {useToast} from "react-native-styled-toast";
+// import {useToast} from "react-native-styled-toast";
 import auth, {firebase} from '@react-native-firebase/auth';
 import Google from "../../SocialLogin/Google";
 import onFacebookButtonPress from "../../SocialLogin/Facebook";
@@ -38,7 +39,7 @@ const Login = ({navigation}) => {
     const dispatch=useDispatch();
     const isDarkTheme=useSelector((state:RootState)=>state.themeReducer.isDarkTheme);
     const {colors}=useTheme();
-    const { toast } = useToast()
+    // const { toast } = useToast()
     const [show, setShow] = useState(false);
     const [visible, setVisible] = useState(true);
     const [email,setEmail]=useState('');
@@ -121,7 +122,8 @@ const Login = ({navigation}) => {
                 }
                 else {
                     setLoading(false)
-                    SweetAlert.showAlertWithOptions({
+                  { Platform.OS=="android"?
+                   SweetAlert.showAlertWithOptions({
                         title: '',
                         subTitle: response.data.message,
                         confirmButtonTitle: 'OK',
@@ -130,11 +132,14 @@ const Login = ({navigation}) => {
                         otherButtonColor: '#dedede',
                         style: 'warning',
                         cancellable: true
-                      });
+                      })
+                      :
+                      alert(response.data.message)
+                    }
                 }
             }else{
                 setLoading(false)
-                toast({duration:0, message: response.data.message, accentColor:"red", toastStyles: {bg: 'lightblue', borderRadius: 16}, color: 'white', iconColor: 'white', iconFamily: 'Entypo', iconName: 'info', closeButtonStyles: {px: 4, bg: 'darkgrey', borderRadius: 16}, closeIconColor: 'white', hideAccent: false})
+                // toast({duration:0, message: response.data.message, accentColor:"red", toastStyles: {bg: 'lightblue', borderRadius: 16}, color: 'white', iconColor: 'white', iconFamily: 'Entypo', iconName: 'info', closeButtonStyles: {px: 4, bg: 'darkgrey', borderRadius: 16}, closeIconColor: 'white', hideAccent: false})
 
             }
         }
@@ -145,7 +150,7 @@ const Login = ({navigation}) => {
 
      <SafeAreaView style={{flex:1,backgroundColor:colors.loginbackground2}}>
          {/*<ActivityIndicator animating={loading} color={"red"} size={"large"} style={{position:"absolute"}} />*/}
-         <StatusBar backgroundColor={colors.loginbackground2}/>
+         <StatusBar backgroundColor={colors.loginbackground2} barStyle="dark-content" translucent={true}/>
          <Loader animating={loading} />
 
          <View style={{flex:1,justifyContent:"center"}}>
@@ -202,9 +207,11 @@ const Login = ({navigation}) => {
                   <TouchableOpacity>
                       <Icon reverse={true} button name='google' type='antdesign' color={colors.registerbtn} onPress={()=>{Google()}}/>
                   </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{navigation.navigate("vrda1login")}}>
-                    <Text style={{fontWeight:"bold",fontSize:28,backgroundColor:colors.registerbtn,paddingHorizontal:17,color:"white",paddingVertical:7,borderRadius:50,marginLeft:7}}>V</Text>
+                  <TouchableOpacity  onPress={()=>{navigation.navigate("vrda1login")}}>
+                    <Text style={{fontWeight:"bold",fontSize:28,textAlign:"center",paddingTop:(Platform.OS=="ios"?10:7),backgroundColor:colors.registerbtn,paddingHorizontal:0,color:"white",paddingVertical:0,width:50,height:50,borderRadius:50/2,overflow: 'hidden',marginLeft:0}}>V</Text>
                 </TouchableOpacity>
+                  
+               
                 </View>
                 <View style={[styles.signinqcontainer,{backgroundColor:"transparent"}]}>
                     <Text style={[styles.loginq1,{color:colors.profilrtext}]}>Don't have an account?</Text>

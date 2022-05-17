@@ -9,22 +9,22 @@ import {useTheme} from "@react-navigation/native";
 import {Login_api,forgotpassword_api} from '../../utilis/Api/Api_controller';
 import {save_data,get_data} from '../../utilis/AsyncStorage/Controller';
 import Toast from "react-native-simple-toast";
-import onFacebookButtonPress from "../../SocialLogin/Facebook";
-import auth, {firebase} from '@react-native-firebase/auth';
-import Google from "../../SocialLogin/Google";
+// import onFacebookButtonPress from "../../SocialLogin/Facebook";
+// import auth, {firebase} from '@react-native-firebase/auth';
+// import Google from "../../SocialLogin/Google";
 import HB from "../../utilis/Components/HeaderButton";
 import FacebookBtn from "../../utilis/Components/Facebook Button";
 import GoogleBtn from '../../utilis/Components/GoogleButton';
 import Vrda1Btn from '../../utilis/Components/Vrda1Btn'
 import Loader from "../../utilis/Loader";
-import { useToast } from 'react-native-styled-toast';
+// import { useToast } from 'react-native-styled-toast';
 import CustomToast from "../../utilis/Components/Toast";
-import { ToastContext } from 'react-native-styled-toast'
+// import { ToastContext } from 'react-native-styled-toast'
 
 
 const Signin = ({navigation,route}) => {
     const {colors}=useTheme();
-    const { toast } = useToast()
+    // const { toast } = useToast()
     const [email,setEmail]=useState('talha.akbar366@gmail.com');
     const [password,setPassword]=useState('123456');
     const [emailvalidation,setEmailvalidation]=useState('');
@@ -82,52 +82,52 @@ const Signin = ({navigation,route}) => {
                 }
                 else {
                     // Toast.show(response.data.message)
-                    toast({
-                        duration:0,
-                        intent:"ERROR",
-                        accentColor:"red",
-                        message: response.data.message,
-                        toastStyles: {
-                            bg: 'white',
-                        },
+                    // toast({
+                    //     duration:0,
+                    //     intent:"ERROR",
+                    //     accentColor:"red",
+                    //     message: response.data.message,
+                    //     toastStyles: {
+                    //         bg: 'white',
+                    //     },
 
-                        color: 'black',
-                        iconColor: 'red',
-                        iconFamily: 'Entypo',
-                        iconName: 'info',
-                        closeButtonStyles: {
-                            // px: 2,
-                            bg: 'red',
-                            borderRadius: 50
-                        },
-                        closeIconColor: 'white',
-                        hideAccent: false
-                    })
+                    //     color: 'black',
+                    //     iconColor: 'red',
+                    //     iconFamily: 'Entypo',
+                    //     iconName: 'info',
+                    //     closeButtonStyles: {
+                    //         // px: 2,
+                    //         bg: 'red',
+                    //         borderRadius: 50
+                    //     },
+                    //     closeIconColor: 'white',
+                    //     hideAccent: false
+                    // })
 
 
                 }
         }else{
                 // Toast.show("Invalid Email or Password ")
-                toast({
-                    duration:0,
-                    accentColor:"red",
-                    message: response.data.message,
-                    toastStyles: {
-                        bg: 'lightblue',
-                        borderRadius: 16
-                    },
-                    color: 'white',
-                    iconColor: 'white',
-                    iconFamily: 'Entypo',
-                    iconName: 'info',
-                    closeButtonStyles: {
-                        px: 4,
-                        bg: 'darkgrey',
-                        borderRadius: 16
-                    },
-                    closeIconColor: 'white',
-                    hideAccent: false
-                })
+                // toast({
+                //     duration:0,
+                //     accentColor:"red",
+                //     message: response.data.message,
+                //     toastStyles: {
+                //         bg: 'lightblue',
+                //         borderRadius: 16
+                //     },
+                //     color: 'white',
+                //     iconColor: 'white',
+                //     iconFamily: 'Entypo',
+                //     iconName: 'info',
+                //     closeButtonStyles: {
+                //         px: 4,
+                //         bg: 'darkgrey',
+                //         borderRadius: 16
+                //     },
+                //     closeIconColor: 'white',
+                //     hideAccent: false
+                // })
 
             }
             }
@@ -180,8 +180,8 @@ const Signin = ({navigation,route}) => {
                    </TouchableOpacity>
                </View>
 
-               {data!="admin" && <FacebookBtn onPress={()=>{onFacebookButtonPress()}} text1={"Facebook"}/>}
-               {data!="admin" && <GoogleBtn onPress={()=>{Google()}} text1={"Google"}/>}
+               {/* {data!="admin" && <FacebookBtn onPress={()=>{onFacebookButtonPress()}} text1={"Facebook"}/>}
+               {data!="admin" && <GoogleBtn onPress={()=>{Google()}} text1={"Google"}/>} */}
                {data!="admin" && <Vrda1Btn onPress={()=>{navigation.replace("vrda1login")}} text1={"VRDa1"}/>}
 
            </ScrollView>

@@ -12,7 +12,7 @@ const Input = ({ text1, text2,text3,onPress2,onChangeText1, onBlur1,value1,backg
                 {text3 && <Text style={{fontWeight:"normal",color:colors.star}}>{text3}</Text>}
             </View>
 
-            <View style={{flex:1,borderWidth:1,borderColor:colors.inputinnertext,flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:colors.loginbackground2,paddingHorizontal:10,borderRadius:10}} >
+            <View style={{flex:1,borderWidth:1,padding:(Platform.OS == 'android'?0:14),borderColor:colors.inputinnertext,flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:colors.loginbackground2,paddingHorizontal:10,borderRadius:10}} >
                 <Ionicons name={iconname1} size={20} color={colors.inputinnertext}/>
             <TextInput
                 style={{flex:1,color:colors.inputinnertext}}

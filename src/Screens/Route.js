@@ -191,7 +191,7 @@ const Route = () => {
 
     const darkTheme=useSelector((state:RootState)=>state.themeReducer.isDarkTheme)
     const scheme = useColorScheme();
-    const theme= value===false?CustomDarkTheme:CustomDefaultTheme;
+    const theme= value==false?CustomDarkTheme:CustomDefaultTheme;
     const Stack = createNativeStackNavigator();
 
   return(

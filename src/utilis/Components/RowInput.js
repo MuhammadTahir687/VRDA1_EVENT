@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Platform, Text, TextInput, TouchableOpacity, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useTheme} from "@react-navigation/native";
 import styles from "../../Stylesheet/Style";
@@ -13,7 +13,7 @@ const RI = ({ text1, text2,text3,text4,placeholder1,placeholder2,validation1,val
                     <Text style={{fontWeight:"normal",color:colors.inputinnertext}}>{text1}</Text>
                     {text3 && <Text style={{fontWeight:"normal",color:colors.star}}>{text3}</Text>}
                 </View>
-                <View style={{flex:1,borderWidth:1,borderColor:colors.inputinnertext,flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:colors.loginbackground2,paddingHorizontal:5,borderRadius:10,marginRight:2}} >
+                <View style={{flex:1,borderWidth:1,padding:(Platform.OS == 'android'?0:14),borderColor:colors.inputinnertext,flexDirection:"row",alignItems:"center",justifyContent:"center",backgroundColor:colors.loginbackground2,paddingHorizontal:5,borderRadius:10,marginRight:2}} >
                     <Ionicons name={iconname1} size={20} color={colors.inputinnertext}/>
                     <TextInput
                         style={[styles.signininput,{flex:1,color:colors.inputinnertext}]}

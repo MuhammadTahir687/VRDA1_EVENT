@@ -18,11 +18,11 @@ import onFacebookButtonPress from "../../SocialLogin/Facebook";
 import Google from "../../SocialLogin/Google";
 import {TextInput} from "react-native-paper";
 import Loader from "../../utilis/Loader";
-import {useToast} from "react-native-styled-toast";
+// import {useToast} from "react-native-styled-toast";
 import SweetAlert from 'react-native-sweet-alert';
 const ForgotPassword = ({navigation}) => {
     const {colors}=useTheme()
-    const { toast } = useToast()
+    // const { toast } = useToast()
     const [email,setEmail]=useState('')
     const [emailvalidation,setEmailvalidation]=useState('')
     const [loading,setLoading]=useState(false)
@@ -67,6 +67,7 @@ const ForgotPassword = ({navigation}) => {
             setLoading(false)
             console.log("475834753489",response.data)
             if(response.data.status==true){
+                { Platform.OS=="android"?
                 SweetAlert.showAlertWithOptions({
                     title: '',
                     subTitle: response.data.message,
@@ -76,19 +77,27 @@ const ForgotPassword = ({navigation}) => {
                     otherButtonColor: '#dedede',
                     style: 'success',
                     cancellable: true
-                  },callback => navigation.replace("VerifyCodePassword",{data:email,screencheck:"password"}));
+                  },callback => navigation.replace("VerifyCodePassword",{data:email,screencheck:"password"}))
+                  :
+                alert(response.data.message)
+                navigation.replace("VerifyCodePassword",{data:email,screencheck:"password"})
+            }
             }
             else{
-                SweetAlert.showAlertWithOptions({
-                    title: '',
-                    subTitle: response.data.message,
-                    confirmButtonTitle: 'OK',
-                    confirmButtonColor: '#000',
-                    otherButtonTitle: 'Cancel',
-                    otherButtonColor: '#dedede',
-                    style: 'warning',
-                    cancellable: true
-                  });
+                { Platform.OS=="android"?
+                   SweetAlert.showAlertWithOptions({
+                        title: '',
+                        subTitle: response.data.message,
+                        confirmButtonTitle: 'OK',
+                        confirmButtonColor: '#000',
+                        otherButtonTitle: 'Cancel',
+                        otherButtonColor: '#dedede',
+                        style: 'warning',
+                        cancellable: true
+                      })
+                      :
+                      alert(response.data.message)
+                    }
             }
            
         }

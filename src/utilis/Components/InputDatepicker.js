@@ -12,7 +12,7 @@ const DI = ({icon1,icon2,text1,text2,value1,value2,keyboardtype1,editable1,onCha
   return(
       <View style={{flexDirection:"row"}} >
           <View style={{flex:1,flexDirection:"row",alignItems:"center"}}>
-              <Ionicons name={icon1} size={21} color="white" style={{paddingVertical:6,paddingHorizontal:7,borderRadius:10,backgroundColor:colors.greencolor}}/>
+              <Ionicons name={icon1} size={21} color="white" style={{paddingVertical:6,paddingHorizontal:7,borderRadius:10,backgroundColor:colors.greencolor,overflow: 'hidden',}}/>
               <View style={{flex:1,marginLeft:10}}>
                   <Text style={{flex:1,fontSize:15,fontWeight:"bold",color:colors.profilrtext}}>{text1}</Text>
                   <TextInput
@@ -28,7 +28,7 @@ const DI = ({icon1,icon2,text1,text2,value1,value2,keyboardtype1,editable1,onCha
               </View>
           </View>
           <View style={{flex:1,flexDirection:"row",alignItems:"center"}}>
-              <Ionicons name={icon2} size={21} color="white" style={{paddingVertical:6,paddingHorizontal:7,borderRadius:10,backgroundColor:colors.greencolor}}/>
+              <Ionicons name={icon2} size={21} color="white" style={{paddingVertical:6,paddingHorizontal:7,borderRadius:10,backgroundColor:colors.greencolor,overflow:"hidden"}}/>
               <View style={{flex:1,marginLeft:10}}>
                   <Text style={{flex:1,fontSize:15,fontWeight:"bold",color:colors.profilrtext}}>Date</Text>
                   {/*<View style={{flex:1,borderBottomWidth:1}}>*/}
