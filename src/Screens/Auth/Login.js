@@ -144,8 +144,6 @@ const Login = ({navigation}) => {
             }
         }
     }
-
-
     return(
 
      <SafeAreaView style={{flex:1,backgroundColor:colors.loginbackground2}}>

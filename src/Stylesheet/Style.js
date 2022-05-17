@@ -83,7 +83,7 @@ export default StyleSheet.create({
     eventdetilsh:{marginHorizontal:10,marginTop:10,fontWeight:"bold",fontSize:15},
     eventdesc:{marginHorizontal:10,textAlign:"justify"},
 
-    eventdetailbackbtn:{flexDirection:"row",marginHorizontal:10,bottom:120,alignSelf:"flex-start",paddingHorizontal:10,borderRadius:5},
+    eventdetailbackbtn:{flexDirection:"row",marginHorizontal:10,bottom:(Platform.OS=="android"?85:120),alignSelf:"flex-start",paddingHorizontal:10,borderRadius:5},
     eventavatar:{flexDirection:"row",marginHorizontal:10,alignItems:"center"},
     profileavatar:{flexDirection:"row",marginTop:10,alignItems:"center",padding:10,borderRadius:10},
     avatartext:{flex:1,marginHorizontal:10},

@@ -30,7 +30,7 @@ const QRcode =({route,navigation}) => {
 
     const userdata =async () => {
         var qrdata=await get_data('user');
-        // console.log("hghgfh",eventdata.image)
+        console.log("hghgfh",eventdata.event_id)
         setadminid(qrdata.user.id)
         setRole(qrdata.user.role)
         setEmail(qrdata.user.email)
@@ -41,16 +41,19 @@ const QRcode =({route,navigation}) => {
                 user_id: qrdata.user.id,
                 user_email: qrdata.user.email,
                 user_name: qrdata.user.name,
-                event_id: eventdata.id,
+                event_id: eventdata.event_id,
                 event_image: eventdata.image
             }
         ))
+        
     }
     const onSuccess = async (e) => {
         const response=JSON.parse(e.data)
+        console.log("response",response)
         if(response.user_id !='' || response.user_id !=undefined)
         {
-             const res=await attendance_api({user_id:response.user_id,event_id:response.event_id,admin_id:adminid})
+            
+             const res=await attendance_api({user_id:response.user_id,event_id:eventdata.event_id,admin_id:adminid})
             console.log("dfdfg============",res.data)
             if(res.data.status==true){
                 console.log("dfdfg============",res.data)
@@ -112,7 +115,7 @@ const QRcode =({route,navigation}) => {
                       reactivateTimeout={2000}
                       containerStyle={{flex:1,alignItems:"center"}}
                       cameraStyle={{width:width/1.5,height:height/1.5}}
-                      markerStyle={{borderRadius:10,borderColor:colors.skincolor,borderWidth:5}}
+                      markerStyle={{borderRadius:10,borderColor:colors.greencolor,borderWidth:5}}
                       onRead={onSuccess}
                       showMarker={true}
                       checkAndroid6Permissions={false}

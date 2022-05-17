@@ -114,7 +114,7 @@ const UpdateProfile = ({navigation,route}) => {
               <ScrollView contentContainerStyle={{flexGrow:1}} style={styles.profilecontainer}>
                   <View style={styles.profileheader}>
                       <TouchableOpacity onPress={()=>{navigation.goBack()}} style={{flexDirection:"row",alignItems:"center"}}>
-                          <Ionicons name={"arrow-back"} color={colors.skincolor} size={20}  />
+                          <Ionicons name={"arrow-back"} color={colors.greencolor} size={20}  />
                           <Text style={[styles.profileheadertext,{color:colors.greencolor}]}>Profile</Text>
                       </TouchableOpacity>
 
@@ -139,7 +139,7 @@ const UpdateProfile = ({navigation,route}) => {
                   </View>
 
                   <View style={[styles.profiledetailsection,{backgroundColor:colors.profilebg}]}>
-                      <Text style={[{fontSize:18,fontWeight:"bold" ,color:colors.skincolor}]}>Detail</Text>
+                      <Text style={[{fontSize:18,fontWeight:"bold" ,color:colors.greencolor}]}>Detail</Text>
                       <DI icon1={"call"} icon2={"calendar"} text1={"Phone"} text2={"D.O.B"} keyboardtype1={'phone-pad'} placeholder1={"Phone"} value1={phone?phone:""}  onChangeText1={(text)=>{setPhone(text)}} date={date} datechange={(date)=>setDate(date)}/>
                       <PI icon1={"mail"} icon2={"location"}  editable1={false} editable2={true} text1={"Email"} text2={"City"} placeholder1={"Email"} placeholder2={"City"} value1={email?email:""} value2={city?city:""} onChangeText1={(text)=>{setCountry(text)}} onChangeText2={(text)=>{setCity(text)}}/>
                       <PI icon1={"business"} icon2={"user"} editable2={true} text1={"Address"} text2={"CNIC"} placeholder1={"Address"} placeholder2={"CNIC"} value1={address?address:""} keyboardtype2={'phone-pad'} value2={cnic?cnic:""} onChangeText1={(text)=>{setAddress(text)}} validation2={cnicvalidation} onChangeText2={(text)=>{setCnic(text),setCnicvalidation("")}}/>{/*<PI icon1={"earth"} icon3={"location"} text1={"Country"} text2={"Nationality"} placeholder1={"country"} placeholder2={"Nationality"}  value1={country?country:""} value2={nationality?nationality:""} onChangeText1={(text)=>{setCountry(text)}} onChangeText2={(text)=>{setNationality(text)}}/>*/}
