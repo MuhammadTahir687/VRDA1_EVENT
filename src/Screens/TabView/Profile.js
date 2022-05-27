@@ -111,7 +111,7 @@ const Profile = ({navigation}) => {
       <SafeAreaView  style={{flex:1}}>
           {refreshing==true?null:<Loader animating={loading}/>}
           <StatusBar backgroundColor={"#000"}/>
-        <ImageBackground source={require('../../Assets/background.png')} style={styles.profilebg}>
+          <ImageBackground source={require('../../Assets/background.png')} style={styles.profilebg}>
             <ScrollView refreshControl={<RefreshControl progressBackgroundColor={"#fafafa"} colors={['#1CAE81']} refreshing={refreshing} onRefresh={refresh}/>} contentContainerStyle={{flexGrow:1}} style={styles.profilecontainer}>
                 <View style={styles.profileheader}>
                     <Text style={[styles.profileheadertext,{color:colors.greencolor}]}>Profile</Text>

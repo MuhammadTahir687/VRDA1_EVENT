@@ -98,7 +98,7 @@ export default StyleSheet.create({
     updateprofilebtn:{padding:10,borderRadius:10},
     avatarname:{fontSize:18,fontWeight:"bold" },
 
-    avatarinput:{flex:1,borderBottomWidth:1,height:35},
+    avatarinput:{flex:1,borderBottomWidth:1,height:45},
     piconatiner:{flexDirection:"row"},
     pi1container:{flex:1,flexDirection:"row",alignItems:"center",marginRight:5},
     pi1icon:{paddingVertical:6,paddingHorizontal:7,borderRadius:10,overflow:"hidden"},

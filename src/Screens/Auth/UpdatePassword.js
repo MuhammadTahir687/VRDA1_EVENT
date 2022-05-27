@@ -38,6 +38,7 @@ const UpdatePassword = ({navigation}) => {
                 console.log("=======================",response.data)
                 if (response != "Error"){
                     if (response.data.status === true) {
+                        navigation.replace("Login",{data:"text"})
                         { Platform.OS=="android"?
                         SweetAlert.showAlertWithOptions({
                             title: '',
@@ -48,11 +49,10 @@ const UpdatePassword = ({navigation}) => {
                             otherButtonColor: '#dedede',
                             style: 'success',
                             cancellable: true
-                          },
-                            callback =>navigation.replace("Login",{data:"text"}))
+                          })
                             :
                             alert(response.data.message)
-                            navigation.replace("Login",{data:"text"})
+                           
                         }
                     }
                     else {

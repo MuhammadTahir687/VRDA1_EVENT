@@ -25,7 +25,8 @@ const VerifyCodePassword = ({navigation,route}) => {
         try {
             if(response.data.status==true) 
             {
-                { Platform.OS=="android"?
+                navigation.replace("UpdatePassword",{data:"text"})
+                { Platform.OS=="android" ?
                 SweetAlert.showAlertWithOptions({
                     title: '',
                     subTitle: response.data.message,
@@ -35,11 +36,10 @@ const VerifyCodePassword = ({navigation,route}) => {
                     otherButtonColor: '#dedede',
                     style: 'success',
                     cancellable: true
-                  },
-                    callback => navigation.replace("UpdatePassword",{data:"text"}))
+                  })
                     :
                     alert(response.data.message)
-                    navigation.replace("UpdatePassword",{data:"text"})
+                  
                 }
                 
         }

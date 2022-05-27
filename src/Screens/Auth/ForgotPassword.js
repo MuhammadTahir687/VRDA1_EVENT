@@ -60,13 +60,14 @@ const ForgotPassword = ({navigation}) => {
         setLoading(true)
         let regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
         if(email==""){setEmailvalidation("Required*")}
-        else if(regex.test(email)==false){setEmailvalidation("Incorrect Email")}
+        else if(regex.test(email)==false){setEmailvalidation("Incorrect Email"),setLoading(false)}
         else{
             AsyncStorage.setItem("email",JSON.stringify(email))
             const response=await forgotpassword_api({email:email})
             setLoading(false)
             console.log("475834753489",response.data)
             if(response.data.status==true){
+                navigation.replace("VerifyCodePassword",{data:email,screencheck:"password"})
                 { Platform.OS=="android"?
                 SweetAlert.showAlertWithOptions({
                     title: '',
@@ -77,10 +78,10 @@ const ForgotPassword = ({navigation}) => {
                     otherButtonColor: '#dedede',
                     style: 'success',
                     cancellable: true
-                  },callback => navigation.replace("VerifyCodePassword",{data:email,screencheck:"password"}))
+                  } )
                   :
                 alert(response.data.message)
-                navigation.replace("VerifyCodePassword",{data:email,screencheck:"password"})
+               
             }
             }
             else{

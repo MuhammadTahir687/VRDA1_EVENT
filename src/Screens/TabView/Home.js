@@ -130,7 +130,7 @@ const Home = ({ navigation }) => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             {refreshing == true ? null : <Loader animating={loading} />}
-            <StatusBar backgroundColor={"#1CAE81"} barStyle="dark-content" translucent={true}/>
+            <StatusBar backgroundColor={"#1CAE81"}  />
             <ScrollView refreshControl={<RefreshControl progressBackgroundColor={"#fafafa"} colors={['#1CAE81']} refreshing={refreshing} onRefresh={refresh} />}>
                 <View style={[styles.homeheader, { backgroundColor: colors.loginbackground }]}>
                     <View style={{ flex: 1 }}>
